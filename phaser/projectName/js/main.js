@@ -1,13 +1,14 @@
-var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+var game;
 
-function preload() {
-	//preload assets
-}
+//don't make the game until the browser finishes loading, otherwise it might not find all the .js files and will promptly die
+window.onload = function() {
+	game = new Phaser.Game(1000, 600, Phaser.AUTO);
 
-function create() {
-	//place your assets
-}
+	//add the states to the game
+	game.state.add('MainMenu', MainMenu);
+	game.state.add('Play', Play);
+	game.state.add('GameOver', GameOver);
 
-function update() {
-	//run game loop
+	//make the game start at the MainMenu state
+	game.state.start('MainMenu');
 }
