@@ -33,12 +33,15 @@ Enemy.prototype.update = function () {
          if(Phaser.Math.distance(this.x, this.y, game.player.x, game.player.y) >= 120)
          {
             this.state = 2;
+            this.angle.set(0);
          } else {
             if(game.player.x > this.x)
             {
                this.body.velocity.x = -200;
+               this.angle -= 15;
             } else {
                this.body.velocity.x = 200;
+               this.angle += 15;
             }
          }
       case(2): // ima kill you
