@@ -7,6 +7,7 @@ Play.prototype = {
 		this.background;
 		this.player;
 		this.platforms;
+		this.sword;
 		//this.score = 0;	//initialize score to 0
 		//this.scoreText;
 	},
@@ -52,7 +53,14 @@ Play.prototype = {
 		//let player collide with platforms
 		game.physics.arcade.collide(this.player, this.platforms);
 
-		//let player collide with enemies
+		if(game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 1)) {
+			console.log("SWINGING SWORD");
+			this.sword = new Sword(game, 'sword', this.player.x, this.player.y, 1);
+			game.add.existing(this.sword);
+			console.log(this.sword);
+		}
+
+		//let player collide with enemies (TODO)
 		//game.physics.arcade.overlap(this.player, this.enemies, touchEnemy, null, this);
 
 		// function touchEnemy(player, enemy) {
@@ -68,7 +76,6 @@ Play.prototype = {
 		// }
 	},
 	render:function() {
-		//game.debug.body(this.player);		//uncomment this to see just how badly I broke collision detection
-		//game.debug.soundInfo(this.music);	//uncomment this to see status of music (but not musicLoop)
+		//game.debug.body(this.player);
 	}
 };

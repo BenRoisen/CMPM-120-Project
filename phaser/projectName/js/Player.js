@@ -15,6 +15,9 @@ function Player(game, key, frame, scale) {
 	
 	//create an object to listen to the arrow keys
 	this.cursors = game.input.keyboard.createCursorKeys();
+
+	//create a variable to track player orientation
+	this.facingRight = true;	//true if player faces right; false if player faces left
 }
 
 //specify the object's prototype and constructor
@@ -30,9 +33,11 @@ Player.prototype.update = function() {
 	if (this.cursors.left.isDown) {	//did player press the left arrow key?
 		//move left
 		this.body.velocity.x = -150;
+		this.facingRight = false;	//we're moving left
 	} else if (this.cursors.right.isDown)	{ //did player press the right arrow key?
 		//move right
 		this.body.velocity.x = 150;
+		this.facingRight = true;	//we're moving right
 	} else {	//no input detected
 		//do nothing
 	}
