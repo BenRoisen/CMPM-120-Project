@@ -1,7 +1,7 @@
 function Sword (game, key, x, y, sword_size)
 {
    // Set the sprite
-   Phaser.Sprite.call(this, game, 128, 48, key, 0);
+   Phaser.Sprite.call(this, game, 75, 100, key, 0);
 
    //Physics properties
    game.physics.enable(this);
@@ -10,7 +10,8 @@ function Sword (game, key, x, y, sword_size)
    this.x = x;
    this.y = y;
    this.alpha = 1;
-   this.angle.set(90);
+   //this.angle.set(90);
+   //this.angle = 90;
    this.delay = 15;
    this.end_lag = 15;
    this.swinging = false;
@@ -23,8 +24,8 @@ Sword.prototype = Object.create(Phaser.Sprite.prototype);
 Sword.prototype.constructor = Sword;
 
 Sword.prototype.update = function () {
-   this.x = player.x;
-   this.y = player.y;
+   this.x = game.player.x;
+   this.y = game.player.y;
 
    if(this.delay > 0) {
       this.delay--;
