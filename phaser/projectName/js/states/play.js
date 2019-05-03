@@ -25,7 +25,6 @@ Play.prototype = {
 		//create the player
 		this.player = new Player(game, 'player', 0, 1)	//player(game, key, frame, scale)
 		game.add.existing(this.player);
-		console.log(this.player);
 
 		//create a group to hold collidable platforms
 		this.platforms = game.add.group();
@@ -55,10 +54,10 @@ Play.prototype = {
 
 		if(game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 1)) {
 			console.log("SWINGING SWORD");
-			this.sword = new Sword(game, 'sword', this.player.x, this.player.y, 1);
+			this.sword = new Sword(game, 'sword', this.player.x, this.player.y, 1, this.player);
 			game.add.existing(this.sword);
-			console.log(this.sword);
 		}
+
 
 		//let player collide with enemies (TODO)
 		//game.physics.arcade.overlap(this.player, this.enemies, touchEnemy, null, this);
