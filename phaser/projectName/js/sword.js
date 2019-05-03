@@ -11,7 +11,7 @@ function Sword (game, key, x, y, sword_size)
    this.y = y;
    this.alpha = 1;
    //this.angle.set(90);
-   //this.angle = 90;
+   this.angle = 90;
    this.delay = 15;
    this.end_lag = 15;
    this.swinging = false;
@@ -24,8 +24,8 @@ Sword.prototype = Object.create(Phaser.Sprite.prototype);
 Sword.prototype.constructor = Sword;
 
 Sword.prototype.update = function () {
-   this.x = game.player.x;
-   this.y = game.player.y;
+   this.x = 5;
+   this.y = 5;//game.player.y;
 
    if(this.delay > 0) {
       this.delay--;
