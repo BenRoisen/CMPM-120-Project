@@ -53,8 +53,7 @@ Play.prototype = {
 		game.physics.arcade.collide(this.player, this.platforms);
 
 		if(game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 1)) {
-			console.log("SWINGING SWORD");
-			this.sword = new Sword(game, 'sword', this.player.x, this.player.y, 1, this.player);
+			this.sword = new Sword(game, 'sword', this.player.x, this.player.y, 1, this.player, this.platforms);
 			game.add.existing(this.sword);
 		}
 
