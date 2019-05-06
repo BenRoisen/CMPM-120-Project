@@ -87,5 +87,10 @@ Enemy.prototype.update = function () {
          }
          break;
    }
+
+   if(game.physics.arcade.collide(this, this.player))
+   {
+      console.log("ouch");
+   }
       
 }

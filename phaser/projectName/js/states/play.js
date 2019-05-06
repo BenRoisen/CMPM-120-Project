@@ -38,6 +38,8 @@ Play.prototype = {
       //make a pot
       this.enemy = new Enemy(game, 'pot', 500, game.world.height - 164, 0, this.player, this.platforms);
       game.add.existing(this.enemy);
+      this.enemies = game.add.group();
+      this.enemies.add(this.enemy);
 
 		//make some ledges
 		var ledge = this.platforms.create(400, 600, 'ground');
@@ -57,13 +59,13 @@ Play.prototype = {
 		game.physics.arcade.collide(this.player, this.platforms);
 
 		if(game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 1)) {
-			this.sword = new Sword(game, 'sword', this.player.x, this.player.y, 1, this.player, this.platforms);
+			this.sword = new Sword(game, 'sword', this.player.x, this.player.y, 1, this.player, this.platforms, this.enemies);
 			game.add.existing(this.sword);
 		}
 
 
 		//let player collide with enemies (TODO)
-		//game.physics.arcade.overlap(this.player, this.enemies, touchEnemy, null, this);
+		game.physics.arcade.overlap(this.player, this.enemies, touchEnemy, null, this);
 
 		// function touchEnemy(player, enemy) {
 		// 	//remove the enemy
@@ -79,5 +81,9 @@ Play.prototype = {
 	},
 	render:function() {
 		//game.debug.body(this.player);
-	}
+	},
+
+   touchEnemy:function() {
+      console.log("ouch");
+   }
 };
