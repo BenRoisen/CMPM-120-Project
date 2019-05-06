@@ -1,7 +1,9 @@
-function Enemy (game, key, x, y, behavior)
+function Enemy (game, key, x, y, behavior, player, walls)
 {
    // Set the sprite
-   Phaser.Sprite.call(this, game, 128, 48, key, 0);
+   Phaser.Sprite.call(this, game, 66, 100, key, 0);
+   this.x = x;
+   this.y = y;
 
    //Physics properties
    game.physics.enable(this);
@@ -9,6 +11,8 @@ function Enemy (game, key, x, y, behavior)
    this.body.gravity.y = 300;
    this.body.collideWorldBounds = true;
    this.behavior = behavior;
+   this.player = player;
+   this.walls = walls;
    this.state = 0;
    this.max_xv = 150;
    this.min_xv = -150;
@@ -21,21 +25,26 @@ Enemy.prototype = Object.create(Phaser.Sprite.prototype);
 Enemy.prototype.constructor = Enemy;
 
 Enemy.prototype.update = function () {
-   
+   // I touch walls now
+   game.physics.arcade.collide(this, this.walls);
+
    switch(this.state)
    {
       case(0): // hiding
-         if(Phaser.Math.distance(this.x, this.y, game.player.x, game.player.y) <= 60)
+         if(Phaser.Math.distance(this.x, this.y, this.player.x, this.player.y) <= 200)
          {
             this.state = 1;
+            console.log('they see me rollin');
          }
+         break;
       case(1): // they see me rollin'
-         if(Phaser.Math.distance(this.x, this.y, game.player.x, game.player.y) >= 120)
+         if(Phaser.Math.distance(this.x, this.y, this.player.x, this.player.y) >= 400)
          {
             this.state = 2;
-            this.angle.set(0);
+            this.angle = 0;
+            console.log('ima kill you');
          } else {
-            if(game.player.x > this.x)
+            if(this.player.x > this.x)
             {
                this.body.velocity.x = -200;
                this.angle -= 15;
@@ -44,6 +53,7 @@ Enemy.prototype.update = function () {
                this.angle += 15;
             }
          }
+         break;
       case(2): // ima kill you
          if(this.grounded)
          {
@@ -51,11 +61,13 @@ Enemy.prototype.update = function () {
             if(this.timer <= 0)
             {
                this.body.velocity.y = this.jump_v;
+               this.grounded = false;
             } else {
                this.timer--;
             }
          } else {
-            this.body.velocity.x = (this.x - game.player.x)/2;
+            console.log('im coming for you');
+            this.body.velocity.x = (this.player.x - this.x)/2;
             // max x control
             if(this.body.velocity.x > this.max_xv)
             {
@@ -67,13 +79,13 @@ Enemy.prototype.update = function () {
                this.body.velocity.x = this.min_xv;
             }
 
-            if(this.body.onWorldBounds == true)
+            if(this.body.touching.down == true)
             {
                this.grounded = true;
-               this.timer = 120;
+               this.timer = 60;
             }
          }
-         
+         break;
    }
       
 }

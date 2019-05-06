@@ -35,6 +35,10 @@ Play.prototype = {
 		ground.scale.setTo(2.5, 2);		//scale the ground to fit the game (sprite is 400x32, & we need to to be 1000x64)
 		ground.body.immovable = true;	//make the ground immovable so it won't fall when player touches it
 
+      //make a pot
+      this.enemy = new Enemy(game, 'pot', 500, game.world.height - 164, 0, this.player, this.platforms);
+      game.add.existing(this.enemy);
+
 		//make some ledges
 		var ledge = this.platforms.create(400, 600, 'ground');
 		ledge.body.immovable = true;	//make ledge immovable

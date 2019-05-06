@@ -8,6 +8,7 @@ MainMenu.prototype = {
 		//load images.
 		game.load.image('player', '../assets/PlayerAsset100w150h.png');	//player sprite
 		game.load.image('sword', '../assets/SwordArmAsset75w100h.png');	//sword sprite
+      game.load.image('pot', '../assets/Pot1(66 x 100).png');           //pot sprite
 		game.load.image('ground', '../assets/platform.png');
 	},
 	create: function() {
