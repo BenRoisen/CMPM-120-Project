@@ -65,7 +65,7 @@ Play.prototype = {
 
 
 		//let player collide with enemies (TODO)
-		game.physics.arcade.overlap(this.player, this.enemies, touchEnemy, null, this);
+		game.physics.arcade.overlap(this.player, this.enemies, this.touchEnemy, null, this);
 
 		// function touchEnemy(player, enemy) {
 		// 	//remove the enemy

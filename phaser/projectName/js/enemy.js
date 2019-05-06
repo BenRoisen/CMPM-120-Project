@@ -66,7 +66,6 @@ Enemy.prototype.update = function () {
                this.timer--;
             }
          } else {
-            console.log('im coming for you');
             this.body.velocity.x = (this.player.x - this.x)/2;
             // max x control
             if(this.body.velocity.x > this.max_xv)
@@ -86,11 +85,6 @@ Enemy.prototype.update = function () {
             }
          }
          break;
-   }
-
-   if(game.physics.arcade.collide(this, this.player))
-   {
-      console.log("ouch");
    }
       
 }

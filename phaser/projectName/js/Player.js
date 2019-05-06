@@ -7,6 +7,8 @@ function Player(game, key, frame, scale) {
 	//add properties
 	this.scale.x = scale;		//set x scale
 	this.scale.y = scale;		//set y scale
+   this.anchor.x = 0.5;       //set center x
+   this.anchor.y = 0.5;       //set center y
 	
 	//setup physics
 	game.physics.arcade.enable(this);		//enable arcade physics
