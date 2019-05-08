@@ -36,10 +36,16 @@ Player.prototype.update = function() {
 		//move left
 		this.body.velocity.x = -250;
 		this.facingRight = false;	//we're moving left
+		if(this.scale.x > 0) {		//face left (if not already doing so)
+			this.scale.x *= -1;
+		}
 	} else if (this.cursors.right.isDown)	{ //did player press the right arrow key?
 		//move right
 		this.body.velocity.x = 250;
 		this.facingRight = true;	//we're moving right
+		if(this.scale.x < 0) {		//face right (if not already doing so)
+			this.scale.x *= -1;
+		}
 	} else {	//no input detected
 		//do nothing
 	}
