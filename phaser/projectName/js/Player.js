@@ -1,6 +1,6 @@
 "use strict";
 
-function Player(game, key, frame, scale) {
+function Player(game, key, frame, scale, platforms) {
 	//make us extend Phaser.Sprite //new Sprite(game, x, y, key, frame)
 	Phaser.Sprite.call(this, game, 50, (game.world.height - 160), key, frame); 
 
@@ -20,6 +20,11 @@ function Player(game, key, frame, scale) {
 
 	//create a variable to track player orientation
 	this.facingRight = true;	//true if player faces right; false if player faces left
+	this.can_jump = true;
+	this.ground_check = false;
+
+	this.platforms = platforms;
+	console.log(this.platforms);
 }
 
 //specify the object's prototype and constructor
@@ -28,7 +33,8 @@ Player.prototype.constructor = Player;
 
 //override the built-in update function
 Player.prototype.update = function() {
-	//var hitPlatform = game.physics.arcade.collide(player, platforms);
+	//var hitPlatform = game.physics.arcade.collide(this, this.platforms);
+	//console.log(hitPlatform);
 
 	//handle player horizontal movement
 	this.body.velocity.x = 0;	//reset player horizontal velocity
@@ -50,11 +56,25 @@ Player.prototype.update = function() {
 		//do nothing
 	}
 
+	if(this.body.touching.down && this.body.velocity.y == 0)
+	{
+		if(this.ground_check)
+		{
+			this.can_jump = true;
+			this.ground_check = false;
+		} else {
+			this.ground_check = true;
+		}
+	} else {
+		this.ground_check = false;
+	}
+
 	//handle player vertical movement
 	//this.body.velocity.y = 0;	//reset vertical velocity
-	if(this.cursors.up.isDown && this.body.touching.down) {// && hitPlatform) {	//did the player press the up arrow key while standing on the ground?
+	if(this.cursors.up.isDown && this.can_jump) {// && hitPlatform) {	//did the player press the up arrow key while standing on the ground?
 		//move up
 		this.body.velocity.y = -500;
+		this.can_jump = false;
 	}
 	else if (this.cursors.down.isDown)	//did the player press the down arrow key?
 	{

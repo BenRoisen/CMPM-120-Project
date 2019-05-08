@@ -26,14 +26,14 @@ Play.prototype = {
 		//set the world size
 		game.world.setBounds(0, 0, 2000, 1200)	//for now, world is 2x size of screen
 
-		//create the player
-		this.player = new Player(game, 'player', 0, 1)	//player(game, key, frame, scale)
-		game.add.existing(this.player);
-		game.camera.follow(this.player);	//make camera follow player
-
 		//create a group to hold collidable platforms
 		this.platforms = game.add.group();
 		this.platforms.enableBody = true;	//enable collisions
+
+		//create the player
+		this.player = new Player(game, 'player', 0, 1, this.platforms);	//player(game, key, frame, scale)
+		game.add.existing(this.player);
+		game.camera.follow(this.player);	//make camera follow player
 
 		//create the ground
 		var ground = this.platforms.create(0, game.world.height - 16, 'ground');
