@@ -9,7 +9,7 @@ MainMenu.prototype = {
 		game.load.image('player', '../assets/PlayerAsset100w150h.png');	//player sprite
 		game.load.image('sword', '../assets/SwordArmAsset75w100h.png');	//sword sprite
       game.load.image('pot', '../assets/Pot1(66 x 100).png');           //pot sprite
-		game.load.image('ground', '../assets/platform.png');
+		game.load.image('ground', '../assets/Platform(300x68)(bb300x34).png');
 	},
 	create: function() {
 		console.log('MainMenu: Create');

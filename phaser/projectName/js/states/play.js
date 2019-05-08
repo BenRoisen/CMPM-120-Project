@@ -36,7 +36,7 @@ Play.prototype = {
 
 		//create the ground
 		var ground = this.platforms.create(0, game.world.height - 16, 'ground');
-		ground.scale.setTo(5, 2);		//scale the ground to fit the game (sprite is 400x32, & we need to to be 1000x64)
+		ground.scale.setTo(7, 1);		//scale the ground to fit the game (sprite is 300x68, & we need to to be 2000x16)
 		ground.body.immovable = true;	//make the ground immovable so it won't fall when player touches it
 
       //make a pot
@@ -47,21 +47,29 @@ Play.prototype = {
 
 		//make some ledges
 		var ledge = this.platforms.create(400, 600, 'ground');
-		ledge.body.immovable = true;	//make ledge immovable
+		ledge.body.immovable = true;		//make ledge immovable
+		ledge.body.setSize(300, 34, 0, 17);	//adjust bounding box according to specifications
 		ledge = this.platforms.create(-150, 450, 'ground');
-		ledge.body.immovable = true;	//make ledge immovable
+		ledge.body.immovable = true;		//make ledge immovable
+		ledge.body.setSize(300, 34, 0, 17);	//adjust bounding box according to specifications
 		ledge = this.platforms.create(-220, 250, 'ground');
 		ledge.body.immovable = true;
+		ledge.body.setSize(300, 34, 0, 17);
 		ledge = this.platforms.create(470, 200, 'ground');
 		ledge.body.immovable = true;
-		ledge = this.platforms.create(470, 1000, 'ground');
+		ledge.body.setSize(300, 34, 0, 17);
+		ledge = this.platforms.create(470, 980, 'ground');
 		ledge.body.immovable = true;
+		ledge.body.setSize(300, 34, 0, 17);
 		ledge = this.platforms.create(670, 800, 'ground');
 		ledge.body.immovable = true;
+		ledge.body.setSize(300, 34, 0, 17);
 		ledge = this.platforms.create(470, 600, 'ground');
 		ledge.body.immovable = true;
+		ledge.body.setSize(300, 34, 0, 17);
 		ledge = this.platforms.create(670, 400, 'ground');
 		ledge.body.immovable = true;
+		ledge.body.setSize(300, 34, 0, 17);
 
 		//set up scoreText to display player score
 		//this.scoreText = game.add.text(16, 16, 'score: 0', {fontSize: '32px', fill: '#fff' });
@@ -93,6 +101,7 @@ Play.prototype = {
 	},
 	render:function() {
 		//game.debug.body(this.player);
+		game.debug.physicsGroup(this.platforms);
 	},
 
    touchEnemy:function() {
