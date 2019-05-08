@@ -13,7 +13,7 @@ function Player(game, key, frame, scale) {
 	//setup physics
 	game.physics.arcade.enable(this);		//enable arcade physics
 	this.body.collideWorldBounds = true;	//make player collide with edge of screen
-	this.body.gravity.y = 300;				//how fast we fall
+	this.body.gravity.y = 400;				//how fast we fall
 	
 	//create an object to listen to the arrow keys
 	this.cursors = game.input.keyboard.createCursorKeys();
@@ -54,7 +54,7 @@ Player.prototype.update = function() {
 	//this.body.velocity.y = 0;	//reset vertical velocity
 	if(this.cursors.up.isDown && this.body.touching.down) {// && hitPlatform) {	//did the player press the up arrow key while standing on the ground?
 		//move up
-		this.body.velocity.y = -350;
+		this.body.velocity.y = -500;
 	}
 	else if (this.cursors.down.isDown)	//did the player press the down arrow key?
 	{

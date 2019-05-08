@@ -7,7 +7,7 @@ Play.prototype = {
 		this.background;
 		this.player;
 		this.platforms;
-		this.sword;
+		this.swords;
 		this.score = 0;	//keeps track of score (# of ore pieces)
 		this.scoreText;
 		this.ores;	//group to hold ores
