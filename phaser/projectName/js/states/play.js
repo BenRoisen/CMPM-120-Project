@@ -8,8 +8,9 @@ Play.prototype = {
 		this.player;
 		this.platforms;
 		this.sword;
-		//this.score = 0;	//initialize score to 0
-		//this.scoreText;
+		this.score = 0;	//keeps track of score (# of ore pieces)
+		this.scoreText;
+		this.ores;	//group to hold ores
 	},
 	preload: function() {
 		console.log('Play: preload');
@@ -71,8 +72,16 @@ Play.prototype = {
 		ledge.body.immovable = true;
 		ledge.body.setSize(300, 34, 0, 17);
 
-		//set up scoreText to display player score
-		//this.scoreText = game.add.text(16, 16, 'score: 0', {fontSize: '32px', fill: '#fff' });
+		//set up scoreText to display player ore count
+		this.scoreText = game.add.text(16, 16, 'score: 0', {fontSize: '32px', fill: '#fff' });
+		this.scoreText.fixedToCamera = true;	//make it move with the camera
+
+		//set up ores
+		this.ores = game.add.group();
+		this.ores.enableBody = true;
+		//spawn some ores
+		var ore = this.ores.create(470, 100, 'pot');	//use the pot sprite for now
+		ore.body.gravity.y = 150;	//make the ore fall
 	},
 	update:function() {
 		//let player collide with platforms
@@ -86,6 +95,10 @@ Play.prototype = {
 
 		//let player collide with enemies (TODO)
 		game.physics.arcade.overlap(this.player, this.enemies, this.touchEnemy, null, this);
+
+		//handle ore collisions
+		game.physics.arcade.overlap(this.player, this.ores, this.touchOre, null, this);	//let player collect ores
+		game.physics.arcade.collide(this.ores, this.platforms);							//make ores collide with platforms
 
 		// function touchEnemy(player, enemy) {
 		// 	//remove the enemy
@@ -106,5 +119,13 @@ Play.prototype = {
 
    touchEnemy:function() {
       console.log("ouch");
+   },
+
+   touchOre:function(player, ore) {
+   		//remove the ore
+   		ore.kill();
+   		//update the score
+   		this.score += 1;
+   		this.scoreText.text = 'Score: ' + this.score;
    }
 };
