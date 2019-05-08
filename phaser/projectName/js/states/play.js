@@ -22,17 +22,21 @@ Play.prototype = {
 		//this.background = TODO LATER
 		game.stage.backgroundColor = "#0000ff";	//create a blue background
 
+		//set the world size
+		game.world.setBounds(0, 0, 2000, 1200)	//for now, world is 2x size of screen
+
 		//create the player
 		this.player = new Player(game, 'player', 0, 1)	//player(game, key, frame, scale)
 		game.add.existing(this.player);
+		game.camera.follow(this.player);	//make camera follow player
 
 		//create a group to hold collidable platforms
 		this.platforms = game.add.group();
 		this.platforms.enableBody = true;	//enable collisions
 
 		//create the ground
-		var ground = this.platforms.create(0, game.world.height - 64, 'ground');
-		ground.scale.setTo(2.5, 2);		//scale the ground to fit the game (sprite is 400x32, & we need to to be 1000x64)
+		var ground = this.platforms.create(0, game.world.height - 16, 'ground');
+		ground.scale.setTo(5, 2);		//scale the ground to fit the game (sprite is 400x32, & we need to to be 1000x64)
 		ground.body.immovable = true;	//make the ground immovable so it won't fall when player touches it
 
       //make a pot
@@ -49,6 +53,14 @@ Play.prototype = {
 		ledge = this.platforms.create(-220, 250, 'ground');
 		ledge.body.immovable = true;
 		ledge = this.platforms.create(470, 200, 'ground');
+		ledge.body.immovable = true;
+		ledge = this.platforms.create(470, 1000, 'ground');
+		ledge.body.immovable = true;
+		ledge = this.platforms.create(670, 800, 'ground');
+		ledge.body.immovable = true;
+		ledge = this.platforms.create(470, 600, 'ground');
+		ledge.body.immovable = true;
+		ledge = this.platforms.create(670, 400, 'ground');
 		ledge.body.immovable = true;
 
 		//set up scoreText to display player score

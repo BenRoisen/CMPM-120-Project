@@ -34,11 +34,11 @@ Player.prototype.update = function() {
 	this.body.velocity.x = 0;	//reset player horizontal velocity
 	if (this.cursors.left.isDown) {	//did player press the left arrow key?
 		//move left
-		this.body.velocity.x = -150;
+		this.body.velocity.x = -250;
 		this.facingRight = false;	//we're moving left
 	} else if (this.cursors.right.isDown)	{ //did player press the right arrow key?
 		//move right
-		this.body.velocity.x = 150;
+		this.body.velocity.x = 250;
 		this.facingRight = true;	//we're moving right
 	} else {	//no input detected
 		//do nothing
