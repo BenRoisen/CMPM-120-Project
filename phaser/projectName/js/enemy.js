@@ -13,6 +13,7 @@ function Enemy (game, key, x, y, behavior, player, walls)
    this.behavior = behavior;
    this.player = player;
    this.walls = walls;
+   this.roll_time = 0;
    this.state = 0;
    this.max_xv = 150;
    this.min_xv = -150;
@@ -39,12 +40,13 @@ Enemy.prototype.update = function () {
          }
          break;
       case(1): // they see me rollin'
-         if(Phaser.Math.distance(this.x, this.y, this.player.x, this.player.y) >= 400)
+         if(Phaser.Math.distance(this.x, this.y, this.player.x, this.player.y) >= 400 || this.roll_time >= 240)
          {
             this.state = 2;
             this.angle = 0;
             console.log('ima kill you');
          } else {
+            this.roll_time++;
             if(this.player.x > this.x)
             {
                this.body.velocity.x = -200;
