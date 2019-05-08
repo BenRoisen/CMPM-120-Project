@@ -19,6 +19,7 @@ function Enemy (game, key, x, y, behavior, player, walls)
    this.jump_v = -350;
    this.grounded = true;
    this.timer = 120;
+   this.ground_check = false;
 }
 
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);
@@ -78,10 +79,18 @@ Enemy.prototype.update = function () {
                this.body.velocity.x = this.min_xv;
             }
 
-            if(this.body.touching.down == true)
+            if(this.body.touching.down == true && this.body.velocity.y == 0)
             {
-               this.grounded = true;
-               this.timer = 60;
+               if(this.ground_check)
+               {
+                  this.grounded = true;
+                  this.timer = 60;
+                  this.ground_check = false;
+               } else {
+                  this.ground_check = true;
+               }
+            } else {
+               this.ground_check = false;
             }
          }
          break;

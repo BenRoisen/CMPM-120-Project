@@ -112,7 +112,7 @@ Sword.prototype.enemy_check = function (sword) {
 
 function Swordbox (game, offset, key, player, sword, walls, enemies)
 {
-   Phaser.Sprite.call(this, game, 50, 50, key, 0);
+   Phaser.Sprite.call(this, game, 30, 30, key, 0);
    game.physics.enable(this);
    this.alpha = 0;
 
@@ -129,15 +129,10 @@ Swordbox.prototype = Object.create(Phaser.Sprite.prototype);
 Swordbox.prototype.constructor = Swordbox;
 
 Swordbox.prototype.update = function () {
-   this.x = this.sword.x;
-   this.y = this.sword.y;
+   this.x = this.sword.x - 15;
+   this.y = this.sword.y - 15;
    rads = Math.sin((this.sword.angle-90)*Math.PI/180);
    radc = Math.cos((this.sword.angle-90)*Math.PI/180);
-
-   if(!this.player.facingRight)
-   {
-
-   }
 
    this.body.setSize(30, 30, this.offset*radc, this.offset*rads);
    game.debug.body(this);
