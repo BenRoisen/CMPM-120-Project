@@ -11,6 +11,8 @@ Play.prototype = {
 		this.score = 0;	//keeps track of score (# of ore pieces)
 		this.scoreText;
 		this.ores;	//group to hold ores
+		this.health = 10;	//health of the player
+		this.invincible = false;	//toggles temporary player invincibility after taking damage
 	},
 	preload: function() {
 		console.log('Play: preload');
@@ -73,7 +75,7 @@ Play.prototype = {
 		ledge.body.setSize(300, 34, 0, 17);
 
 		//set up scoreText to display player ore count
-		this.scoreText = game.add.text(16, 16, 'score: 0', {fontSize: '32px', fill: '#fff' });
+		this.scoreText = game.add.text(16, 16, 'Score: 0 Health: 10', {fontSize: '32px', fill: '#fff' });
 		this.scoreText.fixedToCamera = true;	//make it move with the camera
 
 		//set up ores
@@ -118,7 +120,17 @@ Play.prototype = {
 	},
 
    touchEnemy:function() {
-      console.log("ouch");
+    	console.log("ouch");
+    	//deal damage to player if we're not in "invincibility frames"
+    	if(!this.invincible) {
+      		this.health -= 1;		//lose health
+      		if(this.health <= 0) {	//if dead, go to Game Over
+      			game.state.start('GameOver');
+      		}
+      		this.scoreText.text = 'Score: ' + this.score + " Health: " + this.health;	//update the scoreboard
+      		this.invincible = true;	//temporarily become invincible (to avoid having your health instantly disappear)
+      		game.time.events.add(1000, this.toggleInvincible, this);	//become mortal again after 1 second
+  		}
    },
 
    touchOre:function(player, ore) {
@@ -126,6 +138,10 @@ Play.prototype = {
    		ore.kill();
    		//update the score
    		this.score += 1;
-   		this.scoreText.text = 'Score: ' + this.score;
-   }
+   		this.scoreText.text = 'Score: ' + this.score + " Health: " + this.health;
+   },
+
+	toggleInvincible:function() {
+		this.invincible = false;	//reset invincibility
+	}
 };
