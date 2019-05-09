@@ -7,10 +7,10 @@ Play.prototype = {
 		this.background;
 		this.player;
 		this.platforms;
-		this.swords;
+		this.swords;	//keeps track of the sword
 		this.score = 0;	//keeps track of score (# of ore pieces)
 		this.scoreText;
-		this.ores;	//group to hold ores
+		this.ores;			//group to hold ores
 		this.health = 10;	//health of the player
 		this.invincible = false;	//toggles temporary player invincibility after taking damage
 	},
@@ -84,14 +84,19 @@ Play.prototype = {
 		//spawn some ores
 		var ore = this.ores.create(470, 100, 'pot');	//use the pot sprite for now
 		ore.body.gravity.y = 150;	//make the ore fall
+
+		this.swords = game.add.group();	//create the sword group
 	},
 	update:function() {
 		//let player collide with platforms
 		game.physics.arcade.collide(this.player, this.platforms);
 
+		//swing sword when spacebar is pressed
 		if(game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 1)) {
-			this.sword = new Sword(game, 'sword', this.player.x, this.player.y, 1, this.player, this.platforms, this.enemies);
-			game.add.existing(this.sword);
+			if(this.swords.length < 1) {	//only spawn a sword if one isn't currently in action
+				var sword = new Sword(game, 'sword', this.player.x, this.player.y, 1, this.player, this.platforms, this.enemies);
+				this.swords.add(sword);
+			}
 		}
 
 
