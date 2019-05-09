@@ -13,6 +13,7 @@ Play.prototype = {
 		this.ores;			//group to hold ores
 		this.health = 10;	//health of the player
 		this.invincible = false;	//toggles temporary player invincibility after taking damage
+		this.swordState = 5;
 	},
 	preload: function() {
 		console.log('Play: preload');
@@ -86,6 +87,17 @@ Play.prototype = {
 		ore.body.gravity.y = 150;	//make the ore fall
 
 		this.swords = game.add.group();	//create the sword group
+
+		//make the sword UI
+		this.swordUI = game.add.group();
+		//looks confusing, but this basically just creates each UI part and immediately fixes it to the camera
+		(this.swordUI.create(607, 5, 'swordHilt')).fixedToCamera = true;	//sword hilt
+		(this.swordUI.create(708, 5, 'swordBlade')).fixedToCamera = true;	//blade segment 1
+		(this.swordUI.create(757, 5, 'swordBlade')).fixedToCamera = true;	//blade segment 2
+		(this.swordUI.create(806, 5, 'swordBlade')).fixedToCamera = true;	//blade segment 3
+		(this.swordUI.create(855, 5, 'swordBlade')).fixedToCamera = true;	//blade segment 4
+		(this.swordUI.create(904, 5, 'swordBlade')).fixedToCamera = true;	//blade segment 5
+		
 	},
 	update:function() {
 		//let player collide with platforms
@@ -107,17 +119,30 @@ Play.prototype = {
 		game.physics.arcade.overlap(this.player, this.ores, this.touchOre, null, this);	//let player collect ores
 		game.physics.arcade.collide(this.ores, this.platforms);							//make ores collide with platforms
 
-		// function touchEnemy(player, enemy) {
-		// 	//remove the enemy
-		// 	enemy.kill();
 
-		// 	//update the score
-		// 	this.score -= 25;
-		// 	this.scoreText.text = 'Score: ' + this.score;	//display the new score
+		//TEMPORARY CODE - place sword UI under manual control. DELETE ONCE UI IS LINKED TO SWORD LENGTH
+		if(game.input.keyboard.downDuration(Phaser.Keyboard.A, 1)) {
+			if(this.swordState > 0) {
+				this.swordState -= 1;
+			}
+		}
+		else if(game.input.keyboard.downDuration(Phaser.Keyboard.D, 1)) {
+			if(this.swordState < 5) {
+				this.swordState += 1;
+			}
+		}
 
-		// 	//switch to GameOver state, sending it the player's score
-		// 	game.state.start('GameOver', true, false, this.score);
-		// }
+		//update the sword UI - make length reflect our current sword length
+		//swordState == 0: just the hilt; swordState == 5: full sword
+		var i;
+		for (i = 1; i <= 5; i++) {	//for each blade segment of the UI
+			var segment = this.swordUI.getChildAt(i);	//get the blade segment at index i
+			if(i <= this.swordState) {	//if this segment is on our current sword, make it visible
+				segment.visible = true;
+			} else {					//if this segment broke off, make it invisible
+				segment.visible = false;
+			}
+		}
 	},
 	render:function() {
 		//game.debug.body(this.player);

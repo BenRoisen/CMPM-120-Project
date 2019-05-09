@@ -10,6 +10,8 @@ MainMenu.prototype = {
 		game.load.image('sword', '../assets/SwordArmAsset75w100h.png');	//sword sprite
       game.load.image('pot', '../assets/Pot1(66 x 100).png');           //pot sprite
 		game.load.image('ground', '../assets/Platform(300x68)(bb300x34).png');
+		game.load.image('swordHilt', '../assets/SwordHilt(114x60).png');	//UI hilt element
+		game.load.image('swordBlade', '../assets/SwordBlade(91x60).png');	//UI blade element
 	},
 	create: function() {
 		console.log('MainMenu: Create');
