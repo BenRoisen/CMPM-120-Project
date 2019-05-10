@@ -25,6 +25,7 @@ function Player(game, key, frame, scale, platforms) {
 
 	this.platforms = platforms;
 	console.log(this.platforms);
+	this.swordLength = 5;
 }
 
 //specify the object's prototype and constructor
