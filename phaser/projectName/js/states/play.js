@@ -86,7 +86,7 @@ Play.prototype = {
 		var ore = this.ores.create(470, 100, 'pot');	//use the pot sprite for now
 		ore.body.gravity.y = 150;	//make the ore fall
 
-		this.swords = game.add.group();	//create the sword group
+      this.swords = game.add.group();  //create the sword group
 
 		//make the sword UI
 		this.swordUI = game.add.group();
@@ -106,7 +106,7 @@ Play.prototype = {
 		//swing sword when spacebar is pressed
 		if(game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 1)) {
 			if(this.swords.length < 1) {	//only spawn a sword if one isn't currently in action
-				var sword = new Sword(game, 'sword', this.player.x, this.player.y, 1, this.player, this.platforms, this.enemies);
+				var sword = new Sword(game, 'swordHilt', 'swordBlade', 1, this.player, this.platforms, this.enemies);
 				this.swords.add(sword);
 			}
 		}

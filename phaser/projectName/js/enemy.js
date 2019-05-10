@@ -97,5 +97,4 @@ Enemy.prototype.update = function () {
          }
          break;
    }
-      
 }
