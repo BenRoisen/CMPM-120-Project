@@ -39,7 +39,7 @@ Play.prototype = {
 		game.camera.follow(this.player);	//make camera follow player
 
 		//create the ground
-		var ground = this.platforms.create(0, game.world.height - 16, 'platform_med');
+		var ground = this.platforms.create(0, game.world.height - 1, 'platform_med');
 		ground.scale.setTo(7, 1);		//scale the ground to fit the game (sprite is 300x68, & we need to to be 2000x16)
 		ground.body.immovable = true;	//make the ground immovable so it won't fall when player touches it
 
@@ -75,7 +75,7 @@ Play.prototype = {
 		ledge.body.setSize(300, 34, 0, 17);	//adjust bounding box according to specifications
 		ledge = this.platforms.create(1150, 600, 'wall_big');		//wall F
 		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(34, 600, 17, 0);	//adjust bounding box according to specifications
+		ledge.body.setSize(34, 600, 17, 17);	//adjust bounding box according to specifications
 		ledge = this.platforms.create(1150, 350, 'platform_small');	//platform G
 		ledge.body.immovable = true;		//make wall immovable
 		ledge.body.setSize(150, 34, 0, 17);	//adjust bounding box according to specifications
@@ -88,7 +88,7 @@ Play.prototype = {
 		ledge = this.platforms.create(1850, 800, 'platform_small');	//platform J
 		ledge.body.immovable = true;		//make wall immovable
 		ledge.body.setSize(150, 34, 0, 17);	//adjust bounding box according to specifications
-		ledge = this.platforms.create(1700, 1000, 'platform_med');	//platform K
+		ledge = this.platforms.create(1700, 995, 'platform_med');	//platform K
 		ledge.body.immovable = true;		//make wall immovable
 		ledge.body.setSize(300, 34, 0, 17);	//adjust bounding box according to specifications
 
@@ -113,15 +113,20 @@ Play.prototype = {
 		this.ores = game.add.group();
 		this.ores.enableBody = true;
 		//spawn some ores
-		var ore = this.ores.create(100, 25, 'obsidian');
+		var ore = this.ores.create(100, 50, 'obsidian');
+		ore.scale.setTo(0.5);
 		ore.body.gravity.y = 150;	//make the ore fall
-		ore = this.ores.create(650, 425, 'obsidian');
+		ore = this.ores.create(650, 450, 'obsidian');
+		ore.scale.setTo(0.5);
 		ore.body.gravity.y = 150;	//make the ore fall
-		ore = this.ores.create(750, 1025, 'obsidian');
+		ore = this.ores.create(750, 1050, 'obsidian');
+		ore.scale.setTo(0.5);
 		ore.body.gravity.y = 150;	//make the ore fall
-		ore = this.ores.create(1800, 25, 'obsidian');
+		ore = this.ores.create(1800, 50, 'obsidian');
+		ore.scale.setTo(0.5);
 		ore.body.gravity.y = 150;	//make the ore fall
-		ore = this.ores.create(1850, 825, 'obsidian');
+		ore = this.ores.create(1850, 850, 'obsidian');
+		ore.scale.setTo(0.5);
 		ore.body.gravity.y = 150;	//make the ore fall
 
 
