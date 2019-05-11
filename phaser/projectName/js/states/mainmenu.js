@@ -9,7 +9,15 @@ MainMenu.prototype = {
 		game.load.image('player', '../assets/PlayerAsset100w150h.png');	//player sprite
 		game.load.image('sword', '../assets/SwordArmAsset75w100h.png');	//sword sprite
       game.load.image('pot', '../assets/Pot1(66 x 100).png');           //pot sprite
-		game.load.image('ground', '../assets/Platform(300x68)(bb300x34).png');
+    	game.load.image('platform_small', '../assets/SmallPlatform(150x68)(bb150x34).png');
+		game.load.image('platform_med', '../assets/Platform(300x68)(bb300x34).png');
+		game.load.image('platform_big', '../assets/BigPlatform(600x68)(bb600x34).png');
+		game.load.image('wall_small', '../assets/SmallPlatformVertical(68x150)(bb34x150).png');
+		game.load.image('wall_med', '../assets/PlatformVertical(68x300)(bb34x300).png');
+		game.load.image('wall_big', '../assets/BigPlatformVertical(68x600)(bb34x600).png');
+		game.load.image('obsidian', '../assets/Obsidian(128x144).png');
+		
+		
 		game.load.image('swordHilt', '../assets/SwordHilt(114x60).png');	//UI hilt element
 		game.load.image('swordBlade', '../assets/SwordBlade(91x60).png');	//UI blade element
       game.load.audio('slash', ['../assets/sword.mp3']);

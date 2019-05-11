@@ -39,41 +39,71 @@ Play.prototype = {
 		game.camera.follow(this.player);	//make camera follow player
 
 		//create the ground
-		var ground = this.platforms.create(0, game.world.height - 16, 'ground');
+		var ground = this.platforms.create(0, game.world.height - 16, 'platform_med');
 		ground.scale.setTo(7, 1);		//scale the ground to fit the game (sprite is 300x68, & we need to to be 2000x16)
 		ground.body.immovable = true;	//make the ground immovable so it won't fall when player touches it
 
-      //make a pot
-      this.enemy = new Enemy(game, 'pot', 500, game.world.height - 164, 0, this.player, this.platforms);
-      game.add.existing(this.enemy);
-      this.enemies = game.add.group();
-      this.enemies.add(this.enemy);
+		//make the left wall
+		var ledge = this.platforms.create(0, 0, 'wall_big');
+		ledge.body.immovable = true;		//make wall immovable
+		ledge.body.setSize(34, 600, 17, 0);	//adjust bounding box according to specifications
+		ledge = this.platforms.create(0, 600, 'wall_big');
+		ledge.body.immovable = true;		//make wall immovable
+		ledge.body.setSize(34, 600, 17, 0);	//adjust bounding box according to specifications
+		//make the right wall
+		ledge = this.platforms.create(1950, 0, 'wall_big');
+		ledge.body.immovable = true;		//make wall immovable
+		ledge.body.setSize(34, 600, 17, 0);	//adjust bounding box according to specifications
+		ledge = this.platforms.create(1950, 600, 'wall_big');
+		ledge.body.immovable = true;		//make wall immovable
+		ledge.body.setSize(34, 600, 17, 0);	//adjust bounding box according to specifications
+		//make the platforms for platforming
+		ledge = this.platforms.create(0, 200, 'platform_big');		//platform A
+		ledge.body.immovable = true;		//make wall immovable
+		ledge.body.setSize(600, 34, 0, 17);	//adjust bounding box according to specifications
+		ledge = this.platforms.create(0, 900, 'platform_big');		//platform B
+		ledge.body.immovable = true;		//make wall immovable
+		ledge.body.setSize(600, 34, 0, 17);	//adjust bounding box according to specifications
+		ledge = this.platforms.create(550, 600, 'platform_big');	//platform C
+		ledge.body.immovable = true;		//make wall immovable
+		ledge.body.setSize(600, 34, 0, 17);	//adjust bounding box according to specifications
+		ledge = this.platforms.create(800, 200, 'platform_small');	//platform D
+		ledge.body.immovable = true;		//make wall immovable
+		ledge.body.setSize(150, 34, 0, 17);	//adjust bounding box according to specifications
+		ledge = this.platforms.create(850, 950, 'platform_med');	//platform E
+		ledge.body.immovable = true;		//make wall immovable
+		ledge.body.setSize(300, 34, 0, 17);	//adjust bounding box according to specifications
+		ledge = this.platforms.create(1150, 600, 'wall_big');		//wall F
+		ledge.body.immovable = true;		//make wall immovable
+		ledge.body.setSize(34, 600, 17, 0);	//adjust bounding box according to specifications
+		ledge = this.platforms.create(1150, 350, 'platform_small');	//platform G
+		ledge.body.immovable = true;		//make wall immovable
+		ledge.body.setSize(150, 34, 0, 17);	//adjust bounding box according to specifications
+		ledge = this.platforms.create(1200, 600, 'platform_big');	//platform H
+		ledge.body.immovable = true;		//make wall immovable
+		ledge.body.setSize(600, 34, 0, 17);	//adjust bounding box according to specifications
+		ledge = this.platforms.create(1450, 200, 'platform_big');	//platform I
+		ledge.body.immovable = true;		//make wall immovable
+		ledge.body.setSize(600, 34, 0, 17);	//adjust bounding box according to specifications
+		ledge = this.platforms.create(1850, 800, 'platform_small');	//platform J
+		ledge.body.immovable = true;		//make wall immovable
+		ledge.body.setSize(150, 34, 0, 17);	//adjust bounding box according to specifications
+		ledge = this.platforms.create(1700, 1000, 'platform_med');	//platform K
+		ledge.body.immovable = true;		//make wall immovable
+		ledge.body.setSize(300, 34, 0, 17);	//adjust bounding box according to specifications
 
-		//make some ledges
-		var ledge = this.platforms.create(400, 600, 'ground');
-		ledge.body.immovable = true;		//make ledge immovable
-		ledge.body.setSize(300, 34, 0, 17);	//adjust bounding box according to specifications
-		ledge = this.platforms.create(-150, 450, 'ground');
-		ledge.body.immovable = true;		//make ledge immovable
-		ledge.body.setSize(300, 34, 0, 17);	//adjust bounding box according to specifications
-		ledge = this.platforms.create(-220, 250, 'ground');
-		ledge.body.immovable = true;
-		ledge.body.setSize(300, 34, 0, 17);
-		ledge = this.platforms.create(470, 200, 'ground');
-		ledge.body.immovable = true;
-		ledge.body.setSize(300, 34, 0, 17);
-		ledge = this.platforms.create(470, 980, 'ground');
-		ledge.body.immovable = true;
-		ledge.body.setSize(300, 34, 0, 17);
-		ledge = this.platforms.create(670, 800, 'ground');
-		ledge.body.immovable = true;
-		ledge.body.setSize(300, 34, 0, 17);
-		ledge = this.platforms.create(470, 600, 'ground');
-		ledge.body.immovable = true;
-		ledge.body.setSize(300, 34, 0, 17);
-		ledge = this.platforms.create(670, 400, 'ground');
-		ledge.body.immovable = true;
-		ledge.body.setSize(300, 34, 0, 17);
+		//spawn enemy pots
+    	this.enemies = game.add.group();
+    	this.enemy = new Enemy(game, 'pot', 150, 800, 0, this.player, this.platforms);
+    	game.add.existing(this.enemy);
+    	this.enemies.add(this.enemy);
+    	this.enemy = new Enemy(game, 'pot', 1250, 1100, 0, this.player, this.platforms);
+    	game.add.existing(this.enemy);
+    	this.enemies.add(this.enemy);
+    	this.enemy = new Enemy(game, 'pot', 1400, 100, 0, this.player, this.platforms);
+    	game.add.existing(this.enemy);
+    	this.enemies.add(this.enemy);
+    	
 
 		//set up scoreText to display player ore count
 		this.scoreText = game.add.text(16, 16, 'Score: 0 Health: 10', {fontSize: '32px', fill: '#fff' });
@@ -83,8 +113,19 @@ Play.prototype = {
 		this.ores = game.add.group();
 		this.ores.enableBody = true;
 		//spawn some ores
-		var ore = this.ores.create(470, 100, 'pot');	//use the pot sprite for now
+		var ore = this.ores.create(100, 25, 'obsidian');
 		ore.body.gravity.y = 150;	//make the ore fall
+		ore = this.ores.create(650, 425, 'obsidian');
+		ore.body.gravity.y = 150;	//make the ore fall
+		ore = this.ores.create(750, 1025, 'obsidian');
+		ore.body.gravity.y = 150;	//make the ore fall
+		ore = this.ores.create(1800, 25, 'obsidian');
+		ore.body.gravity.y = 150;	//make the ore fall
+		ore = this.ores.create(1850, 825, 'obsidian');
+		ore.body.gravity.y = 150;	//make the ore fall
+
+
+
 
       this.swords = game.add.group();  //create the sword group
 
