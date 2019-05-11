@@ -146,7 +146,7 @@ Play.prototype = {
 	},
 	render:function() {
 		//game.debug.body(this.player);
-		game.debug.physicsGroup(this.platforms);
+		//game.debug.physicsGroup(this.platforms);
 	},
 
    touchEnemy:function() {

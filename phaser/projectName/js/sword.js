@@ -22,6 +22,7 @@ function Sword (game, key, key2, player, walls, enemies)
    this.end_lag = 15;
    this.state = 0;
    this.hit_wall = false;
+   this.slash = new Phaser.Sound(game,'slash',1,false);
    this.player = player;
    this.walls = walls;
    this.enemies = enemies;
@@ -71,7 +72,7 @@ Sword.prototype.update = function () {
          }
          break;
       case(1): // swinging
-      this.wall_check(this);
+         // animation
          this.uangle += 9;
          // Set angle difference of shadow
          if(this.uangle >= -81)
@@ -83,6 +84,8 @@ Sword.prototype.update = function () {
                this.shadow_angle = this.angle + 5;
             }
          }
+         // Collision checks
+         this.wall_check(this);
          game.physics.arcade.overlap(this.boxes, this.enemies, this.enemy_check, null, this);
          if(this.uangle >= 0) 
          {
@@ -91,13 +94,16 @@ Sword.prototype.update = function () {
          }
          break;
       case(2): // ending
-         this.wall_check(this);
+         // animation
          if(this.end_lag > 0)
          {
             this.end_lag--;
          } else {
             this.state = 3;
          }
+         // Collision checks
+         this.wall_check(this);
+         game.physics.arcade.overlap(this.boxes, this.enemies, this.enemy_check, null, this);
          break;
       case(3): // destroying
          this.destroy();
@@ -120,12 +126,14 @@ Sword.prototype.wall_check = function (sword) {
    {
       sword.state = 4;
       sword.end_lag = 5;
+      this.slash.play();
    }
 }
 
 Sword.prototype.enemy_check = function (swordbox, enemy) {
    enemy.kill();
    console.log("hit enemy");
+   this.slash.play();
 }
 
 function Swordbox (game, offset, key, player, sword, walls, enemies, shadow)

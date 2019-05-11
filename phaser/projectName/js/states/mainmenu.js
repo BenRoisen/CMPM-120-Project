@@ -12,6 +12,7 @@ MainMenu.prototype = {
 		game.load.image('ground', '../assets/Platform(300x68)(bb300x34).png');
 		game.load.image('swordHilt', '../assets/SwordHilt(114x60).png');	//UI hilt element
 		game.load.image('swordBlade', '../assets/SwordBlade(91x60).png');	//UI blade element
+      game.load.audio('slash', ['../assets/sword.mp3']);
 	},
 	create: function() {
 		console.log('MainMenu: Create');
