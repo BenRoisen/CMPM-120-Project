@@ -16,6 +16,7 @@ MainMenu.prototype = {
 		game.load.image('wall_med', '../assets/PlatformVertical(68x300)(bb34x300).png');
 		game.load.image('wall_big', '../assets/BigPlatformVertical(68x600)(bb34x600).png');
 		game.load.image('obsidian', '../assets/Obsidian(128x144).png');
+		game.load.image('endGame', '../assets/endGame100w150h.png');
 		
 		
 		game.load.image('swordHilt', '../assets/SwordHilt(114x60).png');	//UI hilt element
@@ -28,6 +29,11 @@ MainMenu.prototype = {
 		game.stage.backgroundColor = "#000000";	//create a black background
 		game.add.text(16, 16, 'Welcome to Sword Game!', {fontSize: '32px', fill: '#fff' });
 		game.add.text(16, 64, 'Use arrow keys to move', {fontSize: '16px', fill: '#fff' });
+		game.add.text(16, 96, 'Use spacebar to attack', {fontSize: '16px', fill: '#fff' });
+		game.add.text(16, 112, 'Make sure you have enough room to swing your sword without hitting a wall!', {fontSize: '16px', fill: '#fff' });
+		game.add.text(16, 144, 'Collect ores from pots to win, but be careful!', {fontSize: '16px', fill: '#fff' });
+		game.add.text(16, 160, 'Some pots are actually monsters in disguise!', {fontSize: '16px', fill: '#fff' });
+		
 		game.add.text(16, 512, 'Press [SPACE] to start', {fontSize: '32px', fill: '#fff' });
 	},
 	update: function() {

@@ -112,24 +112,7 @@ Play.prototype = {
 		//set up ores
 		this.ores = game.add.group();
 		this.ores.enableBody = true;
-		// //spawn some ores
-		// var ore = this.ores.create(100, 50, 'obsidian');
-		// ore.scale.setTo(0.5);
-		// ore.body.gravity.y = 150;	//make the ore fall
-		// ore = this.ores.create(650, 450, 'obsidian');
-		// ore.scale.setTo(0.5);
-		// ore.body.gravity.y = 150;	//make the ore fall
-		// ore = this.ores.create(750, 1050, 'obsidian');
-		// ore.scale.setTo(0.5);
-		// ore.body.gravity.y = 150;	//make the ore fall
-		// ore = this.ores.create(1800, 50, 'obsidian');
-		// ore.scale.setTo(0.5);
-		// ore.body.gravity.y = 150;	//make the ore fall
-		// ore = this.ores.create(1850, 850, 'obsidian');
-		// ore.scale.setTo(0.5);
-		// ore.body.gravity.y = 150;	//make the ore fall
-		// console.log(ore);
-
+		
 		//set up ore pots
 		this.orePots = game.add.group();
 		this.orePots.enableBody = true;
@@ -145,6 +128,12 @@ Play.prototype = {
 		pot = this.orePots.create(1850, 850, 'pot');
 		pot.body.gravity.y = 150;	//make the ore fall
 		console.log(pot);
+
+		//spawn the level exit door thing
+		this.exit = game.add.group();
+		this.exit.enableBody = true;
+		var door = this.exit.create(1900, 1050, 'endGame');
+		door.body.immovable = true;
 
 
 
@@ -186,6 +175,9 @@ Play.prototype = {
 		game.physics.arcade.overlap(this.player, this.ores, this.touchOre, null, this);	//let player collect ores
 		game.physics.arcade.collide(this.ores, this.platforms);							//make ores collide with platforms
 
+		//handle collisions w/ the endgame door thing
+		game.physics.arcade.overlap(this.player, this.exit, this.touchExit, null, this);
+
 
 		//TEMPORARY CODE - place sword UI under manual control. DELETE ONCE UI IS LINKED TO SWORD LENGTH
 		if(game.input.keyboard.downDuration(Phaser.Keyboard.A, 1)) {
@@ -222,7 +214,7 @@ Play.prototype = {
     	if(!this.invincible) {
       		this.health -= 1;		//lose health
       		if(this.health <= 0) {	//if dead, go to Game Over
-      			game.state.start('GameOver');
+      			game.state.start('GameOver', true, false, this.score, false);
       		}
       		this.scoreText.text = 'Score: ' + this.score + " Health: " + this.health;	//update the scoreboard
       		this.invincible = true;	//temporarily become invincible (to avoid having your health instantly disappear)
@@ -261,5 +253,11 @@ Play.prototype = {
 
 	enableOre:function(ore) {
 		ore.vulnerable = true;
+	},
+
+	touchExit:function(player, exit) {
+		if(game.input.keyboard.downDuration(Phaser.Keyboard.E, 1)) {
+			game.state.start('GameOver', true, false, this.score, true);
+		}
 	}
 };
