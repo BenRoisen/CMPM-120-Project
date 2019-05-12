@@ -2,7 +2,7 @@
 
 function Player(game, key, frame, scale, platforms) {
 	//make us extend Phaser.Sprite //new Sprite(game, x, y, key, frame)
-	Phaser.Sprite.call(this, game, 50, (game.world.height - 160), key, frame); 
+	Phaser.Sprite.call(this, game, 140, (game.world.height - 160), key, frame); 
 
 	//add properties
 	this.scale.x = scale;		//set x scale

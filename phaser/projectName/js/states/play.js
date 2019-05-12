@@ -24,7 +24,7 @@ Play.prototype = {
 
 		//create the background
 		//this.background = TODO LATER
-		game.stage.backgroundColor = "#0000ff";	//create a blue background
+		game.stage.backgroundColor = "#888888";	//create a blue background
 
 		//set the world size
 		game.world.setBounds(0, 0, 2000, 1200)	//for now, world is 2x size of screen
@@ -106,28 +106,45 @@ Play.prototype = {
     	
 
 		//set up scoreText to display player ore count
-		this.scoreText = game.add.text(16, 16, 'Score: 0 Health: 10', {fontSize: '32px', fill: '#fff' });
+		this.scoreText = game.add.text(16, 16, 'Score: 0 Health: 10', {fontSize: '32px', fill: '#000' });
 		this.scoreText.fixedToCamera = true;	//make it move with the camera
 
 		//set up ores
 		this.ores = game.add.group();
 		this.ores.enableBody = true;
-		//spawn some ores
-		var ore = this.ores.create(100, 50, 'obsidian');
-		ore.scale.setTo(0.5);
-		ore.body.gravity.y = 150;	//make the ore fall
-		ore = this.ores.create(650, 450, 'obsidian');
-		ore.scale.setTo(0.5);
-		ore.body.gravity.y = 150;	//make the ore fall
-		ore = this.ores.create(750, 1050, 'obsidian');
-		ore.scale.setTo(0.5);
-		ore.body.gravity.y = 150;	//make the ore fall
-		ore = this.ores.create(1800, 50, 'obsidian');
-		ore.scale.setTo(0.5);
-		ore.body.gravity.y = 150;	//make the ore fall
-		ore = this.ores.create(1850, 850, 'obsidian');
-		ore.scale.setTo(0.5);
-		ore.body.gravity.y = 150;	//make the ore fall
+		// //spawn some ores
+		// var ore = this.ores.create(100, 50, 'obsidian');
+		// ore.scale.setTo(0.5);
+		// ore.body.gravity.y = 150;	//make the ore fall
+		// ore = this.ores.create(650, 450, 'obsidian');
+		// ore.scale.setTo(0.5);
+		// ore.body.gravity.y = 150;	//make the ore fall
+		// ore = this.ores.create(750, 1050, 'obsidian');
+		// ore.scale.setTo(0.5);
+		// ore.body.gravity.y = 150;	//make the ore fall
+		// ore = this.ores.create(1800, 50, 'obsidian');
+		// ore.scale.setTo(0.5);
+		// ore.body.gravity.y = 150;	//make the ore fall
+		// ore = this.ores.create(1850, 850, 'obsidian');
+		// ore.scale.setTo(0.5);
+		// ore.body.gravity.y = 150;	//make the ore fall
+		// console.log(ore);
+
+		//set up ore pots
+		this.orePots = game.add.group();
+		this.orePots.enableBody = true;
+		//spawn some ore pots
+		var pot = this.orePots.create(100, 50, 'pot');
+		pot.body.gravity.y = 150;	//make the ore fall
+		pot = this.orePots.create(650, 450, 'pot');
+		pot.body.gravity.y = 150;	//make the ore fall
+		pot = this.orePots.create(750, 1050, 'pot');
+		pot.body.gravity.y = 150;	//make the ore fall
+		pot = this.orePots.create(1800, 50, 'pot');
+		pot.body.gravity.y = 150;	//make the ore fall
+		pot = this.orePots.create(1850, 850, 'pot');
+		pot.body.gravity.y = 150;	//make the ore fall
+		console.log(pot);
 
 
 
@@ -160,6 +177,10 @@ Play.prototype = {
 
 		//let player collide with enemies (TODO)
 		game.physics.arcade.overlap(this.player, this.enemies, this.touchEnemy, null, this);
+
+		//let player collide with ore pots
+		game.physics.arcade.overlap(this.player, this.orePots, this.touchOrePot, null, this);
+		game.physics.arcade.collide(this.orePots, this.platforms);
 
 		//handle ore collisions
 		game.physics.arcade.overlap(this.player, this.ores, this.touchOre, null, this);	//let player collect ores
@@ -210,14 +231,35 @@ Play.prototype = {
    },
 
    touchOre:function(player, ore) {
-   		//remove the ore
-   		ore.kill();
-   		//update the score
-   		this.score += 1;
-   		this.scoreText.text = 'Score: ' + this.score + " Health: " + this.health;
+   		if(ore.vulnerable) {	//only allow pickup once ore has existed for a bit (see touchOrePot)
+   			//remove the ore
+   			ore.kill();
+   			//update the score
+   			this.score += 1;
+   			this.scoreText.text = 'Score: ' + this.score + " Health: " + this.health;
+   		}
    },
 
 	toggleInvincible:function() {
 		this.invincible = false;	//reset invincibility
+	},
+
+	touchOrePot:function(player, pot) {
+		//spawn an ore at the pot's location
+		var ore = this.ores.create(pot.body.x, pot.body.y, 'obsidian');
+		ore.scale.setTo(0.5);
+		ore.body.gravity.y = 150;	//make the ore fall
+		
+		//give a short delay before the ore can be picked up (so it doesn't instantly disappear)
+		ore.vulnerable = false;		//start off invulnerable
+		var spawnTimer = game.time.create(true);
+		spawnTimer.add(500,this.enableOre,this, ore);	//after half a second, let the ore be picked up
+		spawnTimer.start();
+		
+		pot.kill();	//remove the old pot now that we're done with it
+	},
+
+	enableOre:function(ore) {
+		ore.vulnerable = true;
 	}
 };
