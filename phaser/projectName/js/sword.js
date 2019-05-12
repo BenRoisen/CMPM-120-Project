@@ -33,7 +33,7 @@ function Sword (game, key, key2, player, walls, enemies)
    // Create sword parts
    for(i = 0; i < player.swordLength; ++i)
    {
-      swordbox = new Swordbox(game, (49*i+101), key2, player, this, walls, enemies, false);
+      swordbox = new Swordbox(game, i, key2, player, this, walls, enemies, false);
       game.add.existing(swordbox);
       this.boxes.add(swordbox);
    }
@@ -41,7 +41,7 @@ function Sword (game, key, key2, player, walls, enemies)
    // Create shadow boxes
    for(i = 2; i < player.swordLength; ++i)
    {
-      swordbox = new Swordbox(game, (49*i+101), key2, player, this, walls, enemies, true);
+      swordbox = new Swordbox(game, i, key2, player, this, walls, enemies, true);
       game.add.existing(swordbox);
       this.boxes.add(swordbox);
    }
@@ -126,6 +126,7 @@ Sword.prototype.wall_check = function (sword) {
    {
       sword.state = 4;
       sword.end_lag = 5;
+      sword.player.swordLength -= 1;
       this.slash.play();
    }
 }
@@ -136,7 +137,7 @@ Sword.prototype.enemy_check = function (swordbox, enemy) {
    this.slash.play();
 }
 
-function Swordbox (game, offset, key, player, sword, walls, enemies, shadow)
+function Swordbox (game, id, key, player, sword, walls, enemies, shadow)
 {
    Phaser.Sprite.call(this, game, player.x, player.y, key, 0);
    game.physics.enable(this);
@@ -155,7 +156,8 @@ function Swordbox (game, offset, key, player, sword, walls, enemies, shadow)
    this.walls = walls;
    this.enemies = enemies;
    this.player = player;
-   this.offset = offset;
+   this.id = id;
+   this.offset = (49*id+101);
    this.shadow = shadow;
 }
 
@@ -180,6 +182,11 @@ Swordbox.prototype.update = function () {
       this.body.setSize(60-15*radc, 60+30*rads, -15*radc, -30*rads);
    } else {
       this.body.setSize(60+15*radc, 60+30*rads, -15*radc, -30*rads);
+   }
+
+   if(this.id > this.player.swordLength)
+   {
+      this.kill();
    }
    
 

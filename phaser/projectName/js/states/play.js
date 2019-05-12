@@ -188,16 +188,7 @@ Play.prototype = {
 
 
 		//TEMPORARY CODE - place sword UI under manual control. DELETE ONCE UI IS LINKED TO SWORD LENGTH
-		if(game.input.keyboard.downDuration(Phaser.Keyboard.A, 1)) {
-			if(this.swordState > 0) {
-				this.swordState -= 1;
-			}
-		}
-		else if(game.input.keyboard.downDuration(Phaser.Keyboard.D, 1)) {
-			if(this.swordState < 5) {
-				this.swordState += 1;
-			}
-		}
+		this.swordState = this.player.swordLength;
 
 		//update the sword UI - make length reflect our current sword length
 		//swordState == 0: just the hilt; swordState == 5: full sword
@@ -234,6 +225,8 @@ Play.prototype = {
    		if(ore.vulnerable) {	//only allow pickup once ore has existed for a bit (see touchOrePot)
    			//remove the ore
    			ore.kill();
+            // temporary code since sword repair doesn't exist yet
+            this.player.swordLength += 1;
    			//update the score
    			this.score += 1;
    			this.scoreText.text = 'Score: ' + this.score + " Health: " + this.health;
