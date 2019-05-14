@@ -1,3 +1,8 @@
+// Rexford Jew
+// Benjamin Roisen
+// Grant Muhlestein
+// Colin Snyder
+
 // Link to Github: https://github.com/BenRoisen/CMPM-120-Project
 
 var game;
