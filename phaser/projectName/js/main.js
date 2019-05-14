@@ -1,3 +1,5 @@
+// Link to Github: https://github.com/BenRoisen/CMPM-120-Project
+
 var game;
 
 //don't make the game until the browser finishes loading, otherwise it might not find all the .js files and will promptly die
