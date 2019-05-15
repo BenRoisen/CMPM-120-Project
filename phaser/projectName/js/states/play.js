@@ -55,8 +55,8 @@ Play.prototype = {
 		this.enemies = game.add.group();
 
       //create the hammer hitbox
-      var hammer = new Hammer(game, 'swordHilt', this.player, this.platforms, this.enemies);
-      game.add.existing(hammer);
+      this.hammer = new Hammer(game, 'swordHilt', this.player, this.platforms, this.enemies);
+      game.add.existing(this.hammer);
 		
       this.swords = game.add.group();  //create the sword group
 
@@ -126,10 +126,10 @@ Play.prototype = {
 		//game.debug.physicsGroup(this.platforms);
 	},
 
-   touchEnemy:function() {
-    	console.log("ouch");
+   touchEnemy:function(player, enemy) {
     	//deal damage to player if we're not in "invincibility frames"
-    	if(!this.invincible) {
+    	if(!this.invincible && !game.physics.arcade.overlap(this.hammer, enemy)) {
+            console.log("ouch");
       		this.health -= 1;		//lose health
       		if(this.health <= 0) {	//if dead, go to Game Over
       			game.state.start('GameOver', true, false, this.score, false);

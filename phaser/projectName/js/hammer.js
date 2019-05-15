@@ -21,8 +21,8 @@ Hammer.prototype.constructor = Hammer;
 
 Hammer.prototype.update = function () {
    // Set position to the player's shoulder
-   boxsize_x = 60;
-   boxsize_y = 40;
+   boxsize_x = 80;
+   boxsize_y = 60;
    spritesize_x = 114;
    spritesize_y = 60;
    offset_y = 85;
@@ -36,7 +36,7 @@ Hammer.prototype.update = function () {
    // Set collision if the hammer isn't touching a wall
    if(this.cursors.down.isDown)
    {
-      if(!game.physics.arcade.overlap(this, this.walls))
+      if(!this.player.can_jump)
       {
          game.physics.arcade.overlap(this, this.enemies, this.enemy_check, null, this);
       }
