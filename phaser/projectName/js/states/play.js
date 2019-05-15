@@ -53,7 +53,10 @@ Play.prototype = {
 
 		//set up enemies
 		this.enemies = game.add.group();
-    	
+
+      //create the hammer hitbox
+      var hammer = new Hammer(game, 'swordHilt', this.player, this.platforms, this.enemies);
+      game.add.existing(hammer);
 		
       this.swords = game.add.group();  //create the sword group
 

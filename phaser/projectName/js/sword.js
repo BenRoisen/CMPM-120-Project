@@ -132,7 +132,7 @@ Sword.prototype.wall_check = function (sword) {
 }
 
 Sword.prototype.enemy_check = function (swordbox, enemy) {
-   enemy.kill();
+   enemy.got_hit = true;
    console.log("hit enemy");
    this.slash.play();
 }

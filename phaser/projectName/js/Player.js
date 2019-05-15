@@ -13,7 +13,7 @@ function Player(game, key, frame, scale, platforms) {
 	//setup physics
 	game.physics.arcade.enable(this);		//enable arcade physics
 	this.body.collideWorldBounds = true;	//make player collide with edge of screen
-	this.body.gravity.y = 400;				//how fast we fall
+	this.body.gravity.y = 800;				//how fast we fall
 	
 	//create an object to listen to the arrow keys
 	this.cursors = game.input.keyboard.createCursorKeys();
@@ -41,14 +41,14 @@ Player.prototype.update = function() {
 	this.body.velocity.x = 0;	//reset player horizontal velocity
 	if (this.cursors.left.isDown) {	//did player press the left arrow key?
 		//move left
-		this.body.velocity.x = -250;
+		this.body.velocity.x = -500;
 		this.facingRight = false;	//we're moving left
 		if(this.scale.x > 0) {		//face left (if not already doing so)
 			this.scale.x *= -1;
 		}
 	} else if (this.cursors.right.isDown)	{ //did player press the right arrow key?
 		//move right
-		this.body.velocity.x = 250;
+		this.body.velocity.x = 500;
 		this.facingRight = true;	//we're moving right
 		if(this.scale.x < 0) {		//face right (if not already doing so)
 			this.scale.x *= -1;
@@ -74,14 +74,26 @@ Player.prototype.update = function() {
 	//this.body.velocity.y = 0;	//reset vertical velocity
 	if(this.cursors.up.isDown && this.can_jump) {// && hitPlatform) {	//did the player press the up arrow key while standing on the ground?
 		//move up
-		this.body.velocity.y = -500;
+		this.body.velocity.y = -750;
 		this.can_jump = false;
 	}
 	else if (this.cursors.down.isDown)	//did the player press the down arrow key?
 	{
-		//do nothing
+		if(this.can_jump) // Using can_jump as a replacement for "is on the ground"
+      {
+         // Repair the sword
+      } else {
+         // Grant instant movement downwards
+         if(game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 1))
+         {
+            this.body.velocity.y += 200;
+         }
+
+         // Set gravity much higher
+         this.body.gravity.y = 4000;
+      }
 	}
 	else {	//player pressed no keys
-		//do nothing
+		this.body.gravity.y = 800;
 	}
 }

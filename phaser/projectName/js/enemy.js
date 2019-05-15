@@ -21,6 +21,7 @@ function Enemy (game, key, x, y, behavior, player, walls)
    this.grounded = true;
    this.timer = 120;
    this.ground_check = false;
+   this.got_hit = false;
 }
 
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);
@@ -49,10 +50,10 @@ Enemy.prototype.update = function () {
             this.roll_time++;
             if(this.player.x > this.x)
             {
-               this.body.velocity.x = -200;
+               this.body.velocity.x = -400;
                this.angle -= 15;
             } else {
-               this.body.velocity.x = 200;
+               this.body.velocity.x = 400;
                this.angle += 15;
             }
          }
@@ -96,5 +97,16 @@ Enemy.prototype.update = function () {
             }
          }
          break;
+   }
+
+   // Hit check
+   if(this.got_hit)
+   {
+      if(this.state != 0)
+      {
+         this.kill();
+      } else {
+         this.got_hit = false;
+      }
    }
 }
