@@ -36,14 +36,14 @@ Enemy.prototype.update = function () {
       case(0): // hiding
          if(Phaser.Math.distance(this.x, this.y, this.player.x, this.player.y) <= 200)
          {
-            this.state = 1;
+            this.state++;
             console.log('they see me rollin');
          }
          break;
       case(1): // they see me rollin'
          if(Phaser.Math.distance(this.x, this.y, this.player.x, this.player.y) >= 400 || this.roll_time >= 240)
          {
-            this.state = 2;
+            this.state++;
             this.angle = 0;
             console.log('ima kill you');
          } else {
@@ -58,7 +58,9 @@ Enemy.prototype.update = function () {
             }
          }
          break;
-      case(2): // ima kill you
+      case(2): // animation phase
+         this.state++;
+      case(3): // ima kill you
          if(this.grounded)
          {
             this.body.velocity.x = 0;
