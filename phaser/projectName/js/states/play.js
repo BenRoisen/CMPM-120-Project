@@ -14,6 +14,7 @@ Play.prototype = {
 		this.health = 10;	//health of the player
 		this.invincible = false;	//toggles temporary player invincibility after taking damage
 		this.swordState = 5;
+		this.exit;
 	},
 	preload: function() {
 		console.log('Play: preload');
@@ -73,10 +74,15 @@ Play.prototype = {
 		//create a variable to keep track of which level we're on
 		this.levelTracker = 1;
 
+
+		//spawn the level exit door thing
+		this.exit = game.add.group();
+		this.exit.enableBody = true;
+		
 		//load the first level.
 		//NOTE: make sure that any groups/etc. that will be needed for ALL levels have been set up prior to this.
 		//(at the very least, make sure all the groups used by the sword have been declared BEFORE calling this function) 
-		this.loadLevel_1();
+		loadLevel_1(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit);
 	},
 	update:function() {
 		//let player collide with platforms
@@ -104,7 +110,7 @@ Play.prototype = {
 
 		//handle collisions w/ the endgame door thing
 		game.physics.arcade.overlap(this.player, this.exit, this.touchExit, null, this);
-
+		
 
 		//TEMPORARY CODE - place sword UI under manual control. DELETE ONCE UI IS LINKED TO SWORD LENGTH
 		this.swordState = this.player.swordLength;
@@ -123,6 +129,7 @@ Play.prototype = {
 	},
 	render:function() {
 		//game.debug.body(this.player);
+		//game.debug.physicsGroup(this.exit);
 		//game.debug.physicsGroup(this.platforms);
 	},
 
@@ -178,196 +185,22 @@ Play.prototype = {
 	touchExit:function(player, exit) {
 		if(game.input.keyboard.downDuration(Phaser.Keyboard.E, 1)) {
 			//figure out where to go from here
-			if(this.levelTracker == 1) {	//if we completed level 1
-				//update levelTracker and load level 2
-				this.levelTracker = 2;
-				this.loadLevel_2();
-			}
-			else {	//default case - we've finished all levels and now want to go to game over
-				game.state.start('GameOver', true, false, this.score, true);
+			switch(this.levelTracker) {
+				case(1): 	//finished level 1 - load level 2
+					//update levelTracker and load level 2
+					console.log('loading level 2...');
+					this.levelTracker = 2;
+					loadLevel_2(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit);//this.loadLevel_2();
+					break;
+				case(2): 	//finished level 2 - load level 3
+					console.log('loading level 3...');
+					this.levelTracker = 3;
+					loadLevel_3(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit);//this.loadLevel_2();
+					break;
+				default: 	//default case - we've finished all levels and now want to go to game over
+					game.state.start('GameOver', true, false, this.score, true);
+					break;
 			}
 		}
-	},
-
-	//performs setup for level 1
-	loadLevel_1:function() {
-		//empty out all the old level elements
-		this.platforms.removeAll(true);
-		this.enemies.removeAll(true);
-		this.orePots.removeAll(true);
-
-		//reset the player's position
-		this.player.body.x = 140;
-		this.player.body.y = (game.world.height - 160);
-
-		//create the ground
-		var ground = this.platforms.create(0, game.world.height - 1, 'platform_med');
-		ground.scale.setTo(7, 1);		//scale the ground to fit the game (sprite is 300x68, & we need to to be 2000x16)
-		ground.body.immovable = true;	//make the ground immovable so it won't fall when player touches it
-
-		//make the left wall
-		var ledge = this.platforms.create(0, 0, 'wall_big');
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(34, 600, 17, 0);	//adjust bounding box according to specifications
-		ledge = this.platforms.create(0, 600, 'wall_big');
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(34, 600, 17, 0);	//adjust bounding box according to specifications
-		//make the right wall
-		ledge = this.platforms.create(1950, 0, 'wall_big');
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(34, 600, 17, 0);	//adjust bounding box according to specifications
-		ledge = this.platforms.create(1950, 600, 'wall_big');
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(34, 600, 17, 0);	//adjust bounding box according to specifications
-		//make the platforms for platforming
-		ledge = this.platforms.create(0, 200, 'platform_big');		//platform A
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(600, 34, 0, 17);	//adjust bounding box according to specifications
-		ledge = this.platforms.create(0, 900, 'platform_big');		//platform B
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(600, 34, 0, 17);	//adjust bounding box according to specifications
-		ledge = this.platforms.create(550, 600, 'platform_big');	//platform C
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(600, 34, 0, 17);	//adjust bounding box according to specifications
-		ledge = this.platforms.create(800, 200, 'platform_small');	//platform D
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(150, 34, 0, 17);	//adjust bounding box according to specifications
-		ledge = this.platforms.create(850, 950, 'platform_med');	//platform E
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(300, 34, 0, 17);	//adjust bounding box according to specifications
-		ledge = this.platforms.create(1150, 600, 'wall_big');		//wall F
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(34, 600, 17, 17);	//adjust bounding box according to specifications
-		ledge = this.platforms.create(1150, 350, 'platform_small');	//platform G
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(150, 34, 0, 17);	//adjust bounding box according to specifications
-		ledge = this.platforms.create(1200, 600, 'platform_big');	//platform H
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(600, 34, 0, 17);	//adjust bounding box according to specifications
-		ledge = this.platforms.create(1450, 200, 'platform_big');	//platform I
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(600, 34, 0, 17);	//adjust bounding box according to specifications
-		ledge = this.platforms.create(1850, 800, 'platform_small');	//platform J
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(150, 34, 0, 17);	//adjust bounding box according to specifications
-		ledge = this.platforms.create(1700, 995, 'platform_med');	//platform K
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(300, 34, 0, 17);	//adjust bounding box according to specifications
-
-		//spawn enemy pots
-    	this.enemy = new Enemy(game, 'pot', 150, 800, 0, this.player, this.platforms);
-    	game.add.existing(this.enemy);
-    	this.enemies.add(this.enemy);
-    	this.enemy = new Enemy(game, 'pot', 1250, 1100, 0, this.player, this.platforms);
-    	game.add.existing(this.enemy);
-    	this.enemies.add(this.enemy);
-    	this.enemy = new Enemy(game, 'pot', 1400, 100, 0, this.player, this.platforms);
-    	game.add.existing(this.enemy);
-    	this.enemies.add(this.enemy);
-
-    	//spawn some ore pots
-		var pot = this.orePots.create(100, 50, 'pot');
-		pot.body.gravity.y = 150;	//make the ore fall
-		pot = this.orePots.create(650, 450, 'pot');
-		pot.body.gravity.y = 150;	//make the ore fall
-		pot = this.orePots.create(750, 1050, 'pot');
-		pot.body.gravity.y = 150;	//make the ore fall
-		pot = this.orePots.create(1800, 50, 'pot');
-		pot.body.gravity.y = 150;	//make the ore fall
-		pot = this.orePots.create(1850, 850, 'pot');
-		pot.body.gravity.y = 150;	//make the ore fall
-		console.log(pot);
-
-		//spawn the level exit door thing
-		this.exit = game.add.group();
-		this.exit.enableBody = true;
-		var door = this.exit.create(1900, 1050, 'endGame');
-		door.body.immovable = true;
-
-	},
-
-	//performs setup for level 2
-	loadLevel_2:function() {
-		//TEST LEVEL - just level 1 but without walls
-
-		//empty out all the old level elements
-		this.platforms.removeAll(true);
-		this.enemies.removeAll(true);
-		this.orePots.removeAll(true);
-
-		//reset the player's position
-		this.player.body.x = 140;
-		this.player.body.y = (game.world.height - 160);
-
-		//create the ground
-		var ground = this.platforms.create(0, game.world.height - 1, 'platform_med');
-		ground.scale.setTo(7, 1);		//scale the ground to fit the game (sprite is 300x68, & we need to to be 2000x16)
-		ground.body.immovable = true;	//make the ground immovable so it won't fall when player touches it
-
-		//make the platforms for platforming
-		ledge = this.platforms.create(0, 200, 'platform_big');		//platform A
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(600, 34, 0, 17);	//adjust bounding box according to specifications
-		ledge = this.platforms.create(0, 900, 'platform_big');		//platform B
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(600, 34, 0, 17);	//adjust bounding box according to specifications
-		ledge = this.platforms.create(550, 600, 'platform_big');	//platform C
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(600, 34, 0, 17);	//adjust bounding box according to specifications
-		ledge = this.platforms.create(800, 200, 'platform_small');	//platform D
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(150, 34, 0, 17);	//adjust bounding box according to specifications
-		ledge = this.platforms.create(850, 950, 'platform_med');	//platform E
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(300, 34, 0, 17);	//adjust bounding box according to specifications
-		ledge = this.platforms.create(1150, 600, 'wall_big');		//wall F
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(34, 600, 17, 17);	//adjust bounding box according to specifications
-		ledge = this.platforms.create(1150, 350, 'platform_small');	//platform G
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(150, 34, 0, 17);	//adjust bounding box according to specifications
-		ledge = this.platforms.create(1200, 600, 'platform_big');	//platform H
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(600, 34, 0, 17);	//adjust bounding box according to specifications
-		ledge = this.platforms.create(1450, 200, 'platform_big');	//platform I
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(600, 34, 0, 17);	//adjust bounding box according to specifications
-		ledge = this.platforms.create(1850, 800, 'platform_small');	//platform J
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(150, 34, 0, 17);	//adjust bounding box according to specifications
-		ledge = this.platforms.create(1700, 995, 'platform_med');	//platform K
-		ledge.body.immovable = true;		//make wall immovable
-		ledge.body.setSize(300, 34, 0, 17);	//adjust bounding box according to specifications
-
-		//spawn enemy pots
-    	this.enemy = new Enemy(game, 'pot', 150, 800, 0, this.player, this.platforms);
-    	game.add.existing(this.enemy);
-    	this.enemies.add(this.enemy);
-    	this.enemy = new Enemy(game, 'pot', 1250, 1100, 0, this.player, this.platforms);
-    	game.add.existing(this.enemy);
-    	this.enemies.add(this.enemy);
-    	this.enemy = new Enemy(game, 'pot', 1400, 100, 0, this.player, this.platforms);
-    	game.add.existing(this.enemy);
-    	this.enemies.add(this.enemy);
-
-    	//spawn some ore pots
-		var pot = this.orePots.create(100, 50, 'pot');
-		pot.body.gravity.y = 150;	//make the ore fall
-		pot = this.orePots.create(650, 450, 'pot');
-		pot.body.gravity.y = 150;	//make the ore fall
-		pot = this.orePots.create(750, 1050, 'pot');
-		pot.body.gravity.y = 150;	//make the ore fall
-		pot = this.orePots.create(1800, 50, 'pot');
-		pot.body.gravity.y = 150;	//make the ore fall
-		pot = this.orePots.create(1850, 850, 'pot');
-		pot.body.gravity.y = 150;	//make the ore fall
-		console.log(pot);
-
-		//spawn the level exit door thing
-		this.exit = game.add.group();
-		this.exit.enableBody = true;
-		var door = this.exit.create(1900, 1050, 'endGame');
-		door.body.immovable = true;
-
 	}
 };
