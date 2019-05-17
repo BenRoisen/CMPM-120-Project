@@ -1,10 +1,11 @@
 //Define Play state and methods
-var loadLevel_1 = function(game, player, platforms, enemies, orePots, exit) {
+var loadLevel_1 = function(game, player, platforms, enemies, orePots, exit, ores) {
 	//empty out all the old level elements
 	platforms.removeAll(true);
 	enemies.removeAll(true);
 	orePots.removeAll(true);
 	exit.removeAll(true);
+	ores.removeAll(true);
 
 	//reset the player's position
 	player.body.x = 140;
@@ -76,16 +77,20 @@ var loadLevel_1 = function(game, player, platforms, enemies, orePots, exit) {
     enemies.add(enemy);
 
     //spawn some ore pots
-	var pot = orePots.create(100, 50, 'pot');
-	pot.body.gravity.y = 150;	//make the ore fall
-	pot = orePots.create(650, 450, 'pot');
-	pot.body.gravity.y = 150;	//make the ore fall
-	pot = orePots.create(750, 1050, 'pot');
-	pot.body.gravity.y = 150;	//make the ore fall
-	pot = orePots.create(1800, 50, 'pot');
-	pot.body.gravity.y = 150;	//make the ore fall
-	pot = orePots.create(1850, 850, 'pot');
-	pot.body.gravity.y = 150;	//make the ore fall
+	//var pot = orePots.create(100, 50, 'pot');
+	//pot.body.gravity.y = 150;	//make the ore fall
+	var pot = new OrePot(game, 'pot', 100, 50, orePots, ores);
+	game.add.existing(pot);
+	orePots.add(pot);
+
+	// pot = orePots.create(650, 450, 'pot');
+	// pot.body.gravity.y = 150;	//make the ore fall
+	// pot = orePots.create(750, 1050, 'pot');
+	// pot.body.gravity.y = 150;	//make the ore fall
+	// pot = orePots.create(1800, 50, 'pot');
+	// pot.body.gravity.y = 150;	//make the ore fall
+	// pot = orePots.create(1850, 850, 'pot');
+	// pot.body.gravity.y = 150;	//make the ore fall
 	
 	//spawn the level exit door thing
 	var door = exit.create(1900, 1050, 'endGame');

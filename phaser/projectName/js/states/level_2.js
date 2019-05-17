@@ -1,5 +1,5 @@
 //Define Play state and methods
-var loadLevel_2 = function(game, player, platforms, enemies, orePots, exit) {
+var loadLevel_2 = function(game, player, platforms, enemies, orePots, exit, ores) {
 	//TEST LEVEL - just level 1 but without walls
 	
 	//empty out all the old level elements
@@ -7,6 +7,7 @@ var loadLevel_2 = function(game, player, platforms, enemies, orePots, exit) {
 	enemies.removeAll(true);
 	orePots.removeAll(true);
 	exit.removeAll(true);
+	ores.removeAll(true);
 
 	//reset the player's position
 	player.body.x = 140;
