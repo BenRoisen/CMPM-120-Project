@@ -71,7 +71,7 @@ var loadLevel_1 = function(game, player, platforms, enemies, orePots, exit) {
     enemy = new Enemy(game, 'pot', 1250, 1100, 0, player, platforms);
     game.add.existing(enemy);
     enemies.add(enemy);
-    enemy = new Enemy(game, 'pot', 1400, 100, 0, player, platforms);
+    enemy = new Enemy(game, 'pot', 1400, 200, 0, player, platforms);
     game.add.existing(enemy);
     enemies.add(enemy);
 

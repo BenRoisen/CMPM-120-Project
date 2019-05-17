@@ -34,7 +34,7 @@ MainMenu.prototype = {
 		console.log('MainMenu: Create');
 		//Display the instructions
 		game.stage.backgroundColor = "#000000";	//create a black background
-		game.add.text(16, 16, 'Welcome to Sword Game!', {fontSize: '32px', fill: '#fff' });
+		game.add.text(16, 16, 'Welcome to Legendary Ancient Blade of the Hero!', {fontSize: '32px', fill: '#fff' });
 		game.add.text(16, 64, 'Use left/right arrow keys to move, up arrow to jump.', {fontSize: '16px', fill: '#fff' });
 		game.add.text(16, 96, 'Hold the down arrow key while jumping to perform a stomp attack with your hammer.', {fontSize: '16px', fill: '#fff' });
 		game.add.text(16, 112, "This attack is fairly weak - it can smash pots, but won't affect monsters.", {fontSize: '16px', fill: '#fff' });
