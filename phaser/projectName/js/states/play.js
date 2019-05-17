@@ -91,7 +91,7 @@ Play.prototype = {
 		//swing sword when spacebar is pressed
 		if(game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 1)) {
 			if(this.swords.length < 1) {	//only spawn a sword if one isn't currently in action
-				var sword = new Sword(game, 'swordHilt', 'swordBlade', this.player, this.platforms, this.enemies);
+				var sword = new Sword(game, 'swordHilt', 'swordBlade', this.player, this.platforms, this.enemies, this.orePots);
 				this.swords.add(sword);
 			}
 		}
@@ -100,8 +100,11 @@ Play.prototype = {
 		//let player collide with enemies (TODO)
 		game.physics.arcade.overlap(this.player, this.enemies, this.touchEnemy, null, this);
 
-		//let player collide with ore pots
-		game.physics.arcade.overlap(this.player, this.orePots, this.touchOrePot, null, this);
+		//let the hammer collide with ore pots
+      if(game.input.keyboard.isDown(Phaser.Keyboard.DOWN))
+      {
+         game.physics.arcade.overlap(this.hammer, this.orePots, this.touchOrePot, null, this);
+      }	
 		game.physics.arcade.collide(this.orePots, this.platforms);
 
 		//handle ore collisions
@@ -163,7 +166,7 @@ Play.prototype = {
 		this.invincible = false;	//reset invincibility
 	},
 
-	touchOrePot:function(player, pot) {
+	touchOrePot:function(hammer, pot) {
 		//spawn an ore at the pot's location
 		var ore = this.ores.create(pot.body.x, pot.body.y, 'obsidian');
 		ore.scale.setTo(0.5);

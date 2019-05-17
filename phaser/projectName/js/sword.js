@@ -1,4 +1,4 @@
-function Sword (game, key, key2, player, walls, enemies)
+function Sword (game, key, key2, player, walls, enemies, pots)
 {
    // Set the sprite
    Phaser.Sprite.call(this, game, 75, 100, key, 0);
@@ -26,6 +26,7 @@ function Sword (game, key, key2, player, walls, enemies)
    this.player = player;
    this.walls = walls;
    this.enemies = enemies;
+   this.pots = pots;
    this.uangle = -90;
    this.shadow_angle = -90;
 
@@ -87,6 +88,7 @@ Sword.prototype.update = function () {
          // Collision checks
          this.wall_check(this);
          game.physics.arcade.overlap(this.boxes, this.enemies, this.enemy_check, null, this);
+         // Change state at end of swing
          if(this.uangle >= 0) 
          {
             this.state = 2;
@@ -136,6 +138,21 @@ Sword.prototype.enemy_check = function (swordbox, enemy) {
    console.log("hit enemy");
    this.slash.play();
 }
+
+// Sword.prototype.touchOrePot = function (swordbox, pot) {
+//    //spawn an ore at the pot's location
+//    var ore = this.game.ores.create(pot.body.x, pot.body.y, 'obsidian');
+//    ore.scale.setTo(0.5);
+//    ore.body.gravity.y = 150;  //make the ore fall
+   
+//    //give a short delay before the ore can be picked up (so it doesn't instantly disappear)
+//    ore.vulnerable = false;    //start off invulnerable
+//    var spawnTimer = this.game.time.create(true);
+//    spawnTimer.add(500,this.game.enableOre,this, ore);   //after half a second, let the ore be picked up
+//    spawnTimer.start();
+   
+//    pot.kill(); //remove the old pot now that we're done with it
+// }
 
 function Swordbox (game, id, key, player, sword, walls, enemies, shadow)
 {
