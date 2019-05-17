@@ -103,11 +103,11 @@ Player.prototype.update = function() {
    {
       this.loadTexture('playerSwing');
    } else {
-      if(!this.cursors.down.isDown)
+      if(this.cursors.down.isDown && !this.can_jump)
       {
-         this.loadTexture('player');
-      } else {
          this.loadTexture('playerSmash');
+      } else {
+         this.loadTexture('player');
       }
    }
 }
