@@ -109,6 +109,7 @@ Sword.prototype.update = function () {
          // Collision checks
          this.wall_check(this);
          game.physics.arcade.overlap(this.boxes, this.enemies, this.enemy_check, null, this);
+         game.physics.arcade.overlap(this.boxes, this.pots, this.pot_check, null, this);
          break;
       case(3): // destroying
          this.destroy();

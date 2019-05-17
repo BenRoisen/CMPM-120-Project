@@ -55,6 +55,8 @@ Hammer.prototype.enemy_check = function (hammer, enemy) {
    {
       enemy.body.velocity.y += 200;
       this.player.body.velocity.y *= -0.6;
+   } else {
+      this.player.body.velocity.y = -200;
    }
 }
 
@@ -64,5 +66,7 @@ Hammer.prototype.pot_check = function (hammer, pot) {
    if(this.player.body.velocity.y > 0)
    {
       this.player.body.velocity.y *= -0.6;
+   } else {
+      this.player.body.velocity.y = -200;
    }
 }
