@@ -90,6 +90,7 @@ Sword.prototype.update = function () {
          // Collision checks
          this.wall_check(this);
          game.physics.arcade.overlap(this.boxes, this.enemies, this.enemy_check, null, this);
+         game.physics.arcade.overlap(this.boxes, this.pots, this.pot_check, null, this);
          // Change state at end of swing
          if(this.uangle >= 0) 
          {
@@ -141,7 +142,7 @@ Sword.prototype.enemy_check = function (swordbox, enemy) {
    this.slash.play();
 }
 
-Sword.prototype.touchOrePot = function (swordbox, pot) {
+Sword.prototype.pot_check = function (swordbox, pot) {
    pot.gotHit = true;
 }
 
