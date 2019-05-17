@@ -47,10 +47,11 @@ Hammer.prototype.update = function () {
 }
 
 Hammer.prototype.enemy_check = function (hamnmer, enemy) {
-   enemy.got_hit = true;
+   enemy.pot_hit = true;
    console.log("hammered enemy");
    if(this.player.body.velocity.y > 0)
    {
+      enemy.body.velocity.y += this.player.body.velocity.y;
       this.player.body.velocity.y *= -0.6;
    }
 }

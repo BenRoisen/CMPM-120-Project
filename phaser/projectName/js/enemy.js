@@ -22,12 +22,16 @@ function Enemy (game, key, x, y, behavior, player, walls)
    this.ani_timer = 7;
    this.ground_check = false;
    this.got_hit = false;
+   this.pot_hit = false;
+   this.pot_broken = false;
 
    //Sprite animations
    //this.animations.add('resting', Phaser.Animation.generateFrameNames(key, frame, frame, '', 4), 0, true);
    this.animations.add('roll', ['PotRoll'], 0, false);
    this.animations.add('break', Phaser.Animation.generateFrameNames('PotBreak', 1, 7, '', 1), 15, false);
    this.animations.add('jump', Phaser.Animation.generateFrameNames('PotJump', 1, 6, '', 1), 60, false);
+   this.animations.add('monsterJump', Phaser.Animation.generateFrameNames('MonsterJump', 1, 6, '', 1), 60, false);
+   this.animations.add('reveal', ['MonsterJump1'], 0, false);
    this.scale.setTo(0.33, 0.33);
 }
 
@@ -75,7 +79,14 @@ Enemy.prototype.update = function () {
          this.body.velocity.x = 0;
          if(this.timer <= 0)
          {
-            this.animations.play('jump');
+            if(this.pot_broken)
+            {
+               this.animations.play('monsterJump');
+            } else {
+               this.animations.play('jump');
+            }
+            this.body.velocity.y = this.jump_v;
+            this.ani_timer = 7;
             this.state++;
          } else {
             this.timer--;
@@ -84,8 +95,6 @@ Enemy.prototype.update = function () {
       case(3): // Jump animation
          if(this.ani_timer <= 0)
          {
-            this.body.velocity.y = this.jump_v;
-            this.ani_timer = 0;
             this.state++;
          } else {
             this.ani_timer--;
@@ -126,9 +135,34 @@ Enemy.prototype.update = function () {
    {
       if(this.state != 0)
       {
-         this.kill();
+         if(this.pot_broken)
+         {
+            this.kill();
+         } else {
+            this.pot_break();
+         }
       } else {
          this.got_hit = false;
       }
+   }
+
+   // Pot break check
+   if(this.pot_hit && !this.pot_broken)
+   {
+      if(this.state != 0)
+      {
+         this.pot_break();
+      } else {
+         this.pot_hit = false;
+      }
+   }
+}
+
+Enemy.prototype.pot_break = function () {
+   this.pot_broken = true;
+   this.animations.play('reveal');
+   if(this.state == 3)
+   {
+      this.state--;
    }
 }
