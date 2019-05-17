@@ -32,8 +32,9 @@ function Ore(game, key, x, y) {
 	game.physics.arcade.enable(this);
 	this.body.gravity.y = 150;
 	this.vulnerable = false;
+	this.scale.setTo(0.5);
 	var spawnTimer = game.time.create(true);
-	spawnTimer.add(500,this.enableOre,this, ore);	//after half a second, let the ore be picked up
+	spawnTimer.add(500,this.enableOre,this, this);	//after half a second, let the ore be picked up
 	spawnTimer.start();
 }
 Ore.prototype = Object.create(Phaser.Sprite.prototype);
