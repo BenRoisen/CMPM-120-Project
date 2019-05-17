@@ -24,7 +24,7 @@ Play.prototype = {
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 
 		//create the background
-		//this.background = TODO LATER
+		this.background = this.add.sprite(0, 0, 'background');
 		game.stage.backgroundColor = "#888888";	//create a blue background
 
 		//set the world size

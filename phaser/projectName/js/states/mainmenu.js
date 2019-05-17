@@ -19,6 +19,7 @@ MainMenu.prototype = {
 		game.load.image('wall_big', '../assets/BigPlatformVertical(68x600)(bb34x600).png');
 		game.load.image('obsidian', '../assets/Obsidian(128x144).png');
 		game.load.image('endGame', '../assets/endGame100w150h.png');
+      game.load.image('background', '../assets/CaveBackground.png' ); // background sprite
 
       //load atlas'
 		game.load.atlas('monsterAtlas', '../assets/MonsterAtlas.png', '../assets/MonsterAtlas.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
