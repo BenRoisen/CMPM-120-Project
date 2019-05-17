@@ -6,7 +6,9 @@ MainMenu.prototype = {
 		// preload assets
 
 		//load images.
-		game.load.image('player', '../assets/PlayerAsset100w150h.png');	//player sprite
+		game.load.image('player', '../assets/PlayerStandingKey.png');	//player sprite
+      game.load.image('playerSmash', '../assets/PlayerSmashingKey.png');
+      game.load.image('playerSwing', '../assets/PlayerSwingingKey.png');
 		game.load.image('sword', '../assets/SwordArmAsset75w100h.png');	//sword sprite
       game.load.image('pot', '../assets/Pot1(66 x 100).png');           //pot sprite
     	game.load.image('platform_small', '../assets/SmallPlatform(150x68)(bb150x34).png');

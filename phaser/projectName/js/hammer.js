@@ -33,10 +33,10 @@ Hammer.prototype.update = function () {
    // Set the box size
    this.body.setSize(boxsize_x, boxsize_y, spritesize_x/2-boxsize_x/2, spritesize_y/2-boxsize_y/2+offset_y);
 
-   // Set collision if the hammer isn't touching a wall
-   if(this.cursors.down.isDown)
+   // Activate hammer hitbox
+   if(this.cursors.down.isDown && !this.player.swordOut)
    {
-      if(!this.player.can_jump)
+      if(!this.player.can_jump) // track if the player is on the ground
       {
          game.physics.arcade.overlap(this, this.enemies, this.enemy_check, null, this);
       }
