@@ -33,17 +33,17 @@ Hammer.prototype.update = function () {
    // Set the box size
    this.body.setSize(boxsize_x, boxsize_y, spritesize_x/2-boxsize_x/2, spritesize_y/2-boxsize_y/2+offset_y);
 
-   // Set collision if the hammer isn't touching a wall
-   if(this.cursors.down.isDown)
+   // Activate hammer hitbox
+   if(this.cursors.down.isDown && !this.player.swordOut)
    {
-      if(!this.player.can_jump)
+      if(!this.player.can_jump) // track if the player is on the ground
       {
          game.physics.arcade.overlap(this, this.enemies, this.enemy_check, null, this);
       }
    }
    
 
-   game.debug.body(this);
+   // game.debug.body(this);
 }
 
 Hammer.prototype.enemy_check = function (hamnmer, enemy) {
@@ -51,7 +51,7 @@ Hammer.prototype.enemy_check = function (hamnmer, enemy) {
    console.log("hammered enemy");
    if(this.player.body.velocity.y > 0)
    {
-      enemy.body.velocity.y += this.player.body.velocity.y;
+      enemy.body.velocity.y += 200;
       this.player.body.velocity.y *= -0.6;
    }
 }

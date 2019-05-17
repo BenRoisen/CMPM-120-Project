@@ -6,7 +6,9 @@ MainMenu.prototype = {
 		// preload assets
 
 		//load images.
-		game.load.image('player', '../assets/PlayerAsset100w150h.png');	//player sprite
+		game.load.image('player', '../assets/PlayerStandingKey.png');	//player sprite
+      game.load.image('playerSmash', '../assets/PlayerSmashingKey.png');
+      game.load.image('playerSwing', '../assets/PlayerSwingingKey.png');
 		game.load.image('sword', '../assets/SwordArmAsset75w100h.png');	//sword sprite
       game.load.image('pot', '../assets/Pot1(66 x 100).png');           //pot sprite
     	game.load.image('platform_small', '../assets/SmallPlatform(150x68)(bb150x34).png');
@@ -24,6 +26,8 @@ MainMenu.prototype = {
 		game.load.image('swordHilt', '../assets/SwordHilt(114x60).png');	//UI hilt element
 		game.load.image('swordBlade', '../assets/SwordBlade(91x60).png');	//UI blade element
       game.load.audio('slash', ['../assets/sword.mp3']);
+      game.load.audio('shatter', ['../assets/SwordShatter01.mp3']);
+      game.load.audio('potBreak', ['../assets/PotBreak01.mp3']);
 	},
 	create: function() {
 		console.log('MainMenu: Create');

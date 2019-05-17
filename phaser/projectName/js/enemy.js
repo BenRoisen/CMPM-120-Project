@@ -13,6 +13,8 @@ function Enemy (game, key, x, y, behavior, player, walls)
    this.behavior = behavior;
    this.player = player;
    this.walls = walls;
+   this.breakSound = new Phaser.Sound(game,'potBreak',1,false);
+
    this.roll_time = 0;
    this.state = 0;
    this.max_xv = 150;
@@ -41,7 +43,7 @@ Enemy.prototype.constructor = Enemy;
 Enemy.prototype.update = function () {
    // I touch walls now
    game.physics.arcade.collide(this, this.walls);
-   game.debug.body(this);
+   // game.debug.body(this);
 
    switch(this.state)
    {
@@ -161,8 +163,10 @@ Enemy.prototype.update = function () {
 Enemy.prototype.pot_break = function () {
    this.pot_broken = true;
    this.animations.play('reveal');
-   if(this.state == 3)
+   this.breakSound.play();
+   if(this.state == 3 || this.state == 1)
    {
-      this.state--;
+      this.state = 2;
+      this.angle = 0;
    }
 }

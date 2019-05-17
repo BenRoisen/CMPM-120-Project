@@ -22,6 +22,7 @@ function Player(game, key, frame, scale, platforms) {
 	this.facingRight = true;	//true if player faces right; false if player faces left
 	this.can_jump = true;
 	this.ground_check = false;
+   this.swordOut = false;
 
 	this.platforms = platforms;
 	console.log(this.platforms);
@@ -84,7 +85,7 @@ Player.prototype.update = function() {
          // Repair the sword
       } else {
          // Grant instant movement downwards
-         if(game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 1))
+         if(game.input.keyboard.downDuration(Phaser.Keyboard.DOWN, 1))
          {
             this.body.velocity.y += 200;
          }
@@ -96,4 +97,17 @@ Player.prototype.update = function() {
 	else {	//player pressed no keys
 		this.body.gravity.y = 800;
 	}
+
+   // Extra piece of code for animation only
+   if(this.swordOut)
+   {
+      this.loadTexture('playerSwing');
+   } else {
+      if(this.cursors.down.isDown && !this.can_jump)
+      {
+         this.loadTexture('playerSmash');
+      } else {
+         this.loadTexture('player');
+      }
+   }
 }

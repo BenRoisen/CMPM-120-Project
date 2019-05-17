@@ -96,6 +96,14 @@ Play.prototype = {
 			}
 		}
 
+      // Boolean to track if the player has a sword or not
+      if(this.swords.length < 1)
+      {
+         this.player.swordOut = false;
+      } else {
+         this.player.swordOut = true;
+      }
+
 
 		//let player collide with enemies (TODO)
 		game.physics.arcade.overlap(this.player, this.enemies, this.touchEnemy, null, this);

@@ -23,6 +23,7 @@ function Sword (game, key, key2, player, walls, enemies, pots)
    this.state = 0;
    this.hit_wall = false;
    this.slash = new Phaser.Sound(game,'slash',1,false);
+   this.shatter = new Phaser.Sound(game,'shatter',1,false);
    this.player = player;
    this.walls = walls;
    this.enemies = enemies;
@@ -129,7 +130,7 @@ Sword.prototype.wall_check = function (sword) {
       sword.state = 4;
       sword.end_lag = 5;
       sword.player.swordLength -= 1;
-      this.slash.play();
+      this.shatter.play();
    }
 }
 
