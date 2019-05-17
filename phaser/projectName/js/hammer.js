@@ -1,4 +1,4 @@
-function Hammer (game, key, player, walls, enemies)
+function Hammer (game, key, player, walls, enemies, pots)
 {
    // Set the sprite
    Phaser.Sprite.call(this, game, player.x, player.y, key, 0);
@@ -11,6 +11,7 @@ function Hammer (game, key, player, walls, enemies)
    this.key = key;
    this.player = player;
    this.enemies = enemies;
+   this.pots = pots;
    
    // Allow for button pressing
    this.cursors = game.input.keyboard.createCursorKeys();
@@ -39,6 +40,7 @@ Hammer.prototype.update = function () {
       if(!this.player.can_jump) // track if the player is on the ground
       {
          game.physics.arcade.overlap(this, this.enemies, this.enemy_check, null, this);
+         game.physics.arcade.overlap(this, this.pots, this.pot_check, null, this);
       }
    }
    
@@ -46,12 +48,21 @@ Hammer.prototype.update = function () {
    // game.debug.body(this);
 }
 
-Hammer.prototype.enemy_check = function (hamnmer, enemy) {
+Hammer.prototype.enemy_check = function (hammer, enemy) {
    enemy.pot_hit = true;
    console.log("hammered enemy");
    if(this.player.body.velocity.y > 0)
    {
       enemy.body.velocity.y += 200;
+      this.player.body.velocity.y *= -0.6;
+   }
+}
+
+Hammer.prototype.pot_check = function (hammer, pot) {
+   pot.gotHit = true;
+   console.log("hammered pot");
+   if(this.player.body.velocity.y > 0)
+   {
       this.player.body.velocity.y *= -0.6;
    }
 }

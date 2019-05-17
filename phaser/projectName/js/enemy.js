@@ -57,7 +57,7 @@ Enemy.prototype.update = function () {
          }
          break;
       case(1): // they see me rollin'
-         if(Phaser.Math.distance(this.x, this.y, this.player.x, this.player.y) >= 400 || this.roll_time >= 240)
+         if(Phaser.Math.distance(this.x, this.y, this.player.x, this.player.y) >= 400 || this.roll_time >= 120)
          {
             this.state++;
             this.angle = 0;
@@ -158,6 +158,8 @@ Enemy.prototype.update = function () {
          this.pot_hit = false;
       }
    }
+
+   game.debug.body(this);
 }
 
 Enemy.prototype.pot_break = function () {

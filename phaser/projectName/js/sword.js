@@ -8,28 +8,36 @@ function Sword (game, key, key2, player, walls, enemies, pots)
    this.anchor.x = 0;
    this.anchor.y = 0.5;
 
-   this.y = player.y - 4;
-   if(player.facingRight)
-   {
-      this.x = player.x - 21;
-   } else {
-      this.x = player.x + 21;
-   }
-
    this.alpha = 1;
-   this.angle = -90;
+   this.angle = -60;
+   this.uangle = -60;
+   this.shadow_angle = -60;
    this.delay = 15;
    this.end_lag = 15;
    this.state = 0;
+   this.scale.setTo(0.75);
    this.hit_wall = false;
+
    this.slash = new Phaser.Sound(game,'slash',1,false);
    this.shatter = new Phaser.Sound(game,'shatter',1,false);
+
    this.player = player;
    this.walls = walls;
    this.enemies = enemies;
    this.pots = pots;
-   this.uangle = -90;
-   this.shadow_angle = -90;
+   
+   this.y = player.y - 4;
+   if(player.facingRight)
+   {
+      this.x = player.x - 21;
+      this.angle = this.uangle;
+      this.shadow_angle = this.angle - 5;
+
+   } else {
+      this.x = player.x + 21;
+      this.angle = (this.uangle -180) * -1;
+      this.shadow_angle = this.angle + 5;
+   }
 
    this.boxes = game.add.group();
    // Create sword parts
@@ -59,9 +67,11 @@ Sword.prototype.update = function () {
    {
       this.x = this.player.x - 21;
       this.angle = this.uangle;
+      this.shadow_angle = this.angle - 5;
    } else {
       this.x = this.player.x + 21;
       this.angle = (this.uangle -180) * -1;
+      this.shadow_angle = this.angle + 5;
    }
 
    switch(this.state)
@@ -76,16 +86,7 @@ Sword.prototype.update = function () {
       case(1): // swinging
          // animation
          this.uangle += 9;
-         // Set angle difference of shadow
-         if(this.uangle >= -81)
-         {
-            if(this.player.facingRight)
-            {
-               this.shadow_angle = this.angle - 5;
-            } else {
-               this.shadow_angle = this.angle + 5;
-            }
-         }
+
          // Collision checks
          this.wall_check(this);
          game.physics.arcade.overlap(this.boxes, this.enemies, this.enemy_check, null, this);
@@ -140,20 +141,9 @@ Sword.prototype.enemy_check = function (swordbox, enemy) {
    this.slash.play();
 }
 
-// Sword.prototype.touchOrePot = function (swordbox, pot) {
-//    //spawn an ore at the pot's location
-//    var ore = this.game.ores.create(pot.body.x, pot.body.y, 'obsidian');
-//    ore.scale.setTo(0.5);
-//    ore.body.gravity.y = 150;  //make the ore fall
-   
-//    //give a short delay before the ore can be picked up (so it doesn't instantly disappear)
-//    ore.vulnerable = false;    //start off invulnerable
-//    var spawnTimer = this.game.time.create(true);
-//    spawnTimer.add(500,this.game.enableOre,this, ore);   //after half a second, let the ore be picked up
-//    spawnTimer.start();
-   
-//    pot.kill(); //remove the old pot now that we're done with it
-// }
+Sword.prototype.touchOrePot = function (swordbox, pot) {
+   pot.gotHit = true;
+}
 
 function Swordbox (game, id, key, player, sword, walls, enemies, shadow)
 {
@@ -175,8 +165,9 @@ function Swordbox (game, id, key, player, sword, walls, enemies, shadow)
    this.enemies = enemies;
    this.player = player;
    this.id = id;
-   this.offset = (49*id+101);
+   this.offset = (49*id+101)*0.75;
    this.shadow = shadow;
+   this.scale.setTo(0.75);
 }
 
 Swordbox.prototype = Object.create(Phaser.Sprite.prototype);
@@ -197,9 +188,9 @@ Swordbox.prototype.update = function () {
 
    if(this.player.facingRight)
    {
-      this.body.setSize(60-15*radc, 60+30*rads, -15*radc, -30*rads);
+      this.body.setSize(45-10*radc, 45+20*rads, -10*radc, -20*rads);
    } else {
-      this.body.setSize(60+15*radc, 60+30*rads, -15*radc, -30*rads);
+      this.body.setSize(45+10*radc, 45+20*rads, -10*radc, -20*rads);
    }
 
    if(this.id > this.player.swordLength)
@@ -212,4 +203,5 @@ Swordbox.prototype.update = function () {
    {
       this.destroy();
    }
+
 }

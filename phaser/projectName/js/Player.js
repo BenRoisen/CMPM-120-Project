@@ -69,6 +69,7 @@ Player.prototype.update = function() {
 		}
 	} else {
 		this.ground_check = false;
+      this.can_jump = false;
 	}
 
 	//handle player vertical movement
