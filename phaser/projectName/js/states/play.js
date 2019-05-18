@@ -146,15 +146,16 @@ Play.prototype = {
 
    touchEnemy:function(player, enemy) {
     	//deal damage to player if we're not in "invincibility frames"
-    	if(!this.invincible && enemy.state != 5 && !game.physics.arcade.overlap(this.hammer, enemy)) {
-            console.log(enemy.state);
-      		this.health -= 1;		//lose health
-      		if(this.health <= 0) {	//if dead, go to Game Over
-      			game.state.start('GameOver', true, false, this.score, false);
-      		}
-      		this.scoreText.text = 'Score: ' + this.score + " Health: " + this.health;	//update the scoreboard
-      		this.invincible = true;	//temporarily become invincible (to avoid having your health instantly disappear)
-      		game.time.events.add(1000, this.toggleInvincible, this);	//become mortal again after 1 second
+    	if(!this.invincible && enemy.state != 5 && 
+               !(game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && player.y + 50 <= enemy.y && !player.can_jump)) {
+         console.log(enemy.state);
+      	this.health -= 1;		//lose health
+      	if(this.health <= 0) {	//if dead, go to Game Over
+      		game.state.start('GameOver', true, false, this.score, false);
+      	}
+      	this.scoreText.text = 'Score: ' + this.score + " Health: " + this.health;	//update the scoreboard
+      	this.invincible = true;	//temporarily become invincible (to avoid having your health instantly disappear)
+      	game.time.events.add(1000, this.toggleInvincible, this);	//become mortal again after 1 second
   		}
    },
 

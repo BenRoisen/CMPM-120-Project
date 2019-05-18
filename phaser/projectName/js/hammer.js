@@ -22,11 +22,11 @@ Hammer.prototype.constructor = Hammer;
 
 Hammer.prototype.update = function () {
    // Set position to the player's shoulder
-   boxsize_x = 80;
-   boxsize_y = 40;
+   boxsize_x = 100;
+   boxsize_y = 75;
    spritesize_x = 114;
    spritesize_y = 60;
-   offset_y = 80;
+   offset_y = 75/2;
 
    this.y = this.player.y;
    this.x = this.player.x;

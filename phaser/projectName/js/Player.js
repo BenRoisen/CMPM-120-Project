@@ -107,10 +107,8 @@ Player.prototype.update = function() {
       if(this.cursors.down.isDown && !this.can_jump)
       {
          this.loadTexture('playerSmash');
-         this.body.setSize(100, 75, 0, -75/2);
       } else {
          this.loadTexture('player');
-         this.body.setSize(100, 150, 0, 0);
       }
    }
 }
