@@ -146,8 +146,8 @@ Play.prototype = {
 
    touchEnemy:function(player, enemy) {
     	//deal damage to player if we're not in "invincibility frames"
-    	if(!this.invincible && !game.physics.arcade.overlap(this.hammer, enemy)) {
-            console.log("ouch");
+    	if(!this.invincible && enemy.state != 5 && !game.physics.arcade.overlap(this.hammer, enemy)) {
+            console.log(enemy.state);
       		this.health -= 1;		//lose health
       		if(this.health <= 0) {	//if dead, go to Game Over
       			game.state.start('GameOver', true, false, this.score, false);

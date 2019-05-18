@@ -23,10 +23,10 @@ Hammer.prototype.constructor = Hammer;
 Hammer.prototype.update = function () {
    // Set position to the player's shoulder
    boxsize_x = 80;
-   boxsize_y = 60;
+   boxsize_y = 40;
    spritesize_x = 114;
    spritesize_y = 60;
-   offset_y = 85;
+   offset_y = 80;
 
    this.y = this.player.y;
    this.x = this.player.x;
@@ -45,7 +45,7 @@ Hammer.prototype.update = function () {
    }
    
 
-   // game.debug.body(this);
+   game.debug.body(this);
 }
 
 Hammer.prototype.enemy_check = function (hammer, enemy) {
@@ -55,8 +55,6 @@ Hammer.prototype.enemy_check = function (hammer, enemy) {
    {
       enemy.body.velocity.y += 200;
       this.player.body.velocity.y *= -0.6;
-   } else {
-      this.player.body.velocity.y = -200;
    }
 }
 
@@ -66,7 +64,5 @@ Hammer.prototype.pot_check = function (hammer, pot) {
    if(this.player.body.velocity.y > 0)
    {
       this.player.body.velocity.y *= -0.6;
-   } else {
-      this.player.body.velocity.y = -200;
    }
 }

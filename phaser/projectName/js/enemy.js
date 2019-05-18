@@ -22,6 +22,7 @@ function Enemy (game, key, x, y, behavior, player, walls)
    this.jump_v = -350;
    this.timer = 120;
    this.ani_timer = 7;
+   this.stun_timer = 120;
    this.ground_check = false;
    this.got_hit = false;
    this.pot_hit = false;
@@ -130,6 +131,16 @@ Enemy.prototype.update = function () {
             this.ground_check = false;
          }
          break;
+      case(5): // Stun state
+         if(this.stun_timer > 0)
+         {
+            this.stun_timer--;
+         } else {
+            this.state = 2;
+            this.angle = 0;
+            this.stun_timer = 120;
+         }
+         break;
    }
 
    // Hit check
@@ -149,11 +160,12 @@ Enemy.prototype.update = function () {
    }
 
    // Pot break check
-   if(this.pot_hit && !this.pot_broken)
+   if(this.pot_hit)
    {
       if(this.state != 0)
       {
          this.pot_break();
+         this.pot_hit = false;
       } else {
          this.pot_hit = false;
       }
@@ -166,9 +178,12 @@ Enemy.prototype.pot_break = function () {
    this.pot_broken = true;
    this.animations.play('reveal');
    this.breakSound.play();
-   if(this.state == 3 || this.state == 1)
-   {
-      this.state = 2;
-      this.angle = 0;
-   }
+
+   this.stun_self();
+}
+
+Enemy.prototype.stun_self = function () {
+   this.state = 5;
+   this.angle = 180;
+   this.body.velocity.x = 0;
 }
