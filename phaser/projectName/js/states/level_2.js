@@ -65,16 +65,21 @@ var loadLevel_2 = function(game, player, platforms, enemies, orePots, exit, ores
     enemies.add(enemy);
 
     //spawn some ore pots
-	var pot = orePots.create(100, 50, 'pot');
-	pot.body.gravity.y = 150;	//make the ore fall
-	pot = orePots.create(650, 450, 'pot');
-	pot.body.gravity.y = 150;	//make the ore fall
-	pot = orePots.create(750, 1050, 'pot');
-	pot.body.gravity.y = 150;	//make the ore fall
-	pot = orePots.create(1800, 50, 'pot');
-	pot.body.gravity.y = 150;	//make the ore fall
-	pot = orePots.create(1850, 850, 'pot');
-	pot.body.gravity.y = 150;	//make the ore fall
+	var pot = new OrePot(game, 'pot', 100, 50, orePots, ores);
+	game.add.existing(pot);
+	orePots.add(pot);
+	pot = new OrePot(game, 'pot', 650, 450, orePots, ores);
+	game.add.existing(pot);
+	orePots.add(pot);
+	pot = new OrePot(game, 'pot', 750, 1050, orePots, ores);
+	game.add.existing(pot);
+	orePots.add(pot);
+	pot = new OrePot(game, 'pot', 1800, 50, orePots, ores);
+	game.add.existing(pot);
+	orePots.add(pot);
+	pot = new OrePot(game, 'pot', 1850, 850, orePots, ores);
+	game.add.existing(pot);
+	orePots.add(pot);
 	
 	//spawn the level exit door thing
 	var door = exit.create(1900, 1050, 'endGame');

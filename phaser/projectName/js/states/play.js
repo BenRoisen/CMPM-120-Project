@@ -201,12 +201,12 @@ Play.prototype = {
 					//update levelTracker and load level 2
 					console.log('loading level 2...');
 					this.levelTracker = 2;
-					loadLevel_2(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit);//this.loadLevel_2();
+					loadLevel_2(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores);//this.loadLevel_2();
 					break;
 				case(2): 	//finished level 2 - load level 3
 					console.log('loading level 3...');
 					this.levelTracker = 3;
-					loadLevel_3(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit);//this.loadLevel_2();
+					loadLevel_3(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores);//this.loadLevel_2();
 					break;
 				default: 	//default case - we've finished all levels and now want to go to game over
 					game.state.start('GameOver', true, false, this.score, true);
