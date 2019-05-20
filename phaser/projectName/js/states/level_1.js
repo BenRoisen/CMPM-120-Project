@@ -1,11 +1,12 @@
 //Define Play state and methods
-var loadLevel_1 = function(game, player, platforms, enemies, orePots, exit, ores) {
+var loadLevel_1 = function(game, player, platforms, enemies, orePots, exit, ores, specialEntities) {
 	//empty out all the old level elements
 	platforms.removeAll(true);
 	enemies.removeAll(true);
 	orePots.removeAll(true);
 	exit.removeAll(true);
 	ores.removeAll(true);
+	specialEntities.removeAll(true);
 
 	//reset the player's position
 	player.body.x = 140;
