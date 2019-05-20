@@ -91,7 +91,7 @@ Play.prototype = {
 		//swing sword when spacebar is pressed
 		if(game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 1)) {
 			if(this.swords.length < 1) {	//only spawn a sword if one isn't currently in action
-				var sword = new Sword(game, 'swordHilt', 'swordBlade', this.player, this.platforms, this.enemies, this.orePots);
+				var sword = new Sword(game, 'swordArm', 'swordBlade', this.player, this.platforms, this.enemies, this.orePots);
 				this.swords.add(sword);
 			}
 		}

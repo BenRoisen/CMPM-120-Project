@@ -26,7 +26,7 @@ Hammer.prototype.update = function () {
    boxsize_y = 75;
    spritesize_x = 114;
    spritesize_y = 60;
-   offset_y = 75/2;
+   offset_y = 40;
 
    this.y = this.player.y;
    this.x = this.player.x;
@@ -44,8 +44,6 @@ Hammer.prototype.update = function () {
       }
    }
    
-
-   game.debug.body(this);
 }
 
 Hammer.prototype.enemy_check = function (hammer, enemy) {

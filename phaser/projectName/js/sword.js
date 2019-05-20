@@ -1,21 +1,20 @@
 function Sword (game, key, key2, player, walls, enemies, pots)
 {
    // Set the sprite
-   Phaser.Sprite.call(this, game, 75, 100, key, 0);
+   Phaser.Sprite.call(this, game, player.x, player.y, key, 0);
 
    //Physics properties
    game.physics.enable(this);
-   this.anchor.x = 0;
-   this.anchor.y = 0.5;
+   this.anchor.x = 8/60;
+   this.anchor.y = 8/51;
 
    this.alpha = 1;
-   this.angle = -60;
-   this.uangle = -60;
-   this.shadow_angle = -60;
+   this.angle = -90;
+   this.uangle = -90;
+   this.shadow_angle = -90;
    this.delay = 15;
    this.end_lag = 15;
    this.state = 0;
-   this.scale.setTo(0.75);
    this.hit_wall = false;
 
    this.slash = new Phaser.Sound(game,'slash',1,false);
@@ -32,11 +31,13 @@ function Sword (game, key, key2, player, walls, enemies, pots)
       this.x = player.x - 21;
       this.angle = this.uangle;
       this.shadow_angle = this.angle - 5;
+      this.scale.set(1);
 
    } else {
       this.x = player.x + 21;
       this.angle = (this.uangle -180) * -1;
       this.shadow_angle = this.angle + 5;
+      this.scale.set(-1);
    }
 
    this.boxes = game.add.group();
@@ -62,17 +63,21 @@ Sword.prototype.constructor = Sword;
 
 Sword.prototype.update = function () {
    // Set position to the player's shoulder
-   this.y = this.player.y - 4;
+   this.y = this.player.y - 1;
    if(this.player.facingRight)
    {
-      this.x = this.player.x - 21;
+      this.x = this.player.x - 19;
       this.angle = this.uangle;
       this.shadow_angle = this.angle - 5;
+      this.scale.set(1, 1);
    } else {
-      this.x = this.player.x + 21;
+      this.x = this.player.x + 19;
       this.angle = (this.uangle -180) * -1;
       this.shadow_angle = this.angle + 5;
+      this.scale.set(1, -1);
    }
+   this.body.velocity.x = this.player.body.velocity.x;
+   this.body.velocity.y = this.player.body.velocity.y;
 
    switch(this.state)
    {
@@ -85,7 +90,7 @@ Sword.prototype.update = function () {
          break;
       case(1): // swinging
          // animation
-         this.uangle += 9;
+         this.uangle += 1;
 
          // Collision checks
          this.wall_check(this);
@@ -153,7 +158,7 @@ function Swordbox (game, id, key, player, sword, walls, enemies, shadow)
    game.physics.enable(this);
    console.log("making blade");
    this.anchor.y = 0.5;
-   this.anchor.x = 0.35;
+   this.anchor.x = 0.5;
 
    if(shadow)
    {
@@ -167,9 +172,9 @@ function Swordbox (game, id, key, player, sword, walls, enemies, shadow)
    this.enemies = enemies;
    this.player = player;
    this.id = id;
-   this.offset = (49*id+101)*0.75;
+   this.offset = (59*id+128)*0.5;
    this.shadow = shadow;
-   this.scale.setTo(0.75);
+   this.scale.setTo(0.5);
 }
 
 Swordbox.prototype = Object.create(Phaser.Sprite.prototype);
@@ -185,14 +190,17 @@ Swordbox.prototype.update = function () {
 
    rads = Math.sin((this.angle-180)*Math.PI/180);
    radc = Math.cos((this.angle-180)*Math.PI/180);
-   this.x = this.sword.x - this.offset*radc;
-   this.y = this.sword.y - this.offset*rads;
+   
 
    if(this.player.facingRight)
    {
-      this.body.setSize(45-10*radc, 45+20*rads, -10*radc, -20*rads);
+      this.x = this.sword.x - this.offset*radc + 30*rads;
+      this.y = this.sword.y - this.offset*rads - 30*radc;
+      this.body.setSize(45-20*radc, 45+20*rads, -10*radc, -10*rads);
    } else {
-      this.body.setSize(45+10*radc, 45+20*rads, -10*radc, -20*rads);
+      this.x = this.sword.x - this.offset*radc - 30*rads;
+      this.y = this.sword.y - this.offset*rads + 30*radc;
+      this.body.setSize(45+20*radc, 45+20*rads, -10*radc, -10*rads);
    }
 
    if(this.id > this.player.swordLength)
@@ -206,4 +214,5 @@ Swordbox.prototype.update = function () {
       this.destroy();
    }
 
+   game.debug.body(this);
 }

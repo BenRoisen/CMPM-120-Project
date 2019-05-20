@@ -9,7 +9,7 @@ MainMenu.prototype = {
 		game.load.image('player', '../assets/PlayerStandingKey.png');	//player sprite
       game.load.image('playerSmash', '../assets/PlayerSmashingKey.png');
       game.load.image('playerSwing', '../assets/PlayerSwingingKey.png');
-		game.load.image('sword', '../assets/SwordArmAsset75w100h.png');	//sword sprite
+		game.load.image('swordArm', '../assets/SwordWArm(60x51).png');	//sword sprite
       game.load.image('pot', '../assets/Pot1(66 x 100).png');           //pot sprite
     	game.load.image('platform_small', '../assets/SmallPlatform(150x68)(bb150x34).png');
 		game.load.image('platform_med', '../assets/Platform(300x68)(bb300x34).png');
@@ -25,7 +25,7 @@ MainMenu.prototype = {
 		game.load.atlas('monsterAtlas', '../assets/MonsterAtlas.png', '../assets/MonsterAtlas.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 		
 		game.load.image('swordHilt', '../assets/SwordHilt(114x60).png');	//UI hilt element
-		game.load.image('swordBlade', '../assets/SwordBlade(91x60).png');	//UI blade element
+		game.load.image('swordBlade', '../assets/SwordBlade2(91x60).png');	//UI blade element
       game.load.audio('slash', ['../assets/sword.mp3']);
       game.load.audio('shatter', ['../assets/SwordShatter01.mp3']);
       game.load.audio('potBreak', ['../assets/PotBreak01.mp3']);
