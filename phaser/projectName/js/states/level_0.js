@@ -1,11 +1,12 @@
 //tutorial level
-var loadLevel_0 = function(game, player, platforms, enemies, orePots, exit, ores) {
+var loadLevel_0 = function(game, player, platforms, enemies, orePots, exit, ores, specialEntities) {
 	//empty out all the old level elements
 	platforms.removeAll(true);
 	enemies.removeAll(true);
 	orePots.removeAll(true);
 	exit.removeAll(true);
 	ores.removeAll(true);
+	specialEntities.removeAll(true);
 
 	//reset the player's position
 	player.body.x = 140;
@@ -133,4 +134,40 @@ var loadLevel_0 = function(game, player, platforms, enemies, orePots, exit, ores
 	//spawn the level exit door thing
 	var door = exit.create(1900, 1050, 'endGame');
 	door.body.immovable = true;
+
+	//create special entities
+
+	//special trigger to spawn a wall at the end of the sword section, in order to contain any excess enemies
+	var enemyContainer = specialEntities.create(1700, 200, 'platform_med');
+	enemyContainer.body.immovable = true;			//make enemyContainer immovable
+	enemyContainer.body.setSize(300, 34, 0, 17);	//adjust bounding box according to specifications
+	enemyContainer.alpha = 0;						//make enemyContainer invisible
+	enemyContainer.specialFunction = containEnemies;	//have it's special function be containing enemies
+	enemyContainer.platforms = platforms;	//enemyContainer will need access to platforms in order to spawn the wall
+
+	//spawn blacksmiths
+	var blacksmith_1 = specialEntities.create(500,1050, 'player');	//blacksmith @ start of level
+	blacksmith_1.body.immovable = true;
+	blacksmith_1.specialFunction = talk_sword;	//temporary thing until I set up a dialogue system
+	var blacksmith_2 = specialEntities.create(1900,317, 'player');	//blacksmith between end of sword course & start of hammer course
+	blacksmith_2.body.immovable = true;
+	blacksmith_2.specialFunction = talk_hammer;	//temporary thing until I set up a dialogue system
+}
+
+var containEnemies = function() {
+	console.log('sealing off enemies...');
+	//spawn a wall at the end of the sword section
+	var wall = this.platforms.create(1500, -83, 'wall_med');
+	wall.body.immovable = true;
+	wall.body.setSize(34, 300, 17, 17);
+	//remove the trigger to prevent wall spam
+	this.kill();
+}
+
+var talk_sword = function() {
+	console.log('talking to the blacksmith about sword...');
+}
+
+var talk_hammer = function() {
+	console.log('talking to the blacksmith about hammer...');
 }

@@ -15,6 +15,7 @@ Play.prototype = {
 		this.invincible = false;	//toggles temporary player invincibility after taking damage
 		this.swordState = 5;
 		this.exit;
+		this.specialEntities;	//group to hold special game elements
 	},
 	preload: function() {
 		console.log('Play: preload');
@@ -78,11 +79,15 @@ Play.prototype = {
 		//spawn the level exit door thing
 		this.exit = game.add.group();
 		this.exit.enableBody = true;
+
+		//set up the specialEntities group
+		this.specialEntities = game.add.group();
+		this.specialEntities.enableBody = true;
 		
 		//load the first level.
 		//NOTE: make sure that any groups/etc. that will be needed for ALL levels have been set up prior to this.
 		//(at the very least, make sure all the groups used by the sword have been declared BEFORE calling this function) 
-		loadLevel_0(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores);
+		loadLevel_0(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities);
 	},
 	update:function() {
 		//let player collide with platforms
@@ -121,6 +126,9 @@ Play.prototype = {
 
 		//handle collisions w/ the endgame door thing
 		game.physics.arcade.overlap(this.player, this.exit, this.touchExit, null, this);
+
+		//handle collisions with special elements
+		game.physics.arcade.overlap(this.player, this.specialEntities, this.touchSpecial, null, this);
 		
 
 		//TEMPORARY CODE - place sword UI under manual control. DELETE ONCE UI IS LINKED TO SWORD LENGTH
@@ -198,21 +206,32 @@ Play.prototype = {
 		if(game.input.keyboard.downDuration(Phaser.Keyboard.E, 1)) {
 			//figure out where to go from here
 			switch(this.levelTracker) {
+				case(0): 	//finished tutorial - load level 1
+					//update levelTracker and load level 1
+					console.log('loading level 2...');
+					this.levelTracker = 1;
+					loadLevel_1(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities);
+					break;
 				case(1): 	//finished level 1 - load level 2
 					//update levelTracker and load level 2
 					console.log('loading level 2...');
 					this.levelTracker = 2;
-					loadLevel_2(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores);//this.loadLevel_2();
+					loadLevel_2(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities);
 					break;
 				case(2): 	//finished level 2 - load level 3
 					console.log('loading level 3...');
 					this.levelTracker = 3;
-					loadLevel_3(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores);//this.loadLevel_2();
+					loadLevel_3(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities);
 					break;
 				default: 	//default case - we've finished all levels and now want to go to game over
 					game.state.start('GameOver', true, false, this.score, true);
 					break;
 			}
 		}
+	},
+
+	touchSpecial:function(player, entity) {
+		//assume that the entity has a built-in function for this scenario
+		entity.specialFunction();
 	}
 };
