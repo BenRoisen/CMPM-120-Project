@@ -11,9 +11,7 @@ Play.prototype = {
 		this.score = 0;	//keeps track of score (# of ore pieces)
 		this.scoreText;
 		this.ores;			//group to hold ores
-		this.health = 10;	//health of the player
 		this.invincible = false;	//toggles temporary player invincibility after taking damage
-		this.swordState = 5;
 		this.exit;
 		this.specialEntities;	//group to hold special game elements
 	},
@@ -42,7 +40,7 @@ Play.prototype = {
     	
 
 		//set up scoreText to display player ore count
-		this.scoreText = game.add.text(16, 16, 'Score: 0 Health: 10', {fontSize: '32px', fill: '#000' });
+		this.scoreText = game.add.text(16, 65, 'Ores: 0 Sword Length: 5', {fontSize: '32px', fill: '#000' });
 		this.scoreText.fixedToCamera = true;	//make it move with the camera
 
 		//set up ores
@@ -65,12 +63,10 @@ Play.prototype = {
 		//make the sword UI
 		this.swordUI = game.add.group();
 		//looks confusing, but this basically just creates each UI part and immediately fixes it to the camera
-		(this.swordUI.create(607, 5, 'swordHilt')).fixedToCamera = true;	//sword hilt
-		(this.swordUI.create(708, 5, 'swordBlade')).fixedToCamera = true;	//blade segment 1
-		(this.swordUI.create(757, 5, 'swordBlade')).fixedToCamera = true;	//blade segment 2
-		(this.swordUI.create(806, 5, 'swordBlade')).fixedToCamera = true;	//blade segment 3
-		(this.swordUI.create(855, 5, 'swordBlade')).fixedToCamera = true;	//blade segment 4
-		(this.swordUI.create(904, 5, 'swordBlade')).fixedToCamera = true;	//blade segment 5
+		(this.swordUI.create(5, 5, 'swordHilt')).fixedToCamera = true;	//sword hilt
+		for(var i = 0; i < 17; i++) {	//spawn 17 blade segments (the most we can fit onscreen)
+			(this.swordUI.create((106 + (49 * i)), 5, 'swordBlade')).fixedToCamera = true;	//make the segment move with the camers
+		}
 
 		//create a variable to keep track of which level we're on
 		this.levelTracker = 1;
@@ -129,22 +125,33 @@ Play.prototype = {
 
 		//handle collisions with special elements
 		game.physics.arcade.overlap(this.player, this.specialEntities, this.touchSpecial, null, this);
+
+		//let player repair the sword
+		if(game.input.keyboard.downDuration(Phaser.Keyboard.R, 1)) {	//repair on pressing the R key
+			console.log('repairing sword...');
+			if(this.score > 0) {	//only allow repair if we have ore
+				this.player.swordLength += 1;
+				this.score -= 1;
+			}
+			else { //not enough ore to repair
+				//we should probably put something here to let player know they need more ore (sound, etc.)
+				console.log('insufficient ore');
+			}
+		}
 		
-
-		//TEMPORARY CODE - place sword UI under manual control. DELETE ONCE UI IS LINKED TO SWORD LENGTH
-		this.swordState = this.player.swordLength;
-
 		//update the sword UI - make length reflect our current sword length
-		//swordState == 0: just the hilt; swordState == 5: full sword
 		var i;
-		for (i = 1; i <= 5; i++) {	//for each blade segment of the UI
+		for (i = 1; i < this.swordUI.length; i++) {	//for each blade segment of the UI
 			var segment = this.swordUI.getChildAt(i);	//get the blade segment at index i
-			if(i <= this.swordState) {	//if this segment is on our current sword, make it visible
+			if(i <= this.player.swordLength) {	//if this segment is on our current sword, make it visible
 				segment.visible = true;
 			} else {					//if this segment broke off, make it invisible
 				segment.visible = false;
 			}
 		}
+		//update the text-based UI
+		//we have to do this each update rather than on some event because there's no good way to let the sword trigger an update if it hits a wall
+		this.scoreText.text = 'Ores: ' + this.score + " Sword Length: " + this.player.swordLength;
 	},
 	render:function() {
 		//game.debug.body(this.player);
@@ -157,11 +164,10 @@ Play.prototype = {
     	if(!this.invincible && enemy.state != 5 && 
                !(game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && player.y + 50 <= enemy.y && !player.can_jump)) {
          console.log(enemy.state);
-      	this.health -= 1;		//lose health
-      	if(this.health <= 0) {	//if dead, go to Game Over
+      	this.player.swordLength -= 1;		//lose health
+      	if(this.player.swordLength < 0) {	//if dead, go to Game Over
       		game.state.start('GameOver', true, false, this.score, false);
       	}
-      	this.scoreText.text = 'Score: ' + this.score + " Health: " + this.health;	//update the scoreboard
       	this.invincible = true;	//temporarily become invincible (to avoid having your health instantly disappear)
       	game.time.events.add(1000, this.toggleInvincible, this);	//become mortal again after 1 second
   		}
@@ -171,11 +177,8 @@ Play.prototype = {
    		if(ore.vulnerable) {	//only allow pickup once ore has existed for a bit (see touchOrePot)
    			//remove the ore
    			ore.kill();
-            // temporary code since sword repair doesn't exist yet
-            this.player.swordLength += 1;
-   			//update the score
+            //update the score
    			this.score += 1;
-   			this.scoreText.text = 'Score: ' + this.score + " Health: " + this.health;
    		}
    },
 
