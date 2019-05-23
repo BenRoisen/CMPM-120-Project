@@ -19,6 +19,8 @@ Play.prototype = {
 		console.log('Play: preload');
 	},
 	create: function() {
+		//game.time.advancedTiming = true;	//enable this line to enable FPS counter
+
 		//enable arcade physics
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -40,7 +42,7 @@ Play.prototype = {
     	
 
 		//set up scoreText to display player ore count
-		this.scoreText = game.add.text(16, 65, 'Ores: 0 Sword Length: 5', {fontSize: '32px', fill: '#000' });
+		this.scoreText = game.add.text(16, 65, 'Ores: 0 Sword Length: 5', {fontSize: '32px', fill: '#408' });	//made the text purple so it stands out against the shadow
 		this.scoreText.fixedToCamera = true;	//make it move with the camera
 
 		//set up ores
@@ -79,11 +81,21 @@ Play.prototype = {
 		//set up the specialEntities group
 		this.specialEntities = game.add.group();
 		this.specialEntities.enableBody = true;
+
+		//set up the light mask
+		this.shadowTexture = this.game.add.bitmapData(game.width, game.height);	//texture for the light mask
+		var shadow = game.add.image(0,0,this.shadowTexture);	//spawn a sprite with the shadow texture
+		shadow.blendMode = Phaser.blendModes.MULTIPLY;	//darken the colors of everything below the shadow
+		shadow.fixedToCamera = true;
 		
 		//load the first level.
 		//NOTE: make sure that any groups/etc. that will be needed for ALL levels have been set up prior to this.
 		//(at the very least, make sure all the groups used by the sword have been declared BEFORE calling this function) 
 		loadLevel_0(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities);
+
+		//bring the UI to the topmost z-level so it renders over the shadow
+		game.world.bringToTop(this.scoreText);
+		game.world.bringToTop(this.swordUI);
 	},
 	update:function() {
 		//let player collide with platforms
@@ -152,11 +164,15 @@ Play.prototype = {
 		//update the text-based UI
 		//we have to do this each update rather than on some event because there's no good way to let the sword trigger an update if it hits a wall
 		this.scoreText.text = 'Ores: ' + this.score + " Sword Length: " + this.player.swordLength;
+
+		//update the shadow
+		this.updateShadowTexture(this.shadowTexture);
 	},
 	render:function() {
 		//game.debug.body(this.player);
 		//game.debug.physicsGroup(this.exit);
 		//game.debug.physicsGroup(this.platforms);
+		//game.debug.text(game.time.fps, 2, 14, "#00ff00");
 	},
 
    touchEnemy:function(player, enemy) {
@@ -236,5 +252,35 @@ Play.prototype = {
 	touchSpecial:function(player, entity) {
 		//assume that the entity has a built-in function for this scenario
 		entity.specialFunction();
+	},
+
+	updateShadowTexture:function(shadowTexture) {
+		//the following code is adapted from https://gamemechanicexplorer.com/#lighting-3
+
+		//fill shadowTexture with a dark shadow color
+		shadowTexture.context.fillStyle = 'rgb(100, 100, 100)';
+		shadowTexture.context.fillRect(0, 0, this.game.width, this.game.height);
+
+		if(this.player.swordLength < 0) {
+			return;
+		}
+
+		//get the player's position relative to the game window (in order to calculate the light position correctly)
+		var x = this.player.x - this.game.camera.x;
+		var y = this.player.y - this.game.camera.y;
+
+		//draw the glow centered on the player
+		var light_radius = ((this.player.swordLength * 59) + 128) * 0.5;	//radius of "pure light" (i.e. no flicker)	-this value should match the calculation for swordbox offset in sword.js
+		var radius = light_radius + this.game.rnd.integerInRange(1, 10);	//radius of light (counting the flicker part)
+		var gradient = shadowTexture.context.createRadialGradient(x, y, light_radius * 0.75, x, y, radius);	//create a gradient to blend the light into the background
+		gradient.addColorStop(0, 'rgba(255, 255, 255, 1.0)');
+		gradient.addColorStop(1, 'rgba(255, 255, 255, 0.0)');
+		shadowTexture.context.beginPath();
+		shadowTexture.context.fillStyle = gradient;
+		shadowTexture.context.arc(x, y, radius, 0, Math.PI * 2);
+		shadowTexture.context.fill();
+
+		//tell Phaser that it should update the cached version of shadowTexture
+		shadowTexture.dirty = true;
 	}
 };
