@@ -117,6 +117,17 @@ Enemy.prototype.update = function () {
             this.body.velocity.x = this.min_xv;
          }
 
+         // Turning function
+         if(this.scale.x < 0 && this.body.velocity.x < 0) 
+         { 
+            this.scale.x *= -1; //face right (if not already doing so)
+         }
+         // Turning function
+         if(this.scale.x > 0 && this.body.velocity.x > 0) 
+         { 
+            this.scale.x *= -1; //face right (if not already doing so)
+         }
+
          if(this.body.touching.down == true && this.body.velocity.y == 0)
          {
             if(this.ground_check)
@@ -170,8 +181,6 @@ Enemy.prototype.update = function () {
          this.pot_hit = false;
       }
    }
-
-   game.debug.body(this);
 }
 
 Enemy.prototype.pot_break = function () {
@@ -186,4 +195,8 @@ Enemy.prototype.stun_self = function () {
    this.state = 5;
    this.angle = 180;
    this.body.velocity.x = 0;
+   if(this.stun_timer < 60)
+   {
+      this.stun_timer = 60;
+   }
 }
