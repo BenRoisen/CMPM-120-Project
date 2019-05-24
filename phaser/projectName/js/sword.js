@@ -90,7 +90,7 @@ Sword.prototype.update = function () {
          break;
       case(1): // swinging
          // animation
-         this.uangle += 1;
+         this.uangle += 9;
 
          // Collision checks
          this.wall_check(this);
@@ -172,6 +172,7 @@ function Swordbox (game, id, key, player, sword, walls, enemies, shadow)
    this.enemies = enemies;
    this.player = player;
    this.id = id;
+   this.key = key;
    this.offset = (59*id+128)*0.5;
    this.shadow = shadow;
    this.scale.setTo(0.5);
@@ -203,9 +204,14 @@ Swordbox.prototype.update = function () {
       this.body.setSize(45+20*radc, 45+20*rads, -10*radc, -10*rads);
    }
 
-   if(this.id > this.player.swordLength)
+   if(this.id >= this.player.swordLength)
    {
-      this.kill();
+      if(!this.shadow)
+      {
+         shatter = new ShatterBlade(game, this.key, this.x, this.y, this.angle, this.player.facingRight);
+         game.add.existing(shatter);
+      }
+      this.destroy();
    }
    
 
@@ -215,4 +221,41 @@ Swordbox.prototype.update = function () {
    }
 
    game.debug.body(this);
+}
+
+function ShatterBlade (game, key, x, y, angle, facingRight)
+{
+   Phaser.Sprite.call(this, game, x, y, key, 0);
+   game.physics.enable(this);
+   console.log("making broken blade");
+
+   this.x = x;
+   this.y = y;
+   this.angle = angle;
+   if(facingRight)
+   {
+      this.body.angularVelocity = -1200
+      this.body.velocity.x = -400*Math.sin((this.angle-180)*Math.PI/180);
+      this.body.velocity.y = 400*Math.cos((this.angle-180)*Math.PI/180) - 400;
+   } else {
+      this.body.angularVelocity = 1200
+      this.body.velocity.x = 400*Math.sin((this.angle-180)*Math.PI/180);
+      this.body.velocity.y = 400*Math.cos((this.angle-180)*Math.PI/180) - 400;
+   }
+
+   this.body.gravity.y = 1600;
+   this.anchor.y = 0.5;
+   this.anchor.x = 0.5;
+   this.scale.setTo(0.5);
+}
+
+ShatterBlade.prototype = Object.create(Phaser.Sprite.prototype);
+ShatterBlade.prototype.constructor = ShatterBlade;
+
+ShatterBlade.prototype.update = function () {
+   if (this.x > game.world.width + 100 || this.x < -100 
+            || this.y > game.world.height + 100  || this.y < -100)
+   {
+      this.destroy()
+   }
 }
