@@ -12,7 +12,6 @@ function Player(game, key, frame, scale, platforms) {
 	
 	//setup physics
 	game.physics.arcade.enable(this);		//enable arcade physics
-	this.body.collideWorldBounds = true;	//make player collide with edge of screen
 	this.body.gravity.y = 800;				//how fast we fall
 	
 	//create an object to listen to the arrow keys
@@ -57,6 +56,16 @@ Player.prototype.update = function() {
 	} else {	//no input detected
 		//do nothing
 	}
+
+   // Alternate sidewall collision
+   if(this.x < 0)
+   {
+      this.x = 0;
+   }
+   if(this.x > game.world.width)
+   {
+      this.x = game.world.width;
+   }
 
 	if(this.body.touching.down && this.body.velocity.y == 0)
 	{

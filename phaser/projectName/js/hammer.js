@@ -53,6 +53,10 @@ Hammer.prototype.enemy_check = function (hammer, enemy) {
    {
       enemy.body.velocity.y += 200;
       this.player.body.velocity.y *= -0.6;
+      if(this.player.body.velocity.y < 0 && this.player.body.velocity.y > -300)
+      {
+         this.player.body.velocity.y = -300
+      }
    }
 }
 
