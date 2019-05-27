@@ -14,6 +14,8 @@ Play.prototype = {
 		this.invincible = false;	//toggles temporary player invincibility after taking damage
 		this.exit;
 		this.specialEntities;	//group to hold special game elements
+		//this.dialogueText = null;
+		//this.nextText = null;
 	},
 	preload: function() {
 		console.log('Play: preload');
@@ -23,6 +25,10 @@ Play.prototype = {
 
 		//enable arcade physics
 		game.physics.startSystem(Phaser.Physics.ARCADE);
+
+		//prepare any dialogue text we'll need
+		this.tutorial_dialogue = JSON.parse(game.cache.getText('tutorial_dialogue'));
+		//MORE PARSE STATEMENTS HERE AS NEEDED
 
 		//create the background
 		this.background = this.add.sprite(0, 0, 'background');
@@ -91,7 +97,7 @@ Play.prototype = {
 		//load the first level.
 		//NOTE: make sure that any groups/etc. that will be needed for ALL levels have been set up prior to this.
 		//(at the very least, make sure all the groups used by the sword have been declared BEFORE calling this function) 
-		loadLevel_0(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities);
+		loadLevel_0(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.tutorial_dialogue);
 
 		//bring the UI to the topmost z-level so it renders over the shadow
 		game.world.bringToTop(this.scoreText);

@@ -1,5 +1,5 @@
 //tutorial level
-var loadLevel_0 = function(game, player, platforms, enemies, orePots, exit, ores, specialEntities) {
+var loadLevel_0 = function(game, player, platforms, enemies, orePots, exit, ores, specialEntities, dialogue) {
 	//empty out all the old level elements
 	platforms.removeAll(true);
 	enemies.removeAll(true);
@@ -149,9 +149,20 @@ var loadLevel_0 = function(game, player, platforms, enemies, orePots, exit, ores
 	var blacksmith_1 = specialEntities.create(500,1050, 'player');	//blacksmith @ start of level
 	blacksmith_1.body.immovable = true;
 	blacksmith_1.specialFunction = talk_sword;	//temporary thing until I set up a dialogue system
+	blacksmith_1.game = game;
+	blacksmith_1.dialogue = dialogue;
+	blacksmith_1.dialogueConvo = 0;	//0 corresponds to the sword conversation in the tutorial dialogue JSON
+	blacksmith_1.dialogueLine = 0;	//start at line 0
+	blacksmith_1.typing = false;	//start off not typing
+	blacksmith_1.dialogueState = 0;	//start off in "not talked to"
 	var blacksmith_2 = specialEntities.create(1900,317, 'player');	//blacksmith between end of sword course & start of hammer course
 	blacksmith_2.body.immovable = true;
 	blacksmith_2.specialFunction = talk_hammer;	//temporary thing until I set up a dialogue system
+	blacksmith_2.game = game;
+	blacksmith_2.dialogue = dialogue;
+	blacksmith_2.dialogueConvo = 0;	//1 corresponds to the hammer conversation in the tutorial dialogue JSON
+	blacksmith_2.dialogueLine = 0;	//start at line 0
+	blacksmith_2.dialogueState = 0;	//start off in "not talked to"
 }
 
 var containEnemies = function() {
@@ -165,7 +176,95 @@ var containEnemies = function() {
 }
 
 var talk_sword = function() {
+	//this is a stripped-down version of the dialogue system code given as an example in lecture 18.
+	//all credit to Professor Nathan Altice (for the parts that work, at least - the crappy parts are my doing)
+
+	/*A NOTE ON THE VALUES OF DIALOGUESTATE:
+	 * 0: not yet talked to
+	 * 1: talking to player
+	 * 2: finished talking
+	 */
+	
+	//only "update" if the player presses E
+	if(!this.game.input.keyboard.justPressed(Phaser.Keyboard.E)) {
+		return;
+	}
+	
 	console.log('talking to the blacksmith about sword...');
+	console.log(this.dialogueState);
+
+	if(this.dialogueState == 0) {	//if we haven't been talked to yet, perform some first-time setup
+	//create the dialogue box
+		this.dialogueBox = this.game.add.sprite(100, 400, 'dialogueBox');	//the dialogue background
+		this.dialogueBox.fixedToCamera = true;
+		this.dialogueText = this.game.add.text(150, 445, '', {fontSize: '24px', fill: '#fff' });	//the dialogue text
+		this.dialogueText.fixedToCamera = true;
+		this.nextText = this.game.add.text(875, 574, '', {fontSize: '24px', fill: '#aaa' });	//tells us what key to press to advance the dialogue
+		this.nextText.fixedToCamera = true;
+		this.dialogueState = 1;	//switch to state 1 ("talking to player")
+
+		//disable player movement/sword/etc. while dialogue is typing
+		//PUT SOMETHING HERE LATER
+	}
+	else if(this.dialogueState == 2) {	//if we're done talking, remove the dialogue box
+		this.dialogueBox.kill();
+		this.dialogueText.kill();
+		this.nextText.kill();
+		this.typing = false;
+
+		//re-enable player movement/sword/etc.
+		//PUT SOMETHING HERE LATER
+
+		//attempt to reset the system
+		//DO NOT ENABLE - there's some bug going on where on the second time talking, the system starts off in random places in the dialogue
+		// this.dialogueState = 0;
+		// this.dialogueLine = 0;
+	}
+
+	//halt if we're already typing
+	//DO NOT COMBINE THIS CHECK WITH THE ONE FOR PRESSING E - the state-checking If statements to execute based ONLY on whether we're pressing E,
+	//while the rest of this system needs the additional question of whether or not we're already typing
+	if(this.typing) {
+		return;
+	}
+
+	//alert the system that we're typing and should not allow advancements
+	this.typing = true;
+	//clear the dialogue text
+	this.dialogueText.text = '';
+	
+	//stop once we hit the end of the conversation (assume the next conversation either doesn't exist or goes to a different blacksmith)
+	if(this.dialogueLine > this.dialogue[this.dialogueConvo].length-1) {
+		console.log("finished conversation");
+		this.dialogueState = 2;	//switch to state 2 ("done talking")
+	}
+	else {
+		// build dialogue (concatenate speaker + line of text)
+		this.dialogueLines = this.dialogue[this.dialogueConvo][this.dialogueLine]['speaker'].toUpperCase() + ': ' + this.dialogue[this.dialogueConvo][this.dialogueLine]['dialog'];
+
+		// setup timer to iterate through each letter in dialogue
+		let currentChar = 0;
+		this.textTimer = this.game.time.events.repeat(10, this.dialogueLines.length, function(){
+			this.nextText.text = '';	//don't display the prompt for input until text is fully displayed
+			this.dialogueText.text += this.dialogueLines[currentChar];
+			currentChar++;
+		}, this);
+		// callback function fires once timer is finished
+		this.textTimer.timer.onComplete.addOnce(function(){
+			// show prompt for more text
+			this.nextText.text = '[E]';
+			this.nextText.anchor.setTo(1, 1);
+			// un-lock input
+			this.typing = false;
+		}, this);
+			
+		// set bounds on dialogue
+		this.dialogueText.wordWrap = true;
+		this.dialogueText.wordWrapWidth = 715;
+
+		// increment dialogue line
+		this.dialogueLine++;
+	}
 }
 
 var talk_hammer = function() {
