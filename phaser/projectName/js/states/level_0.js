@@ -148,21 +148,23 @@ var loadLevel_0 = function(game, player, platforms, enemies, orePots, exit, ores
 	//spawn blacksmiths
 	var blacksmith_1 = specialEntities.create(500,1050, 'player');	//blacksmith @ start of level
 	blacksmith_1.body.immovable = true;
-	blacksmith_1.specialFunction = talk_sword;	//temporary thing until I set up a dialogue system
+	blacksmith_1.specialFunction = speak;	//temporary thing until I set up a dialogue system
 	blacksmith_1.game = game;
 	blacksmith_1.dialogue = dialogue;
 	blacksmith_1.dialogueConvo = 0;	//0 corresponds to the sword conversation in the tutorial dialogue JSON
 	blacksmith_1.dialogueLine = 0;	//start at line 0
 	blacksmith_1.typing = false;	//start off not typing
 	blacksmith_1.dialogueState = 0;	//start off in "not talked to"
+	blacksmith_1.player = player;
 	var blacksmith_2 = specialEntities.create(1900,317, 'player');	//blacksmith between end of sword course & start of hammer course
 	blacksmith_2.body.immovable = true;
-	blacksmith_2.specialFunction = talk_hammer;	//temporary thing until I set up a dialogue system
+	blacksmith_2.specialFunction = speak;	//temporary thing until I set up a dialogue system
 	blacksmith_2.game = game;
 	blacksmith_2.dialogue = dialogue;
-	blacksmith_2.dialogueConvo = 0;	//1 corresponds to the hammer conversation in the tutorial dialogue JSON
+	blacksmith_2.dialogueConvo = 1;	//1 corresponds to the hammer conversation in the tutorial dialogue JSON
 	blacksmith_2.dialogueLine = 0;	//start at line 0
 	blacksmith_2.dialogueState = 0;	//start off in "not talked to"
+	blacksmith_2.player = player;
 }
 
 var containEnemies = function() {
@@ -175,7 +177,7 @@ var containEnemies = function() {
 	this.kill();
 }
 
-var talk_sword = function() {
+var speak = function() {
 	//this is a stripped-down version of the dialogue system code given as an example in lecture 18.
 	//all credit to Professor Nathan Altice (for the parts that work, at least - the crappy parts are my doing)
 
@@ -190,7 +192,7 @@ var talk_sword = function() {
 		return;
 	}
 	
-	console.log('talking to the blacksmith about sword...');
+	console.log('talking to the blacksmith...');
 	console.log(this.dialogueState);
 
 	if(this.dialogueState == 0) {	//if we haven't been talked to yet, perform some first-time setup
@@ -202,6 +204,7 @@ var talk_sword = function() {
 		this.nextText = this.game.add.text(875, 574, '', {fontSize: '24px', fill: '#aaa' });	//tells us what key to press to advance the dialogue
 		this.nextText.fixedToCamera = true;
 		this.dialogueState = 1;	//switch to state 1 ("talking to player")
+		this.player.inDialogue = true;	//disable player movement & sword swinging
 
 		//disable player movement/sword/etc. while dialogue is typing
 		//PUT SOMETHING HERE LATER
@@ -211,6 +214,7 @@ var talk_sword = function() {
 		this.dialogueText.kill();
 		this.nextText.kill();
 		this.typing = false;
+		this.player.inDialogue = false;	//re-enable player movement & sword swinging
 
 		//re-enable player movement/sword/etc.
 		//PUT SOMETHING HERE LATER
@@ -267,6 +271,6 @@ var talk_sword = function() {
 	}
 }
 
-var talk_hammer = function() {
-	console.log('talking to the blacksmith about hammer...');
-}
+// var talk_hammer = function() {
+// 	console.log('talking to the blacksmith about hammer...');
+// }

@@ -1,59 +1,103 @@
 [
 	[
 		{
-			"speaker" : "homer",
-			"dialog" : "Tell me, O muse, of that ingenious hero who travelled far and wide after he had sacked the famous town of Troy.",
+			"speaker" : "blacksmith",
+			"dialog" : "My apprentice, I gift to you the Legendary Ancient Blade of the Hero, or LABOTH for short.",
 			"newSpeaker" : "true"
 		},
 		{
-			"speaker" : "homer",
-			"dialog" : "Many cities did he visit, and many were the nations with whose manners and customs he was acquainted."
+			"speaker" : "blacksmith",
+			"dialog" : "The LABOTH is very powerful. It will guide itself to always block any attack, and it is able to kill most enemies in a single hit..."
 		},
 		{	
-			"speaker" : "homer",
-			"dialog" : "Moreover he suffered much by sea while trying to save his own life and bring his men safely home."
+			"speaker" : "blacksmith",
+			"dialog" : "...but it is also very, very old, and consequently very fragile."
 		},
 		{	
-			"speaker" : "homer",
-			"dialog" : "But do what he might he could not save his men, for they perished through their own sheer folly in eating the cattle of the Sun-god Hyperion."
+			"speaker" : "blacksmith",
+			"dialog" : "Any time you strike an object, be it a foe or merely a wall, the blade will likely shatter, decreasing its length."
 		},
 		{	
-			"speaker" : "homer",
-			"dialog" : "So the gods prevented them from ever reaching home."
+			"speaker" : "blacksmith",
+			"dialog" : "The blade will also shatter if it blocks an attack."
 		},
 		{	
-			"speaker" : "homer",
-			"dialog" : "Tell me, too, about all these things, O daughter of Jove, from whatsoever source you may know them."
+			"speaker" : "blacksmith",
+			"dialog" : "The LABOTH emits a magical light that illuminates the area around it. You can use the strength of this light to judge the reach of your attacks."
+		},
+		{	
+			"speaker" : "blacksmith",
+			"dialog" : "I've prepared an obstacle course for you to get accustomed to the LABOTH. It's stocked with several enemies, so that you may test your swordsmanship..."
+		},
+		{	
+			"speaker" : "blacksmith",
+			"dialog" : "...but don't feel too bad about fleeing, especially if you can get to a better position so you can strike without fear of shattering your sword upon the walls."
+		},
+		{	
+			"speaker" : "",
+			"dialog" : "\n<press [SPACEBAR] to swing the LABOTH>"
 		}
 	],
 	[
 		{
-			"speaker" : "neptune",
-			"dialog" : "See now, how men lay blame upon us gods for what is after all nothing but their own folly.",
+			"speaker" : "blacksmith",
+			"dialog" : "By now your blade is likely damaged, leaving you vulnerable.",
 			"newSpeaker" : "true"
 		},
 		{
-			"speaker" : "neptune",
-			"dialog" : "Look at Aegisthus; he must needs make love to Agamemnon's wife unrighteously and then kill Agamemnon, though he knew it would be the death of him."
+			"speaker" : "blacksmith",
+			"dialog" : "Fear not! Damaged equipment is no problem for a blacksmith, even a novice such as yourself!"
 		},
 		{	
-			"speaker" : "minerva",
-			"dialog" : "Father, son of Saturn, King of kings, it served Aegisthus right, and so it would any one else who does as he did; but Aegisthus is neither here nor there.",
+			"speaker" : "blacksmith",
+			"dialog" : "Here, take this hammer. You can use it to repair the LABOTH with obsidian shards, such as those commonly found among the old pots that litter dungeons.",
 			"newSpeaker" : "true"
 		},
 		{	
-			"speaker" : "minerva",
-			"dialog" : "It is for Ulysses that my heart bleeds, when I think of his sufferings in that lonely sea-girt island, far away, poor man, from all his friends."
+			"speaker" : "",
+			"dialog" : "\n<press [R] to repair your sword using collected shards>"
 		},
 		{	
-			"speaker" : "jove",
-			"dialog" : "My child, what are you talking about? How can I forget Ulysses than whom there is no more capable man on earth, nor more liberal in his offerings to the immortal gods that live in heaven?",
+			"speaker" : "blacksmith",
+			"dialog" : "The hammer has additional uses beyond repairs.",
 			"newSpeaker" : "true"
 		},
 		{	
-			"speaker" : "minerva",
-			"dialog" : "If, then, the gods now mean that Ulysses should get home, we should first send Mercury to the Ogygian island to tell Calypso that we have made up our minds and that he is to return.",
+			"speaker" : "blacksmith",
+			"dialog" : "You can use it to smash open pots to reveal the obsidian shards within...",
 			"newSpeaker" : "true"
+		},
+		{
+			"speaker" : "blacksmith",
+			"dialog" : "...or to smash the shells of enemies who might be mimicing those same pots!"
+		},
+		{
+			"speaker" : "blacksmith",
+			"dialog" : "The hammer can also temporarily stun enemies, but it takes a weapon such as the LABOTH to kill them for good."
+		},
+		{
+			"speaker" : "blacksmith",
+			"dialog" : "I've stocked the tunnels ahead with some pots so you can practice using your hammer."
+		},
+		{
+			"speaker" : "blacksmith",
+			"dialog" : "You can also use the obsidian you collect to repair the LABOTH, but remember:"
+		},
+		{
+			"speaker" : "blacksmith",
+			"dialog" : "a longer sword can take more damage and strike further out, but it may prove unwieldy in smaller spaces."
+		},
+		{
+			"speaker" : "blacksmith",
+			"dialog" : "Similarly, a shorter sword is less likely to strike something unintentionally, but can block fewer hits before it shatters completely."
+		},
+		{
+			"speaker" : "blacksmith",
+			"dialog" : "Now go out there and see what you can do!"
+		},
+		{
+			"speaker" : "",
+			"dialog" : "\n<while in the air, hold the [DOWN] arrow key to perform a hammer attack>"
 		}
 	]
 ]

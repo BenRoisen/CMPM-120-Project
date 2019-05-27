@@ -26,6 +26,8 @@ function Player(game, key, frame, scale, platforms) {
 	this.platforms = platforms;
 	console.log(this.platforms);
 	this.swordLength = 5;
+
+	this.inDialogue = false;	//tracks whether or not the player is in a dialogue instance
 }
 
 //specify the object's prototype and constructor
@@ -39,14 +41,14 @@ Player.prototype.update = function() {
 
 	//handle player horizontal movement
 	this.body.velocity.x = 0;	//reset player horizontal velocity
-	if (this.cursors.left.isDown) {	//did player press the left arrow key?
+	if (this.cursors.left.isDown && !this.inDialogue) {	//did player press the left arrow key?
 		//move left
 		this.body.velocity.x = -500;
 		this.facingRight = false;	//we're moving left
 		if(this.scale.x > 0) {		//face left (if not already doing so)
 			this.scale.x *= -1;
 		}
-	} else if (this.cursors.right.isDown)	{ //did player press the right arrow key?
+	} else if (this.cursors.right.isDown && !this.inDialogue)	{ //did player press the right arrow key?
 		//move right
 		this.body.velocity.x = 500;
 		this.facingRight = true;	//we're moving right
@@ -83,12 +85,12 @@ Player.prototype.update = function() {
 
 	//handle player vertical movement
 	//this.body.velocity.y = 0;	//reset vertical velocity
-	if(this.cursors.up.isDown && this.can_jump) {// && hitPlatform) {	//did the player press the up arrow key while standing on the ground?
+	if(this.cursors.up.isDown && this.can_jump && !this.inDialogue) {// && hitPlatform) {	//did the player press the up arrow key while standing on the ground?
 		//move up
 		this.body.velocity.y = -750;
 		this.can_jump = false;
 	}
-	else if (this.cursors.down.isDown)	//did the player press the down arrow key?
+	else if (this.cursors.down.isDown && !this.inDialogue)	//did the player press the down arrow key?
 	{
 		if(this.can_jump) // Using can_jump as a replacement for "is on the ground"
       {

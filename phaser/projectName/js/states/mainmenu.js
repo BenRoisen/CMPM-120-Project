@@ -47,6 +47,7 @@ MainMenu.prototype = {
 		game.add.text(16, 176, "Each time it shatters, it's reach decreases slightly.", {fontSize: '16px', fill: '#fff' });
 		game.add.text(16, 208, 'You can repair your sword by collecting ores from pots.', {fontSize: '16px', fill: '#fff' });
 		game.add.text(16, 240, 'Be wary! Monsters have been known to hide in pots and ambush unsuspecting adventurers!', {fontSize: '16px', fill: '#fff' });
+		game.add.text(16, 272, 'Press [E] when touching certain objects to interact with them', {fontSize: '16px', fill: '#fff' });
 		
 		game.add.text(16, 512, 'Press [SPACE] to start', {fontSize: '32px', fill: '#fff' });
 	},
