@@ -174,13 +174,8 @@ Enemy.prototype.update = function () {
    // Pot break check
    if(this.pot_hit)
    {
-      if(this.state != 0)
-      {
-         this.pot_break();
-         this.pot_hit = false;
-      } else {
-         this.pot_hit = false;
-      }
+      this.pot_break();
+      this.pot_hit = false;
    }
 
    // Turn off invincibility if it's on
