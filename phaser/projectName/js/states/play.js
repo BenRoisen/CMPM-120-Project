@@ -156,6 +156,15 @@ Play.prototype = {
 				console.log('insufficient ore');
 			}
 		}
+
+      if(this.player.repairedSword)
+      {
+         if(this.score > 0) { //only allow repair if we have ore
+            this.player.swordLength += 1;
+            this.score -= 1;
+         }
+         this.player.repairedSword = false;
+      }
 		
 		//update the sword UI - make length reflect our current sword length
 		var i;

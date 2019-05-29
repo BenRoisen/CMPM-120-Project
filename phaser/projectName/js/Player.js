@@ -22,6 +22,11 @@ function Player(game, key, frame, scale, platforms) {
 	this.can_jump = true;
 	this.ground_check = false;
    this.swordOut = false;
+   this.repairedSword = false;
+
+   //set vars for repairing 
+   this.repairTime = 180;
+   this.repairSound = new Phaser.Sound(game,'potBreak',1,false);
 
 	this.platforms = platforms;
 	console.log(this.platforms);
@@ -69,6 +74,7 @@ Player.prototype.update = function() {
       this.x = game.world.width;
    }
 
+   // If touching the ground
 	if(this.body.touching.down && this.body.velocity.y == 0)
 	{
 		if(this.ground_check)
@@ -95,6 +101,22 @@ Player.prototype.update = function() {
 		if(this.can_jump) // Using can_jump as a replacement for "is on the ground"
       {
          // Repair the sword
+         if(!this.cursors.left.isDown && !this.cursors.right.isDown && !this.swordOut)
+         {
+            if(this.repairTime > 0)
+            {
+               --this.repairTime;
+               if(this.repairTime%30 == 0)
+               {
+                  this.repairSound.play();
+               }
+            } else {
+               this.repairedSword = true;
+               this.repairTime = 180;
+            }
+         } else {
+            this.repairTime = 180;
+         }
       } else {
          // Grant instant movement downwards
          if(game.input.keyboard.downDuration(Phaser.Keyboard.DOWN, 1))
