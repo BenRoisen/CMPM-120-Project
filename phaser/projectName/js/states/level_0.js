@@ -206,13 +206,21 @@ var speak = function() {
 		this.dialogueState = 1;	//switch to state 1 ("talking to player")
 		this.player.inDialogue = true;	//disable player movement & sword swinging
 
-		//disable player movement/sword/etc. while dialogue is typing
-		//PUT SOMETHING HERE LATER
+		//add the speaker's portrait and their emote
+		this.characterImage = this.game.add.sprite(500, 290, 'player');
+		this.characterImage.fixedToCamera = true;
+		this.characterImage.anchor.set(0.5);
+		this.characterImage.scale.setTo(1.5);
+		this.emote = this.game.add.sprite(500, 125, 'swordBlade');	//CHANGE THIS SPRITE LATER
+		this.emote.fixedToCamera = true;
+		this.emote.anchor.set(0.5);
 	}
-	else if(this.dialogueState == 2) {	//if we're done talking, remove the dialogue box
+	else if(this.dialogueState == 2) {	//if we're done talking, remove the dialogue box & other dressings
 		this.dialogueBox.kill();
 		this.dialogueText.kill();
 		this.nextText.kill();
+		this.characterImage.kill();
+		this.emote.kill();
 		this.typing = false;
 		this.player.inDialogue = false;	//re-enable player movement & sword swinging
 
@@ -243,6 +251,20 @@ var speak = function() {
 		this.dialogueState = 2;	//switch to state 2 ("done talking")
 	}
 	else {
+		//update emote
+		if(this.dialogue[this.dialogueConvo][this.dialogueLine]['newEmote']) {	//if a new emote was specified
+			var newEmote = this.dialogue[this.dialogueConvo][this.dialogueLine]['newEmote'];
+			console.log('we want the new emote to be "' + newEmote + '"');
+			if(newEmote == "OVERRIDE_NONE") {	//special value for no emote
+				console.log('disabling sprite...');
+				this.emote.alpha = 0;	//become completely transparent
+			}
+			else {	//we want an emote sprite that we've already loaded into memory
+				this.emote.loadTexture(newEmote);	//swap emote's texture to that of the new emote
+				this.emote.alpha = 1;	//become fully visible
+			}
+		}
+
 		// build dialogue (concatenate speaker + line of text)
 		this.dialogueLines = this.dialogue[this.dialogueConvo][this.dialogueLine]['speaker'].toUpperCase() + ': ' + this.dialogue[this.dialogueConvo][this.dialogueLine]['dialog'];
 

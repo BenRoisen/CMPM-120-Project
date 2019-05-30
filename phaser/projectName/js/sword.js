@@ -220,7 +220,7 @@ Swordbox.prototype.update = function () {
       this.destroy();
    }
 
-   game.debug.body(this);
+   //game.debug.body(this);
 }
 
 function ShatterBlade (game, key, x, y, angle, facingRight)

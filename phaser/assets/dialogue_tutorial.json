@@ -3,19 +3,22 @@
 		{
 			"speaker" : "blacksmith",
 			"dialog" : "My apprentice, I gift to you the Legendary Ancient Blade of the Hero, or LABOTH for short.",
-			"newSpeaker" : "true"
+			"newEmote" : "player"
 		},
 		{
 			"speaker" : "blacksmith",
-			"dialog" : "The LABOTH is very powerful. It will guide itself to always block any attack, and it is able to kill most enemies in a single hit..."
+			"dialog" : "The LABOTH is very powerful. It will guide itself to always block any attack, and it is able to kill most enemies in a single hit...",
+			"newEmote" : "endGame"
 		},
 		{	
 			"speaker" : "blacksmith",
-			"dialog" : "...but it is also very, very old, and consequently very fragile."
+			"dialog" : "...but it is also very, very old, and consequently very fragile.",
+			"newEmote" : "OVERRIDE_NONE"
 		},
 		{	
 			"speaker" : "blacksmith",
-			"dialog" : "Any time you strike an object, be it a foe or merely a wall, the blade will likely shatter, decreasing its length."
+			"dialog" : "Any time you strike an object, be it a foe or merely a wall, the blade will likely shatter, decreasing its length.",
+			"newEmote" : "swordBlade"
 		},
 		{	
 			"speaker" : "blacksmith",
@@ -42,7 +45,7 @@
 		{
 			"speaker" : "blacksmith",
 			"dialog" : "By now your blade is likely damaged, leaving you vulnerable.",
-			"newSpeaker" : "true"
+			"newEmote" : "OVERRIDE_NONE"
 		},
 		{
 			"speaker" : "blacksmith",
@@ -51,7 +54,7 @@
 		{	
 			"speaker" : "blacksmith",
 			"dialog" : "Here, take this hammer. You can use it to repair the LABOTH with obsidian shards, such as those commonly found among the old pots that litter dungeons.",
-			"newSpeaker" : "true"
+			"newEmote" : "platform_small"
 		},
 		{	
 			"speaker" : "",
@@ -60,12 +63,12 @@
 		{	
 			"speaker" : "blacksmith",
 			"dialog" : "The hammer has additional uses beyond repairs.",
-			"newSpeaker" : "true"
+			"newEmote" : "OVERRIDE_NONE"
 		},
 		{	
 			"speaker" : "blacksmith",
 			"dialog" : "You can use it to smash open pots to reveal the obsidian shards within...",
-			"newSpeaker" : "true"
+			"newEmote" : "OVERRIDE_NONE"
 		},
 		{
 			"speaker" : "blacksmith",
