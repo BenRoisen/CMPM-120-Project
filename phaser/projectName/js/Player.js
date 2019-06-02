@@ -23,7 +23,7 @@ function Player(game, key, frame, scale, platforms) {
 	this.ground_check = false;
    this.swordOut = false;
    this.repairedSword = false;
-   this.state_changed = true;
+   this.invincible = false;
 
    //set vars for repairing 
    this.repairTime = 150;
@@ -172,6 +172,16 @@ Player.prototype.update = function() {
                this.animations.play('stand');
             }
          }
+      }
+   }
+
+   if(this.invincible)
+   {
+      if(this.alpha != 0.5)
+      {
+         this.alpha = 0.5;
+      } else {
+         this.alpha = 1;
       }
    }
 }

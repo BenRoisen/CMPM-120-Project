@@ -67,4 +67,12 @@ Hammer.prototype.pot_check = function (hammer, pot) {
    {
       this.player.body.velocity.y *= -0.6;
    }
+   if(this.player.body.velocity.y > 0)
+   {
+      this.player.body.velocity.y *= -0.6;
+      if(this.player.body.velocity.y < 0 && this.player.body.velocity.y > -300)
+      {
+         this.player.body.velocity.y = -300
+      }
+   }
 }

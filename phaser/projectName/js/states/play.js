@@ -11,7 +11,6 @@ Play.prototype = {
 		this.score = 0;	//keeps track of score (# of ore pieces)
 		this.scoreText;
 		this.ores;			//group to hold ores
-		this.invincible = false;	//toggles temporary player invincibility after taking damage
 		this.exit;
 		this.specialEntities;	//group to hold special game elements
 		//this.dialogueText = null;
@@ -204,14 +203,23 @@ Play.prototype = {
 
    touchEnemy:function(player, enemy) {
     	//deal damage to player if we're not in "invincibility frames"
-    	if(!this.invincible && enemy.state != 5 && 
+    	if(!this.player.invincible && enemy.state != 5 && 
                !(game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && player.y + 50 <= enemy.y && !player.can_jump)) {
          console.log(enemy.state);
       	this.player.swordLength -= 1;		//lose health
       	if(this.player.swordLength < 0) {	//if dead, go to Game Over
       		game.state.start('GameOver', true, false, this.score, false);
       	}
-      	this.invincible = true;	//temporarily become invincible (to avoid having your health instantly disappear)
+
+         // Push the player and enemy away from each other
+         objAngle = Math.atan2(this.player.y - enemy.y, this.player.x - enemy.x);
+         this.player.body.velocity.x += Math.cos(objAngle)*1000;
+         this.player.body.velocity.y += Math.sin(objAngle)*1000;
+         enemy.body.velocity.x -= Math.cos(objAngle)*1000;
+         console.log(enemy.body.velocity.x);
+         enemy.body.velocity.y -= Math.sin(objAngle)*1000;
+
+      	this.player.invincible = true;	//temporarily become invincible (to avoid having your health instantly disappear)
       	game.time.events.add(1000, this.toggleInvincible, this);	//become mortal again after 1 second
   		}
    },
@@ -226,7 +234,8 @@ Play.prototype = {
    },
 
 	toggleInvincible:function() {
-		this.invincible = false;	//reset invincibility
+		this.player.invincible = false;	//reset invincibility
+      this.player.alpha = 1;
 	},
 
 	touchOrePot:function(hammer, pot) {
