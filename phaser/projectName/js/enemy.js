@@ -8,7 +8,7 @@ function Enemy (game, key, x, y, behavior, player, walls)
    //Physics properties
    game.physics.enable(this);
    this.anchor.set(0.5);
-   this.body.gravity.y = 300;
+   this.body.gravity.y = 600;
    this.body.collideWorldBounds = true;
    this.behavior = behavior;
    this.player = player;
@@ -19,7 +19,7 @@ function Enemy (game, key, x, y, behavior, player, walls)
    this.state = 0;
    this.max_xv = 150;
    this.min_xv = -150;
-   this.jump_v = -350;
+   this.jump_v = -575;
    this.timer = 120;
    this.ani_timer = 7;
    this.stun_timer = 120;
