@@ -26,7 +26,7 @@ function Player(game, key, frame, scale, platforms) {
    this.state_changed = true;
 
    //set vars for repairing 
-   this.repairTime = 180;
+   this.repairTime = 150;
    this.repairSound = new Phaser.Sound(game,'potBreak',1,false);
 
 	this.platforms = platforms;
@@ -122,10 +122,10 @@ Player.prototype.update = function() {
                }
             } else {
                this.repairedSword = true;
-               this.repairTime = 180;
+               this.repairTime = 150;
             }
          } else {
-            this.repairTime = 180;
+            this.repairTime = 150;
          }
       } else {
          // Grant instant movement downwards

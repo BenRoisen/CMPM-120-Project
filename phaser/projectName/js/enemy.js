@@ -27,7 +27,6 @@ function Enemy (game, key, x, y, behavior, player, walls)
    this.got_hit = false;
    this.pot_hit = false;
    this.pot_broken = false;
-   this.invincible = false;
 
    //Sprite animations
    //this.animations.add('resting', Phaser.Animation.generateFrameNames(key, frame, frame, '', 4), 0, true);
@@ -158,14 +157,9 @@ Enemy.prototype.update = function () {
    // Hit check
    if(this.got_hit)
    {
-      if(this.state != 0)
+      if(this.pot_broken)
       {
-         if(this.pot_broken && !this.invincible)
-         {
-            this.kill();
-         } else {
-            this.pot_break();
-         }
+         this.kill();
       } else {
          this.got_hit = false;
       }
@@ -177,12 +171,6 @@ Enemy.prototype.update = function () {
       this.pot_break();
       this.pot_hit = false;
    }
-
-   // Turn off invincibility if it's on
-   if(this.invincible && !this.player.swordOut)
-   {
-      this.invincible = false;
-   }
 }
 
 Enemy.prototype.pot_break = function () {
@@ -190,10 +178,6 @@ Enemy.prototype.pot_break = function () {
    this.got_hit = false;
    this.animations.play('reveal');
    this.breakSound.play();
-   if(this.player.swordOut)
-   {
-      this.invincible = true;
-   }
 
    this.stun_self();
 }
