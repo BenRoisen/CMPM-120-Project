@@ -21,6 +21,8 @@ MainMenu.prototype = {
 		game.load.image('endGame', '../assets/endGame100w150h.png');
       game.load.image('background', '../assets/CaveBackground.png' ); // background sprite
     	game.load.image('dialogueBox', '../assets/DialogueBox.png');
+      game.load.image('titlescreen', '../assets/StartScreenX2.png');
+      game.load.image('titletext', '../assets/SpaceToBeginX2.png');
 
       //load atlas'
 		game.load.atlas('monsterAtlas', '../assets/MonsterAtlas.png', '../assets/MonsterAtlas.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
@@ -39,18 +41,14 @@ MainMenu.prototype = {
 		console.log('MainMenu: Create');
 		//Display the instructions
 		game.stage.backgroundColor = "#000000";	//create a black background
-		game.add.text(16, 16, 'Welcome to Legendary Ancient Blade of the Hero!', {fontSize: '32px', fill: '#fff' });
-		game.add.text(16, 64, 'Use left/right arrow keys to move, up arrow to jump.', {fontSize: '16px', fill: '#fff' });
-		game.add.text(16, 96, 'Hold the down arrow key while jumping to perform a stomp attack with your hammer.', {fontSize: '16px', fill: '#fff' });
-		game.add.text(16, 112, "This attack is fairly weak - it can smash pots, but won't affect monsters.", {fontSize: '16px', fill: '#fff' });
-		game.add.text(16, 144, 'Use spacebar to attack with your sword.', {fontSize: '16px', fill: '#fff' });
-		game.add.text(16, 160, 'CAUTION! Your sword is very old and thus very fragile. It will shatter if it hits anything, including walls and enemies.', {fontSize: '16px', fill: '#fff' });
-		game.add.text(16, 176, "Each time it shatters, it's reach decreases slightly.", {fontSize: '16px', fill: '#fff' });
-		game.add.text(16, 208, 'You can repair your sword by collecting ores from pots.', {fontSize: '16px', fill: '#fff' });
-		game.add.text(16, 240, 'Be wary! Monsters have been known to hide in pots and ambush unsuspecting adventurers!', {fontSize: '16px', fill: '#fff' });
-		game.add.text(16, 272, 'Press [E] when touching certain objects to interact with them', {fontSize: '16px', fill: '#fff' });
-		
-		game.add.text(16, 512, 'Press [SPACE] to start', {fontSize: '32px', fill: '#fff' });
+		var titlescreen = game.add.image(0,0,'titlescreen');
+      titlescreen.scale.x = 0.5;
+      titlescreen.scale.y = 0.5;
+      var titletext = game.add.image(game.world.width/2,game.world.height/2,'titletext');
+      titletext.scale.x = 0.5;
+      titletext.scale.y = 0.5;
+      titletext.anchor.x = 0.5;
+      titletext.anchor.y = 0.5;
 	},
 	update: function() {
 		//main menu logic - switch to play state if player hits the spacebar
