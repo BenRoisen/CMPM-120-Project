@@ -48,8 +48,15 @@ Play.prototype = {
     	
 
 		//set up scoreText to display player ore count
-		this.scoreText = game.add.text(16, 65, 'Ores: 0 Sword Length: 5', {fontSize: '32px', fill: '#408' });	//made the text purple so it stands out against the shadow
+		this.scoreText = game.add.text(65, 70, 'x0', {fontSize: '32px', fill: '#fff' });	//made the text white so it stands out against the shadow
 		this.scoreText.fixedToCamera = true;	//make it move with the camera
+		this.oreIcon = game.add.sprite(16, 65, 'obsidian');	//icon of the ore sprite to show what we're counting
+		this.oreIcon.fixedToCamera = true;
+		this.oreIcon.scale.setTo(0.3);
+
+		//set up swordText to display player sowrd length
+		this.swordText = game.add.text(16, 12, 'x5', {fontSize: '32px', fill: '#fff' });	//made the text white so it stands out against the shadow
+		this.swordText.fixedToCamera = true;	//make it move with the camera
 
 		//set up ores
 		this.ores = game.add.group();
@@ -72,7 +79,7 @@ Play.prototype = {
 		this.swordUI = game.add.group();
 		//looks confusing, but this basically just creates each UI part and immediately fixes it to the camera
 		(this.swordUI.create(5, 5, 'swordHilt')).fixedToCamera = true;	//sword hilt
-		for(var i = 0; i < 17; i++) {	//spawn 17 blade segments (the most we can fit onscreen)
+		for(var i = 0; i < 16; i++) {	//spawn 17 blade segments (the most we can fit onscreen)
 			(this.swordUI.create((106 + (49 * i)), 5, 'swordBlade')).fixedToCamera = true;	//make the segment move with the camers
 		}
 
@@ -101,7 +108,9 @@ Play.prototype = {
 
 		//bring the UI to the topmost z-level so it renders over the shadow
 		game.world.bringToTop(this.scoreText);
+		game.world.bringToTop(this.swordText);
 		game.world.bringToTop(this.swordUI);
+		game.world.bringToTop(this.oreIcon);
 	},
 	update:function() {
 		//let player collide with platforms
@@ -149,7 +158,7 @@ Play.prototype = {
 			console.log('repairing sword...');
 			if(this.score > 0) {	//only allow repair if we have ore
 				this.player.swordLength += 1;
-				this.score -= 1;
+				//this.score -= 1;
 			}
 			else { //not enough ore to repair
 				//we should probably put something here to let player know they need more ore (sound, etc.)
@@ -172,13 +181,16 @@ Play.prototype = {
 			var segment = this.swordUI.getChildAt(i);	//get the blade segment at index i
 			if(i <= this.player.swordLength) {	//if this segment is on our current sword, make it visible
 				segment.visible = true;
+				this.swordText.cameraOffset.x = segment.cameraOffset.x + 90;	//have swordText render just beyond the tip of the sword
 			} else {					//if this segment broke off, make it invisible
 				segment.visible = false;
 			}
 		}
+
 		//update the text-based UI
 		//we have to do this each update rather than on some event because there's no good way to let the sword trigger an update if it hits a wall
-		this.scoreText.text = 'Ores: ' + this.score + " Sword Length: " + this.player.swordLength;
+		this.scoreText.text = 'x' + this.score;
+		this.swordText.text = 'x' + this.player.swordLength;
 
 		//update the shadow
 		this.updateShadowTexture(this.shadowTexture);
