@@ -16,6 +16,7 @@ function Sword (game, key, key2, player, walls, enemies, pots)
    this.end_lag = 15;
    this.state = 0;
    this.hit_wall = false;
+   this.pieceLost = false;
 
    this.slash = new Phaser.Sound(game,'slash',1,false);
    this.shatter = new Phaser.Sound(game,'shatter',1,false);
@@ -133,23 +134,43 @@ Sword.prototype.update = function () {
 }
 
 Sword.prototype.wall_check = function (sword) {
-   if (game.physics.arcade.overlap(sword.boxes, sword.walls)) 
+   if (game.physics.arcade.overlap(sword.boxes, sword.walls) && !sword.pieceLost) 
    {
       sword.state = 4;
       sword.end_lag = 5;
       sword.player.swordLength -= 1;
+      sword.pieceLost = true;
       this.shatter.play();
    }
 }
 
 Sword.prototype.enemy_check = function (swordbox, enemy) {
-   enemy.got_hit = true;
+   if(!enemy.pot_broken)
+   {
+      if(!swordbox.sword.pieceLost)
+      {
+         swordbox.sword.state = 4;
+         swordbox.sword.end_lag = 5;
+         swordbox.sword.player.swordLength -= 1;
+         swordbox.sword.pieceLost = true
+         this.shatter.play();
+      }
+   } else {
+      this.slash.play();
+      enemy.got_hit = true;
+   }
    console.log("hit enemy");
-   this.slash.play();
 }
 
 Sword.prototype.pot_check = function (swordbox, pot) {
-   pot.gotHit = true;
+   if(!swordbox.sword.pieceLost)
+   {
+      swordbox.sword.state = 4;
+      swordbox.sword.end_lag = 5;
+      swordbox.sword.player.swordLength -= 1;
+      swordbox.sword.pieceLost = true
+      this.shatter.play();
+   }
 }
 
 function Swordbox (game, id, key, player, sword, walls, enemies, shadow)

@@ -26,7 +26,7 @@ function Player(game, key, frame, scale, platforms) {
    this.state_changed = true;
 
    //set vars for repairing 
-   this.repairTime = 180;
+   this.repairTime = 150;
    this.repairSound = new Phaser.Sound(game,'potBreak',1,false);
 
 	this.platforms = platforms;
@@ -103,7 +103,7 @@ Player.prototype.update = function() {
 	//this.body.velocity.y = 0;	//reset vertical velocity
 	if(this.cursors.up.isDown && this.can_jump && !this.inDialogue) {// && hitPlatform) {	//did the player press the up arrow key while standing on the ground?
 		//move up
-		this.body.velocity.y = -750;
+		this.body.velocity.y = -1125;
 		this.can_jump = false;
 	}
 	else if (this.cursors.down.isDown && !this.inDialogue)	//did the player press the down arrow key?
@@ -122,10 +122,10 @@ Player.prototype.update = function() {
                }
             } else {
                this.repairedSword = true;
-               this.repairTime = 180;
+               this.repairTime = 150;
             }
          } else {
-            this.repairTime = 180;
+            this.repairTime = 150;
          }
       } else {
          // Grant instant movement downwards
@@ -139,7 +139,7 @@ Player.prototype.update = function() {
       }
 	}
 	else {	//player pressed no keys
-		this.body.gravity.y = 800;
+		this.body.gravity.y = 1600;
 	}
 
    // Extra piece of code for animation only
