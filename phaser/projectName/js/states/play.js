@@ -273,7 +273,7 @@ Play.prototype = {
 		//the following code is adapted from https://gamemechanicexplorer.com/#lighting-3
 
 		//fill shadowTexture with a dark shadow color
-		shadowTexture.context.fillStyle = 'rgb(100, 100, 100)';
+		shadowTexture.context.fillStyle = 'rgb(40, 40, 40)';
 		shadowTexture.context.fillRect(0, 0, this.game.width, this.game.height);
 
 		if(this.player.swordLength < 0) {
