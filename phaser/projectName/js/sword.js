@@ -25,16 +25,16 @@ function Sword (game, key, key2, player, walls, enemies, pots)
    this.enemies = enemies;
    this.pots = pots;
    
-   this.y = player.y - 4;
+   this.y = player.y;
    if(player.facingRight)
    {
-      this.x = player.x - 21;
+      this.x = player.x - 10;
       this.angle = this.uangle;
       this.shadow_angle = this.angle - 5;
       this.scale.set(1);
 
    } else {
-      this.x = player.x + 21;
+      this.x = player.x + 10;
       this.angle = (this.uangle -180) * -1;
       this.shadow_angle = this.angle + 5;
       this.scale.set(-1);
@@ -63,15 +63,15 @@ Sword.prototype.constructor = Sword;
 
 Sword.prototype.update = function () {
    // Set position to the player's shoulder
-   this.y = this.player.y - 1;
+   this.y = this.player.y;
    if(this.player.facingRight)
    {
-      this.x = this.player.x - 19;
+      this.x = this.player.x - 14;
       this.angle = this.uangle;
       this.shadow_angle = this.angle - 5;
       this.scale.set(1, 1);
    } else {
-      this.x = this.player.x + 19;
+      this.x = this.player.x + 14;
       this.angle = (this.uangle -180) * -1;
       this.shadow_angle = this.angle + 5;
       this.scale.set(1, -1);

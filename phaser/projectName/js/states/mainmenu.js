@@ -24,6 +24,7 @@ MainMenu.prototype = {
 
       //load atlas'
 		game.load.atlas('monsterAtlas', '../assets/MonsterAtlas.png', '../assets/MonsterAtlas.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
+      game.load.atlas('playerAtlas', '../assets/CharacterAtlas.png', '../assets/CharacterAtlas.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 		
 		game.load.image('swordHilt', '../assets/SwordHilt(114x60).png');	//UI hilt element
 		game.load.image('swordBlade', '../assets/SwordBlade2(91x60).png');	//UI blade element

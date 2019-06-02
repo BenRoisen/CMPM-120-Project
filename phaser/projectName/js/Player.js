@@ -2,11 +2,11 @@
 
 function Player(game, key, frame, scale, platforms) {
 	//make us extend Phaser.Sprite //new Sprite(game, x, y, key, frame)
-	Phaser.Sprite.call(this, game, 140, (game.world.height - 160), key, frame); 
+	Phaser.Sprite.call(this, game, 140, (game.world.height - 160), 'playerAtlas', 'Standing01');
 
 	//add properties
-	this.scale.x = scale;		//set x scale
-	this.scale.y = scale;		//set y scale
+	this.scale.x = 1/3;		//set x scale
+	this.scale.y = 1/3;		//set y scale
    this.anchor.x = 0.5;       //set center x
    this.anchor.y = 0.5;       //set center y
 	
@@ -23,6 +23,7 @@ function Player(game, key, frame, scale, platforms) {
 	this.ground_check = false;
    this.swordOut = false;
    this.repairedSword = false;
+   this.state_changed = true;
 
    //set vars for repairing 
    this.repairTime = 180;
@@ -33,6 +34,15 @@ function Player(game, key, frame, scale, platforms) {
 	this.swordLength = 5;
 
 	this.inDialogue = false;	//tracks whether or not the player is in a dialogue instance
+
+   //adding animations
+   this.animations.add('stand', ['Standing01'], 0, false);
+   this.animations.add('run', Phaser.Animation.generateFrameNames('Running', 1, 4, '', 2), 15, true);
+   this.animations.add('jump', Phaser.Animation.generateFrameNames('Jumping', 1, 4, '', 2), 15, false);
+   this.animations.add('jumphold', ['Jumping04'], 0, false);
+   this.animations.add('smash', Phaser.Animation.generateFrameNames('Smash', 1, 4, '', 2), 15, false);
+   this.animations.add('swing', Phaser.Animation.generateFrameNames('Swinging', 1, 4, '', 2), 15, false);
+   this.animations.add('repair', Phaser.Animation.generateFrameNames('Repair', 1, 4, '', 2), 15, true);
 }
 
 //specify the object's prototype and constructor
@@ -135,13 +145,33 @@ Player.prototype.update = function() {
    // Extra piece of code for animation only
    if(this.swordOut)
    {
-      this.loadTexture('playerSwing');
+      if(game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 1)) this.animations.play('swing');
    } else {
-      if(this.cursors.down.isDown && !this.can_jump)
+      if(!this.can_jump)
       {
-         this.loadTexture('playerSmash');
+         if(this.cursors.down.isDown) 
+         {
+            if(game.input.keyboard.downDuration(Phaser.Keyboard.DOWN, 1)) this.animations.play('smash');
+         } else {
+            if(game.input.keyboard.downDuration(Phaser.Keyboard.UP, 1))
+            {
+               this.animations.play('jump');
+            } else {
+               if(!this.cursors.up.isDown) this.animations.play('jumphold');
+            }
+         }
       } else {
-         this.loadTexture('player');
+         if(this.cursors.left.isDown || this.cursors.right.isDown)
+         {
+            this.animations.play('run');
+         } else {
+            if(this.cursors.down.isDown)
+            {
+               this.animations.play('repair');
+            } else {
+               this.animations.play('stand');
+            }
+         }
       }
    }
 }
