@@ -36,6 +36,12 @@ MainMenu.prototype = {
 
     	//load dialogue text
     	game.load.text('tutorial_dialogue', '../assets/dialogue_tutorial.json');
+
+    	//load tilemaps
+    	// game.load.tilemap('level01', '../assets/tiled_level.json', null, Phaser.Tilemap.TILED_JSON);
+    	// game.load.spritesheet('tilesheet', '../assets/tilesheet_complete.png', 32, 32);
+    	game.load.tilemap('level01', '../assets/Level01.json', null, Phaser.Tilemap.TILED_JSON);
+    	game.load.spritesheet('tilesheet', '../assets/Level01.png', 2000, 1200);
 	},
 	create: function() {
 		console.log('MainMenu: Create');

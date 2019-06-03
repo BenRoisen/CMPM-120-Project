@@ -24,6 +24,7 @@ Play.prototype = {
 
 		//enable arcade physics
 		game.physics.startSystem(Phaser.Physics.ARCADE);
+		game.physics.arcade.TILE_BIAS = 32;
 
 		//prepare any dialogue text we'll need
 		this.tutorial_dialogue = JSON.parse(game.cache.getText('tutorial_dialogue'));
@@ -94,6 +95,20 @@ Play.prototype = {
 		this.specialEntities = game.add.group();
 		this.specialEntities.enableBody = true;
 
+		//TILEMAP STUFF
+		this.map = game.add.tilemap('level01');
+		//this.map.addTilesetImage("abstract platformerX", 'tilesheet');
+		this.map.addTilesetImage("Level01Assets", 'tilesheet');
+		this.map.setCollisionByExclusion([]);
+		//create new Tilemaplayer objects
+		this.backgroundLayer = this.map.createLayer('Background');
+		this.collisionLayer = this.map.createLayer('Collision Boxes');
+		this.platformLayer = this.map.createLayer('Platforms');
+		//this.platformLayer = this.map.createLayer('Tile Layer 1');
+		//resize world
+		this.platformLayer.resizeWorld();
+
+
 		//set up the light mask
 		this.shadowTexture = this.game.add.bitmapData(game.width, game.height);	//texture for the light mask
 		var shadow = game.add.image(0,0,this.shadowTexture);	//spawn a sprite with the shadow texture
@@ -103,7 +118,7 @@ Play.prototype = {
 		//load the first level.
 		//NOTE: make sure that any groups/etc. that will be needed for ALL levels have been set up prior to this.
 		//(at the very least, make sure all the groups used by the sword have been declared BEFORE calling this function) 
-		loadLevel_0(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.tutorial_dialogue);
+		//loadLevel_0(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.tutorial_dialogue);
 
 		//bring the UI to the topmost z-level so it renders over the shadow
 		game.world.bringToTop(this.scoreText);
