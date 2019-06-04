@@ -25,7 +25,11 @@ function Player(game, key, frame, scale, platforms) {
    this.repairedSword = false;
    this.hasOre = false;
    this.invincible = false;
+
+   //set vars for running
    this.running = false;
+   this.runMaxTime = 15;
+   this.runTime = this.runMaxTime;
 
    //set vars for repairing 
    this.repairTime = 150;
@@ -38,7 +42,7 @@ function Player(game, key, frame, scale, platforms) {
 
    //adding animations
    this.animations.add('stand', ['Standing01'], 0, false);
-   this.animations.add('run', Phaser.Animation.generateFrameNames('Running', 1, 4, '', 2), 10, true);
+   this.animations.add('run', Phaser.Animation.generateFrameNames('Running', 1, 4, '', 2), 10, false);
    this.animations.add('jump', Phaser.Animation.generateFrameNames('Jumping', 1, 4, '', 2), 10, false);
    this.animations.add('jumphold', ['Jumping04'], 0, false);
    this.animations.add('smash', Phaser.Animation.generateFrameNames('Smash', 1, 4, '', 2), 12, false);
@@ -200,9 +204,17 @@ Player.prototype.update = function() {
       }
    }
 
-   if(!this.running)
+   if(this.running)
    {
-      this.runSound.play();
+      if(this.runTime == 0)
+      {
+         this.runSound.play();
+         this.runTime = this.runMaxTime;
+      } else {
+         this.runTime--;
+      }
+   } else {
+      this.runTime = 0;
    }
 
    if(this.invincible)
