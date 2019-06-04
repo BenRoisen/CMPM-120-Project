@@ -193,6 +193,8 @@ Play.prototype = {
 
 		//update the shadow
 		this.updateShadowTexture(this.shadowTexture);
+
+		console.log(this.player.running);
 	},
 	render:function() {
 		//game.debug.body(this.player);
@@ -208,6 +210,7 @@ Play.prototype = {
          console.log(enemy.state);
       	this.player.swordLength -= 1;		//lose health
       	if(this.player.swordLength < 0) {	//if dead, go to Game Over
+      		game.sound.stopAll();
       		game.state.start('GameOver', true, false, this.score, false);
       	}
 
@@ -275,6 +278,9 @@ Play.prototype = {
 					loadLevel_3(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities);
 					break;
 				default: 	//default case - we've finished all levels and now want to go to game over
+					game.sound.stopAll();
+					//this.player.remove();
+					// this.player.running = false;
 					game.state.start('GameOver', true, false, this.score, true);
 					break;
 			}

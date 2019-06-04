@@ -4,9 +4,11 @@ GameOver.prototype = {
 	init: function(points, isVictory) {
 		this.score = points;	//carry over score from Play state
 		this.won = isVictory;	//whether we won or died
+		game.sound.stopAll();	//stop playing the player running sound
 	},
 	preload: function() {
 		console.log('GameOver: Preload');
+		game.sound.stopAll();	//stop playing the player running sound again, because it's a persistent bugger
 	},
 	create: function() {
 		console.log('GameOver: Create');
@@ -22,6 +24,7 @@ GameOver.prototype = {
 			game.add.text(16, 48, 'Final Score: ' + this.score, {fontSize: '32px', fill: '#f00' });
 			game.add.text(16, 80, 'Press [SPACE] to retry', {fontSize: '32px', fill: '#f00' });
 		}
+		game.sound.destroy();	//send all the fucking sounds to the abyss to make that damn running sound cease
 	},
 	update: function() {
 		//restart game if player hits the spacebar
