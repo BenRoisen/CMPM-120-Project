@@ -23,6 +23,7 @@ function Player(game, key, frame, scale, platforms) {
 	this.ground_check = false;
    this.swordOut = false;
    this.repairedSword = false;
+   this.hasOre = false;
    this.invincible = false;
    this.running = false;
 
@@ -118,9 +119,9 @@ Player.prototype.update = function() {
 		this.body.velocity.y = -1125;
 		this.can_jump = false;
 	}
-	else if (this.cursors.down.isDown && !this.inDialogue)	//did the player press the down arrow key?
+	else if (this.cursors.down.isDown && !this.inDialogue && this.hasOre)	//did the player press the down arrow key?
 	{
-		if(this.can_jump) // Using can_jump as a replacement for "is on the ground"
+      if(this.can_jump) // Using can_jump as a replacement for "is on the ground"
       {
          // Repair the sword
          if(!this.cursors.left.isDown && !this.cursors.right.isDown && !this.swordOut)
@@ -154,6 +155,7 @@ Player.prototype.update = function() {
 	}
 	else {	//player pressed no keys
 		this.body.gravity.y = 1600;
+      this.repairTime = 150;
 	}
 
    // Extra piece of code for animation only
@@ -188,7 +190,7 @@ Player.prototype.update = function() {
          {
             this.animations.play('run');
          } else {
-            if(this.cursors.down.isDown)
+            if(this.cursors.down.isDown && this.hasOre)
             {
                this.animations.play('repair');
             } else {

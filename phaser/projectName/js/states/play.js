@@ -173,6 +173,13 @@ Play.prototype = {
          }
          this.player.repairedSword = false;
       }
+
+      if(this.score > 0)
+      {
+         this.player.hasOre = true;
+      } else {
+         this.player.hasOre = false;
+      }
 		
 		//update the sword UI - make length reflect our current sword length
 		var i;
@@ -193,8 +200,6 @@ Play.prototype = {
 
 		//update the shadow
 		this.updateShadowTexture(this.shadowTexture);
-
-		console.log(this.player.running);
 	},
 	render:function() {
 		//game.debug.body(this.player);
