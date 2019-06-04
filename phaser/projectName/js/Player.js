@@ -50,12 +50,12 @@ function Player(game, key, frame, scale, platforms) {
    this.animations.add('repair', Phaser.Animation.generateFrameNames('Repair', 1, 4, '', 2), 10, true);
 
    // Adding sounds
-   this.jumpSound = new Phaser.Sound(game,'jump',1,false);
-   this.runSound = new Phaser.Sound(game,'run',1,false);
-   this.swingSound = new Phaser.Sound(game,'swing',1,false);
-   this.smashSound = new Phaser.Sound(game,'smash',1,false);
-   this.repairSound = new Phaser.Sound(game,'repairHit',1,false);
-   this.repairFin = new Phaser.Sound(game,'repairFin',1,false);
+   this.jumpSound = game.add.audio('jump');
+   this.runSound = game.add.audio('run');
+   this.swingSound = game.add.audio('swing');
+   this.smashSound = game.add.audio('smash');
+   this.repairSound = game.add.audio('repairHit');
+   this.repairFin = game.add.audio('repairFin');
 }
 
 //specify the object's prototype and constructor

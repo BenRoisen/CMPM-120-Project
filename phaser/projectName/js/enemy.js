@@ -36,9 +36,9 @@ function Enemy (game, key, x, y, behavior, player, walls)
    this.animations.add('reveal', ['MonsterJump1'], 0, false);
    this.scale.setTo(0.33, 0.33);
 
-   this.rollSound = new Phaser.Sound(game,'roll',1,false);
-   this.breakSound = new Phaser.Sound(game,'potBreak',1,false);
-   this.deathSound = new Phaser.Sound(game,'monsterDeath',1,false);
+   this.rollSound = game.add.audio('roll');
+   this.breakSound = game.add.audio('potBreak');
+   this.deathSound = game.add.audio('monsterDeath');
 }
 
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);
