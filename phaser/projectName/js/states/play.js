@@ -286,6 +286,9 @@ Play.prototype = {
 					game.sound.stopAll();
 					//this.player.remove();
 					// this.player.running = false;
+					this.player.runSound.stop();
+					game.sound.remove(this.player.runSound);
+					game.sound.removeAll();
 					game.state.start('GameOver', true, false, this.score, true);
 					break;
 			}

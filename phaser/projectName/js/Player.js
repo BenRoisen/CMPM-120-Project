@@ -47,7 +47,7 @@ function Player(game, key, frame, scale, platforms) {
 
    // Adding sounds
    this.jumpSound = new Phaser.Sound(game,'jump',1,false);
-   this.runSound = new Phaser.Sound(game,'run',1,true);
+   this.runSound = new Phaser.Sound(game,'run',1,false);
    this.swingSound = new Phaser.Sound(game,'swing',1,false);
    this.smashSound = new Phaser.Sound(game,'smash',1,false);
    this.repairSound = new Phaser.Sound(game,'repairHit',1,false);
