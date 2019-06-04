@@ -24,10 +24,10 @@ function Player(game, key, frame, scale, platforms) {
    this.swordOut = false;
    this.repairedSword = false;
    this.invincible = false;
+   this.running = false;
 
    //set vars for repairing 
    this.repairTime = 150;
-   this.repairSound = new Phaser.Sound(game,'potBreak',1,false);
 
 	this.platforms = platforms;
 	console.log(this.platforms);
@@ -37,12 +37,20 @@ function Player(game, key, frame, scale, platforms) {
 
    //adding animations
    this.animations.add('stand', ['Standing01'], 0, false);
-   this.animations.add('run', Phaser.Animation.generateFrameNames('Running', 1, 4, '', 2), 15, true);
-   this.animations.add('jump', Phaser.Animation.generateFrameNames('Jumping', 1, 4, '', 2), 15, false);
+   this.animations.add('run', Phaser.Animation.generateFrameNames('Running', 1, 4, '', 2), 10, true);
+   this.animations.add('jump', Phaser.Animation.generateFrameNames('Jumping', 1, 4, '', 2), 10, false);
    this.animations.add('jumphold', ['Jumping04'], 0, false);
-   this.animations.add('smash', Phaser.Animation.generateFrameNames('Smash', 1, 4, '', 2), 15, false);
-   this.animations.add('swing', Phaser.Animation.generateFrameNames('Swinging', 1, 4, '', 2), 15, false);
-   this.animations.add('repair', Phaser.Animation.generateFrameNames('Repair', 1, 4, '', 2), 15, true);
+   this.animations.add('smash', Phaser.Animation.generateFrameNames('Smash', 1, 4, '', 2), 12, false);
+   this.animations.add('swing', Phaser.Animation.generateFrameNames('Swinging', 1, 4, '', 2), 10, false);
+   this.animations.add('repair', Phaser.Animation.generateFrameNames('Repair', 1, 4, '', 2), 10, true);
+
+   // Adding sounds
+   this.jumpSound = new Phaser.Sound(game,'jump',1,false);
+   this.runSound = new Phaser.Sound(game,'run',1,true);
+   this.swingSound = new Phaser.Sound(game,'swing',1,false);
+   this.smashSound = new Phaser.Sound(game,'smash',1,false);
+   this.repairSound = new Phaser.Sound(game,'repairHit',1,false);
+   this.repairFin = new Phaser.Sound(game,'repairFin',1,false);
 }
 
 //specify the object's prototype and constructor
@@ -63,6 +71,7 @@ Player.prototype.update = function() {
 		if(this.scale.x > 0) {		//face left (if not already doing so)
 			this.scale.x *= -1;
 		}
+      this.running = true;
 	} else if (this.cursors.right.isDown && !this.inDialogue)	{ //did player press the right arrow key?
 		//move right
 		this.body.velocity.x = 500;
@@ -70,8 +79,10 @@ Player.prototype.update = function() {
 		if(this.scale.x < 0) {		//face right (if not already doing so)
 			this.scale.x *= -1;
 		}
+      this.running = true;
 	} else {	//no input detected
 		//do nothing
+      this.running = false;
 	}
 
    // Alternate sidewall collision
@@ -97,6 +108,7 @@ Player.prototype.update = function() {
 	} else {
 		this.ground_check = false;
       this.can_jump = false;
+      this.running = false;
 	}
 
 	//handle player vertical movement
@@ -116,9 +128,11 @@ Player.prototype.update = function() {
             if(this.repairTime > 0)
             {
                --this.repairTime;
-               if(this.repairTime%30 == 0)
+               if(this.repairTime == 0)
                {
-                  this.repairSound.play();
+                  this.repairFin.play();
+               } else {
+                  if(this.repairTime%30 == 0) this.repairSound.play();
                }
             } else {
                this.repairedSword = true;
@@ -145,17 +159,26 @@ Player.prototype.update = function() {
    // Extra piece of code for animation only
    if(this.swordOut)
    {
-      if(game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 1)) this.animations.play('swing');
+      if(game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 1))
+      {
+         this.animations.play('swing');
+         this.swingSound.play();
+      } 
    } else {
       if(!this.can_jump)
       {
          if(this.cursors.down.isDown) 
          {
-            if(game.input.keyboard.downDuration(Phaser.Keyboard.DOWN, 1)) this.animations.play('smash');
+            if(game.input.keyboard.downDuration(Phaser.Keyboard.DOWN, 1))
+            {
+               this.animations.play('smash');
+               this.smashSound.play();
+            }
          } else {
             if(game.input.keyboard.downDuration(Phaser.Keyboard.UP, 1))
             {
                this.animations.play('jump');
+               this.jumpSound.play();
             } else {
                if(!this.cursors.up.isDown) this.animations.play('jumphold');
             }
@@ -173,6 +196,11 @@ Player.prototype.update = function() {
             }
          }
       }
+   }
+
+   if(!this.running)
+   {
+      this.runSound.play();
    }
 
    if(this.invincible)

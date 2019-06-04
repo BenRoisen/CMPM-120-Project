@@ -212,12 +212,8 @@ Play.prototype = {
       	}
 
          // Push the player and enemy away from each other
-         objAngle = Math.atan2(this.player.y - enemy.y, this.player.x - enemy.x);
-         this.player.body.velocity.x += Math.cos(objAngle)*1000;
-         this.player.body.velocity.y += Math.sin(objAngle)*1000;
-         enemy.body.velocity.x -= Math.cos(objAngle)*1000;
-         console.log(enemy.body.velocity.x);
-         enemy.body.velocity.y -= Math.sin(objAngle)*1000;
+         this.player.body.velocity.x += 300;
+         this.player.body.velocity.y += 300;
 
       	this.player.invincible = true;	//temporarily become invincible (to avoid having your health instantly disappear)
       	game.time.events.add(1000, this.toggleInvincible, this);	//become mortal again after 1 second

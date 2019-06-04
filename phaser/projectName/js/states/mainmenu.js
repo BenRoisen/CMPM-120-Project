@@ -33,6 +33,14 @@ MainMenu.prototype = {
       game.load.audio('slash', ['../assets/sword.mp3']);
       game.load.audio('shatter', ['../assets/SwordShatter01.mp3']);
       game.load.audio('potBreak', ['../assets/PotBreak01.mp3']);
+      game.load.audio('jump', ['../assets/Jump.mp3']);
+      game.load.audio('run', ['../assets/Run.mp3']);
+      game.load.audio('swing', ['../assets/Swing.mp3']);
+      game.load.audio('smash', ['../assets/Smash.mp3']);
+      game.load.audio('roll', ['../assets/MonsterRoll.mp3']);
+      game.load.audio('monsterDeath', ['../assets/MonsterDeath.mp3']);
+      game.load.audio('repairHit', ['../assets/RepairHit.mp3']);
+      game.load.audio('repairFin', ['../assets/RepairFin.mp3']);
 
     	//load dialogue text
     	game.load.text('tutorial_dialogue', '../assets/dialogue_tutorial.json');

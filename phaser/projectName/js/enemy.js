@@ -13,7 +13,6 @@ function Enemy (game, key, x, y, behavior, player, walls)
    this.behavior = behavior;
    this.player = player;
    this.walls = walls;
-   this.breakSound = new Phaser.Sound(game,'potBreak',1,false);
 
    this.roll_time = 0;
    this.state = 0;
@@ -36,6 +35,10 @@ function Enemy (game, key, x, y, behavior, player, walls)
    this.animations.add('monsterJump', Phaser.Animation.generateFrameNames('MonsterJump', 1, 6, '', 1), 60, false);
    this.animations.add('reveal', ['MonsterJump1'], 0, false);
    this.scale.setTo(0.33, 0.33);
+
+   this.rollSound = new Phaser.Sound(game,'roll',1,false);
+   this.breakSound = new Phaser.Sound(game,'potBreak',1,false);
+   this.deathSound = new Phaser.Sound(game,'monsterDeath',1,false);
 }
 
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);
@@ -53,6 +56,7 @@ Enemy.prototype.update = function () {
          {
             this.state++;
             this.animations.play('roll');
+            this.rollSound.play();
             this.body.setSize(240, 240, 0, 0);
             console.log('they see me rollin');
          }
@@ -160,6 +164,7 @@ Enemy.prototype.update = function () {
       if(this.pot_broken)
       {
          this.kill();
+         this.deathSound.play();
       } else {
          this.got_hit = false;
       }
