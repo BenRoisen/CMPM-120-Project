@@ -40,8 +40,10 @@ MainMenu.prototype = {
     	//load tilemaps
     	// game.load.tilemap('level01', '../assets/tiled_level.json', null, Phaser.Tilemap.TILED_JSON);
     	// game.load.spritesheet('tilesheet', '../assets/tilesheet_complete.png', 32, 32);
-    	game.load.tilemap('level01', '../assets/Level01.json', null, Phaser.Tilemap.TILED_JSON);
-    	game.load.spritesheet('tilesheet', '../assets/Level01.png', 2000, 1200);
+    	// game.load.tilemap('level01', '../assets/Level01.json', null, Phaser.Tilemap.TILED_JSON);
+    	// game.load.spritesheet('tilesheet', '../assets/Level01.png', 2000, 1200);
+    	game.load.tilemap('level01', '../assets/RealLevel01.json', null, Phaser.Tilemap.TILED_JSON);
+    	game.load.spritesheet('tilesheet', '../assets/Level01Platform.png', 300, 60);
 	},
 	create: function() {
 		console.log('MainMenu: Create');

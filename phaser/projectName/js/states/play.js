@@ -98,15 +98,25 @@ Play.prototype = {
 		//TILEMAP STUFF
 		this.map = game.add.tilemap('level01');
 		//this.map.addTilesetImage("abstract platformerX", 'tilesheet');
-		this.map.addTilesetImage("Level01Assets", 'tilesheet');
-		this.map.setCollisionByExclusion([]);
+		// this.map.addTilesetImage("Level01Assets", 'tilesheet');
+		this.map.addTilesetImage("TestLevel01Tileset", 'tilesheet');
+		//this.map.setCollisionByExclusion([]);
+		console.log(this.map);
 		//create new Tilemaplayer objects
-		this.backgroundLayer = this.map.createLayer('Background');
-		this.collisionLayer = this.map.createLayer('Collision Boxes');
-		this.platformLayer = this.map.createLayer('Platforms');
 		//this.platformLayer = this.map.createLayer('Tile Layer 1');
+		// this.backgroundLayer = this.map.createLayer('Background');
+		// this.collisionLayer = this.map.createLayer('Collision Boxes');
+		// this.platformLayer = this.map.createLayer('Platforms');
+		this.map.createFromObjects('Platforms', 1, 'tilesheet', 0, true, true, this.platforms);
+		this.map.createFromObjects('Platforms', 2, 'tilesheet', 0, true, true, this.platforms);
+		this.map.createFromObjects('Platforms', 3, 'tilesheet', 0, true, true, this.platforms);
+		this.platforms.forEach(function(element) {
+			element.body.immovable = true;
+		});
+		//this.platformLayer = this.map.createLayer('Platforms');
+		//this.collisionLayer = this.map.createLayer('Collisions');
 		//resize world
-		this.platformLayer.resizeWorld();
+		//this.platformLayer.resizeWorld();
 
 
 		//set up the light mask
@@ -212,7 +222,7 @@ Play.prototype = {
 	render:function() {
 		//game.debug.body(this.player);
 		//game.debug.physicsGroup(this.exit);
-		//game.debug.physicsGroup(this.platforms);
+		game.debug.physicsGroup(this.platforms);
 		//game.debug.text(game.time.fps, 2, 14, "#00ff00");
 	},
 
