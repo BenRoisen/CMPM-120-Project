@@ -42,8 +42,17 @@ MainMenu.prototype = {
     	// game.load.spritesheet('tilesheet', '../assets/tilesheet_complete.png', 32, 32);
     	// game.load.tilemap('level01', '../assets/Level01.json', null, Phaser.Tilemap.TILED_JSON);
     	// game.load.spritesheet('tilesheet', '../assets/Level01.png', 2000, 1200);
-    	game.load.tilemap('level01', '../assets/RealLevel01.json', null, Phaser.Tilemap.TILED_JSON);
-    	game.load.spritesheet('tilesheet', '../assets/Level01Platform.png', 300, 60);
+    	
+    	//WORKING
+    	// game.load.tilemap('level01', '../assets/RealLevel01.json', null, Phaser.Tilemap.TILED_JSON);
+    	// game.load.spritesheet('tilesheet', '../assets/Level01Platform.png', 300, 60);
+
+		//game.load.tilemap('level01', '../assets/New_RealLevel01.json', null, Phaser.Tilemap.TILED_JSON);
+		game.load.tilemap('level01', '../assets/RealLevel01_3.json', null, Phaser.Tilemap.TILED_JSON);
+    	game.load.spritesheet('tilesheet', '../assets/Level01Platform.png', 300, 121);    	
+    	game.load.image('gid1Platform', '../assets/gid1Platform.png');
+    	game.load.image('gid2Platform', '../assets/gid2Platform.png');
+    	game.load.image('gid3Platform', '../assets/gid3Platform.png');
 	},
 	create: function() {
 		console.log('MainMenu: Create');
