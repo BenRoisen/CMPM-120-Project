@@ -38,21 +38,24 @@ MainMenu.prototype = {
     	game.load.text('tutorial_dialogue', '../assets/dialogue_tutorial.json');
 
     	//load tilemaps
-    	// game.load.tilemap('level01', '../assets/tiled_level.json', null, Phaser.Tilemap.TILED_JSON);
-    	// game.load.spritesheet('tilesheet', '../assets/tilesheet_complete.png', 32, 32);
-    	// game.load.tilemap('level01', '../assets/Level01.json', null, Phaser.Tilemap.TILED_JSON);
-    	// game.load.spritesheet('tilesheet', '../assets/Level01.png', 2000, 1200);
-    	
-    	//WORKING
-    	// game.load.tilemap('level01', '../assets/RealLevel01.json', null, Phaser.Tilemap.TILED_JSON);
-    	// game.load.spritesheet('tilesheet', '../assets/Level01Platform.png', 300, 60);
+    	// game.load.tilemap('level01', '../assets/RealLevel01_3.json', null, Phaser.Tilemap.TILED_JSON);
+    	// game.load.spritesheet('tilesheet', '../assets/Level01Platform.png', 300, 121);    	
+    	// game.load.image('gid1Platform', '../assets/gid1Platform.png');
+    	// game.load.image('gid2Platform', '../assets/gid2Platform.png');
+    	// game.load.image('gid3Platform', '../assets/gid3Platform.png');
 
-		//game.load.tilemap('level01', '../assets/New_RealLevel01.json', null, Phaser.Tilemap.TILED_JSON);
-		game.load.tilemap('level01', '../assets/RealLevel01_3.json', null, Phaser.Tilemap.TILED_JSON);
-    	game.load.spritesheet('tilesheet', '../assets/Level01Platform.png', 300, 121);    	
-    	game.load.image('gid1Platform', '../assets/gid1Platform.png');
-    	game.load.image('gid2Platform', '../assets/gid2Platform.png');
-    	game.load.image('gid3Platform', '../assets/gid3Platform.png');
+    	game.load.tilemap('level01', '../assets/Level 1/Level1.json', null, Phaser.Tilemap.TILED_JSON);
+    	//game.load.spritesheet('tilesheet', '../assets/Level 1/Level01Platform.png', 300, 121);    	
+    	game.load.image('gid1Platform', '../assets/Level 1/gid1Platform.png');
+    	game.load.image('gid2Platform', '../assets/Level 1/gid2Platform.png');
+    	game.load.image('gid3Platform', '../assets/Level 1/gid3Platform.png');
+    	game.load.image('gid4Platform', '../assets/Level 1/gid4Platform.png');
+    	game.load.image('gid5Platform', '../assets/Level 1/gid5Platform.png');
+    	game.load.image('gid6Platform', '../assets/Level 1/gid6Platform.png');
+    	game.load.image('gid7Platform', '../assets/Level 1/gid7Platform.png');
+    	game.load.image('gid8Platform', '../assets/Level 1/gid8Platform.png');
+    	game.load.image('gid9Platform', '../assets/Level 1/gid9Platform.png');
+    	game.load.image('CollisionBox', '../assets/Level 1/CollisionBox.png');
 	},
 	create: function() {
 		console.log('MainMenu: Create');

@@ -96,33 +96,53 @@ Play.prototype = {
 		this.specialEntities.enableBody = true;
 
 		//TILEMAP STUFF
-		this.map = game.add.tilemap('level01');		//WORKING
-		//this.map.addTilesetImage("abstract platformerX", 'tilesheet');
-		// this.map.addTilesetImage("Level01Assets", 'tilesheet');
-		//this.map.addTilesetImage("TestLevel01Tileset", 'tilesheet');	//WORKING
-		this.map.addTilesetImage("Level01Tileset", 'tilesheet');
+		// this.map = game.add.tilemap('level01');		//WORKING
+		// this.map.addTilesetImage("Level01Tileset", 'tilesheet');
+		// //this.map.setCollisionByExclusion([]);
+		// console.log(this.map);
+		// this.decorations = game.add.group();
+		// this.map.createFromObjects('Platforms', 1, 'gid3Platform', 0, true, true, this.decorations);
+		// this.map.createFromObjects('Platforms', 2, 'gid3Platform', 0, true, true, this.decorations);
+		// this.map.createFromObjects('Platforms', 3, 'gid3Platform', 0, true, true, this.decorations);
+		// this.map.createFromObjects('Collisions', 4, 'tilesheet', 0, true, true, this.platforms);
+		// this.platforms.forEach(function(element) {
+		// 	element.body.immovable = true;
+		// });
+
+		var map = game.add.tilemap('level01');
+		//this.map.addTilesetImage("Level01Tileset", 'tilesheet');
 		//this.map.setCollisionByExclusion([]);
 		console.log(this.map);
-		//create new Tilemaplayer objects
-		//this.platformLayer = this.map.createLayer('Tile Layer 1');
-		// this.backgroundLayer = this.map.createLayer('Background');
-		// this.collisionLayer = this.map.createLayer('Collision Boxes');
-		// this.platformLayer = this.map.createLayer('Platforms');
 		this.decorations = game.add.group();
-		this.map.createFromObjects('Platforms', 1, 'gid3Platform', 0, true, true, this.decorations);	//WORKING
-		this.map.createFromObjects('Platforms', 2, 'gid3Platform', 0, true, true, this.decorations);	//WORKING
-		this.map.createFromObjects('Platforms', 3, 'gid3Platform', 0, true, true, this.decorations);	//WORKING
-		this.map.createFromObjects('Collisions', 4, 'tilesheet', 0, true, true, this.platforms);
-		this.platforms.forEach(function(element) {	//WORKING
-			element.body.immovable = true;			//WORKING
-		});											//WORKING
-		//this.platformLayer = this.map.createLayer('Platforms');
-		//this.collisionLayer = this.map.createLayer('Collisions');
-		//resize world
-		//this.platformLayer.resizeWorld();
-		var ground = this.platforms.create(0, game.world.height - 1, 'platform_med');
-		ground.scale.setTo(7, 1);		//scale the ground to fit the game (sprite is 300x68, & we need to to be 2000x16)
-		ground.body.immovable = true;	//make the ground immovable so it won't fall when player touches it
+		this.spawners = game.add.group();
+		loadLevel_TEST(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.decorations);
+		// map.createFromObjects('Platforms', 1, 'gid1Platform', 0, true, true, this.decorations);
+		// map.createFromObjects('Platforms', 2, 'gid2Platform', 0, true, true, this.decorations);
+		// map.createFromObjects('Platforms', 3, 'gid3Platform', 0, true, true, this.decorations);
+		// map.createFromObjects('Platforms', 4, 'gid4Platform', 0, true, true, this.decorations);
+		// map.createFromObjects('Platforms', 5, 'gid5Platform', 0, true, true, this.decorations);
+		// map.createFromObjects('Platforms', 6, 'gid6Platform', 0, true, true, this.decorations);
+		// // this.map.createFromObjects('Platforms', 7, 'gid7Platform', 0, true, true, this.decorations);
+		// map.createFromObjects('Platforms', 7, 'gid7Platform', 0, true, true, this.spawners);
+		// map.createFromObjects('Platforms', 8, 'gid8Platform', 0, true, true, this.decorations);
+		// map.createFromObjects('Platforms', 9, 'gid9Platform', 0, true, true, this.decorations);
+		// map.createFromObjects('Collision', 10, 'CollisionBox', 0, true, true, this.platforms);
+		// this.platforms.forEach(function(element) {
+		// 	element.body.immovable = true;
+		// });
+		
+		// var i;
+		// for (i = 0; i < this.spawners.length; i++) {
+		// 	var element = this.spawners.getChildAt(i);
+		// 	var enemy = new Enemy(game, 'pot', element.x, element.y, 0, this.player, this.platforms);	//enemy 1
+  //    		game.add.existing(enemy);
+  //    		this.enemies.add(enemy);
+  //    		console.log('SPAWNING ENEMY AT ' + element.x + ', ' + element.y);
+		// }
+
+		// var ground = this.platforms.create(0, game.world.height - 1, 'platform_med');
+		// ground.scale.setTo(7, 1);		//scale the ground to fit the game (sprite is 300x68, & we need to to be 2000x16)
+		// ground.body.immovable = true;	//make the ground immovable so it won't fall when player touches it
 
 
 		//set up the light mask
