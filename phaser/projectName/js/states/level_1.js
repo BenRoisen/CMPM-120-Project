@@ -1,5 +1,5 @@
 //Define Play state and methods
-var loadLevel_1 = function(game, player, platforms, enemies, orePots, exit, ores, specialEntities) {
+var loadLevel_1 = function(game, player, platforms, enemies, orePots, exit, ores, specialEntities, decorations, background) {
 	//empty out all the old level elements
 	platforms.removeAll(true);
 	enemies.removeAll(true);
@@ -7,94 +7,86 @@ var loadLevel_1 = function(game, player, platforms, enemies, orePots, exit, ores
 	exit.removeAll(true);
 	ores.removeAll(true);
 	specialEntities.removeAll(true);
+	decorations.removeAll(true);
 
-	//reset the player's position
-	player.body.x = 140;
-	player.body.y = (game.world.height - 160);
+	background.loadTexture('background_1');
+	game.world.resize(2000,600);
 
 	//create the ground
 	var ground = platforms.create(0, game.world.height - 1, 'platform_med');
 	ground.scale.setTo(7, 1);		//scale the ground to fit the game (sprite is 300x68, & we need to to be 2000x16)
 	ground.body.immovable = true;	//make the ground immovable so it won't fall when player touches it
 
-	//make the left wall
-	var ledge = platforms.create(0, 0, 'wall_big');
-	ledge.body.immovable = true;		//make wall immovable
-	ledge.body.setSize(34, 600, 17, 0);	//adjust bounding box according to specifications
-	ledge = platforms.create(0, 600, 'wall_big');
-	ledge.body.immovable = true;		//make wall immovable
-	ledge.body.setSize(34, 600, 17, 0);	//adjust bounding box according to specifications
-	//make the right wall
-	ledge = platforms.create(1950, 0, 'wall_big');
-	ledge.body.immovable = true;		//make wall immovable
-	ledge.body.setSize(34, 600, 17, 0);	//adjust bounding box according to specifications
-	ledge = platforms.create(1950, 600, 'wall_big');
-	ledge.body.immovable = true;		//make wall immovable
-	ledge.body.setSize(34, 600, 17, 0);	//adjust bounding box according to specifications
-	//make the platforms for platforming
-	ledge = platforms.create(0, 200, 'platform_big');		//platform A
-	ledge.body.immovable = true;		//make wall immovable
-	ledge.body.setSize(600, 34, 0, 17);	//adjust bounding box according to specifications
-	ledge = platforms.create(0, 900, 'platform_big');		//platform B
-	ledge.body.immovable = true;		//make wall immovable
-	ledge.body.setSize(600, 34, 0, 17);	//adjust bounding box according to specifications
-	ledge = platforms.create(550, 600, 'platform_big');	//platform C
-	ledge.body.immovable = true;		//make wall immovable
-	ledge.body.setSize(600, 34, 0, 17);	//adjust bounding box according to specifications
-	ledge = platforms.create(800, 200, 'platform_small');	//platform D
-	ledge.body.immovable = true;		//make wall immovable
-	ledge.body.setSize(150, 34, 0, 17);	//adjust bounding box according to specifications
-	ledge = platforms.create(850, 950, 'platform_med');	//platform E
-	ledge.body.immovable = true;		//make wall immovable
-	ledge.body.setSize(300, 34, 0, 17);	//adjust bounding box according to specifications
-	ledge = platforms.create(1150, 600, 'wall_big');		//wall F
-	ledge.body.immovable = true;		//make wall immovable
-	ledge.body.setSize(34, 600, 17, 17);	//adjust bounding box according to specifications
-	ledge = platforms.create(1150, 350, 'platform_small');	//platform G
-	ledge.body.immovable = true;		//make wall immovable
-	ledge.body.setSize(150, 34, 0, 17);	//adjust bounding box according to specifications
-	ledge = platforms.create(1200, 600, 'platform_big');	//platform H
-	ledge.body.immovable = true;		//make wall immovable
-	ledge.body.setSize(600, 34, 0, 17);	//adjust bounding box according to specifications
-	ledge = platforms.create(1450, 200, 'platform_big');	//platform I
-	ledge.body.immovable = true;		//make wall immovable
-	ledge.body.setSize(600, 34, 0, 17);	//adjust bounding box according to specifications
-	ledge = platforms.create(1850, 800, 'platform_small');	//platform J
-	ledge.body.immovable = true;		//make wall immovable
-	ledge.body.setSize(150, 34, 0, 17);	//adjust bounding box according to specifications
-	ledge = platforms.create(1700, 995, 'platform_med');	//platform K
-	ledge.body.immovable = true;		//make wall immovable
-	ledge.body.setSize(300, 34, 0, 17);	//adjust bounding box according to specifications
+	//extract data from the tilemap
+	var map = game.add.tilemap('level01');
+	// console.log(this.map);
+	var spawners = game.add.group();
+	var potSpawners = game.add.group();
+	var exits = game.add.group();
+	var playerPoints = game.add.group();
+	map.createFromObjects('Platforms', 1, 'gid1Platform', 0, true, true, decorations);
+	map.createFromObjects('Platforms', 2, 'gid2Platform', 0, true, true, decorations);
+	map.createFromObjects('Platforms', 3, 'gid3Platform', 0, true, true, decorations);
+	map.createFromObjects('Platforms', 4, 'gid4Platform', 0, true, true, decorations);
+	map.createFromObjects('Platforms', 5, 'gid5Platform', 0, true, true, decorations);
+	map.createFromObjects('Platforms', 6, 'gid6Platform', 0, true, true, decorations);
+	map.createFromObjects('Platforms', 7, 'CollisionBox', 0, true, true, spawners);
+	map.createFromObjects('Platforms', 8, 'CollisionBox', 0, true, true, potSpawners);
+	map.createFromObjects('Platforms', 9, 'CollisionBox', 0, true, true, playerPoints);
+	map.createFromObjects('Platforms', 9, 'CollisionBox', 0, true, true, exits);
+	map.createFromObjects('Platforms', 7, 'gid7Platform', 0, true, true, decorations);
+	map.createFromObjects('Platforms', 8, 'gid8Platform', 0, true, true, decorations);
+	map.createFromObjects('Platforms', 9, 'gid9Platform', 0, true, true, decorations);
+	map.createFromObjects('Collision', 10, 'CollisionBox', 0, true, true, platforms);
+	
+	//make all platforms immovable
+	platforms.forEach(function(element) {
+		element.body.immovable = true;
+	});
 
 	//spawn enemy pots
-    var enemy = new Enemy(game, 'pot', 150, 800, 0, player, platforms);
-    game.add.existing(enemy);
-    enemies.add(enemy);
-    enemy = new Enemy(game, 'pot', 1250, 1100, 0, player, platforms);
-    game.add.existing(enemy);
-    enemies.add(enemy);
-    enemy = new Enemy(game, 'pot', 1400, 200, 0, player, platforms);
-    game.add.existing(enemy);
-    enemies.add(enemy);
+    var i;
+	for (i = 0; i < spawners.length; i++) {
+		var element = spawners.getChildAt(i);
+		var enemy = new Enemy(game, 'pot', element.x, element.y, 0, player, platforms);	//enemy 1
+     	game.add.existing(enemy);
+    	enemies.add(enemy);
+ 		console.log('SPAWNING ENEMY AT ' + element.x + ', ' + element.y);
+	}
 
     //spawn some ore pots
-	var pot = new OrePot(game, 'pot', 100, 50, orePots, ores);
-	game.add.existing(pot);
-	orePots.add(pot);
-	pot = new OrePot(game, 'pot', 650, 450, orePots, ores);
-	game.add.existing(pot);
-	orePots.add(pot);
-	pot = new OrePot(game, 'pot', 750, 1050, orePots, ores);
-	game.add.existing(pot);
-	orePots.add(pot);
-	pot = new OrePot(game, 'pot', 1800, 50, orePots, ores);
-	game.add.existing(pot);
-	orePots.add(pot);
-	pot = new OrePot(game, 'pot', 1850, 850, orePots, ores);
-	game.add.existing(pot);
-	orePots.add(pot);
+    var j;
+	for (j = 0; j < potSpawners.length; j++) {
+		var element = potSpawners.getChildAt(i);
+		var pot = new OrePot(game, 'pot', element.x, element.y, orePots, ores);
+		game.add.existing(pot);
+		orePots.add(pot);
+ 		console.log('SPAWNING ENEMY AT ' + element.x + ', ' + element.y);
+	}
 	
 	//spawn the level exit door thing
-	var door = exit.create(1900, 1050, 'endGame');
-	door.body.immovable = true;
+	// var door = exit.create(exits.getChildAt(0).x, exits.getChildAt(0).y, 'endGame');
+	// door.body.immovable = true;
+	var k;
+	for (k = 0; k < exits.length; k++) {
+		var element = exits.getChildAt(k);
+		var door = exit.create(element.x, element.y, 'endGame');
+		door.body.immovable = true;
+	}
+
+	var l;
+	for (l = 0; l < playerPoints.length; l++) {
+		var element = playerPoints.getChildAt(l);
+		player.body.moves = false;
+		player.x = element.x;
+		player.y = element.y;
+		player.body.moves = true;
+		// var door = exit.create(element.x, element.y, 'endGame');
+		// door.body.immovable = true;
+	}
+
+	spawners.removeAll(true);
+	potSpawners.removeAll(true);
+	exits.removeAll(true);
+	playerPoints.removeAll(true);
 }

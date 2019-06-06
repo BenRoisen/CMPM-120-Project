@@ -44,6 +44,25 @@ MainMenu.prototype = {
 
     	//load dialogue text
     	game.load.text('tutorial_dialogue', '../assets/dialogue_tutorial.json');
+
+    	//load tilemaps
+    	game.load.tilemap('level01', '../assets/Tilemaps/Level1.json', null, Phaser.Tilemap.TILED_JSON);
+    	game.load.tilemap('level02', '../assets/Tilemaps/Level2.json', null, Phaser.Tilemap.TILED_JSON);
+    	game.load.tilemap('level03', '../assets/Tilemaps/Level3.json', null, Phaser.Tilemap.TILED_JSON);
+    	//load tilemap assets
+    	game.load.image('gid1Platform', '../assets/Tilemaps/gid1Platform.png');
+    	game.load.image('gid2Platform', '../assets/Tilemaps/gid2Platform.png');
+    	game.load.image('gid3Platform', '../assets/Tilemaps/gid3Platform.png');
+    	game.load.image('gid4Platform', '../assets/Tilemaps/gid4Platform.png');
+    	game.load.image('gid5Platform', '../assets/Tilemaps/gid5Platform.png');
+    	game.load.image('gid6Platform', '../assets/Tilemaps/gid6Platform.png');
+    	game.load.image('gid7Platform', '../assets/Tilemaps/gid7Platform.png');
+    	game.load.image('gid8Platform', '../assets/Tilemaps/gid8Platform.png');
+    	game.load.image('gid9Platform', '../assets/Tilemaps/gid9Platform.png');
+    	game.load.image('CollisionBox', '../assets/Tilemaps/CollisionBox.png');
+    	game.load.image('background_1', '../assets/Tilemaps/BackgroundOneTile.png');
+    	game.load.image('background_2', '../assets/Tilemaps/Level2BG.png');
+    	game.load.image('background_3', '../assets/Tilemaps/Level3BG.png');
 	},
 	create: function() {
 		console.log('MainMenu: Create');

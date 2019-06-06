@@ -24,6 +24,7 @@ Play.prototype = {
 
 		//enable arcade physics
 		game.physics.startSystem(Phaser.Physics.ARCADE);
+		game.physics.arcade.TILE_BIAS = 32;
 
 		//prepare any dialogue text we'll need
 		this.tutorial_dialogue = JSON.parse(game.cache.getText('tutorial_dialogue'));
@@ -82,10 +83,6 @@ Play.prototype = {
 			(this.swordUI.create((106 + (49 * i)), 5, 'swordBlade')).fixedToCamera = true;	//make the segment move with the camers
 		}
 
-		//create a variable to keep track of which level we're on
-		this.levelTracker = 1;
-
-
 		//spawn the level exit door thing
 		this.exit = game.add.group();
 		this.exit.enableBody = true;
@@ -94,6 +91,17 @@ Play.prototype = {
 		this.specialEntities = game.add.group();
 		this.specialEntities.enableBody = true;
 
+		//Set up the decorations group (to hold non-interactable sprites)
+		this.decorations = game.add.group();
+
+		//create a variable to keep track of which level we're on
+		this.levelTracker = 1;
+
+		//load the first level.
+		//NOTE: make sure that any groups/etc. that will be needed for ALL levels have been set up prior to this.
+		//(at the very least, make sure all the groups used by the sword have been declared BEFORE calling this function) 
+		loadLevel_1(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.decorations, this.background);
+		
 		//set up the light mask
 		this.shadowTexture = this.game.add.bitmapData(game.width, game.height);	//texture for the light mask
 		var shadow = game.add.image(0,0,this.shadowTexture);	//spawn a sprite with the shadow texture
@@ -103,7 +111,7 @@ Play.prototype = {
 		//load the first level.
 		//NOTE: make sure that any groups/etc. that will be needed for ALL levels have been set up prior to this.
 		//(at the very least, make sure all the groups used by the sword have been declared BEFORE calling this function) 
-		loadLevel_0(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.tutorial_dialogue);
+		//loadLevel_0(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.tutorial_dialogue);
 
 		//bring the UI to the topmost z-level so it renders over the shadow
 		game.world.bringToTop(this.scoreText);
@@ -269,18 +277,21 @@ Play.prototype = {
 					//update levelTracker and load level 1
 					console.log('loading level 2...');
 					this.levelTracker = 1;
-					loadLevel_1(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities);
+					//loadLevel_1(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities);
+					loadLevel_1(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.decorations, this.background);
 					break;
 				case(1): 	//finished level 1 - load level 2
 					//update levelTracker and load level 2
 					console.log('loading level 2...');
 					this.levelTracker = 2;
-					loadLevel_2(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities);
+					//loadLevel_2(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities);
+					loadLevel_2(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.decorations, this.background);
 					break;
 				case(2): 	//finished level 2 - load level 3
 					console.log('loading level 3...');
 					this.levelTracker = 3;
-					loadLevel_3(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities);
+					//loadLevel_3(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities);
+					loadLevel_3(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.decorations, this.background);
 					break;
 				default: 	//default case - we've finished all levels and now want to go to game over
 					game.sound.stopAll();
