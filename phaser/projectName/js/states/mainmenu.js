@@ -45,6 +45,8 @@ MainMenu.prototype = {
     	// game.load.image('gid3Platform', '../assets/gid3Platform.png');
 
     	game.load.tilemap('level01', '../assets/Level 1/Level1.json', null, Phaser.Tilemap.TILED_JSON);
+    	game.load.tilemap('level02', '../assets/Level 1/Level2.json', null, Phaser.Tilemap.TILED_JSON);
+    	game.load.tilemap('level03', '../assets/Level 1/Level3.json', null, Phaser.Tilemap.TILED_JSON);
     	//game.load.spritesheet('tilesheet', '../assets/Level 1/Level01Platform.png', 300, 121);    	
     	game.load.image('gid1Platform', '../assets/Level 1/gid1Platform.png');
     	game.load.image('gid2Platform', '../assets/Level 1/gid2Platform.png');
@@ -56,6 +58,9 @@ MainMenu.prototype = {
     	game.load.image('gid8Platform', '../assets/Level 1/gid8Platform.png');
     	game.load.image('gid9Platform', '../assets/Level 1/gid9Platform.png');
     	game.load.image('CollisionBox', '../assets/Level 1/CollisionBox.png');
+    	game.load.image('background_1', '../assets/Level 1/BackgroundOneTile.png');
+    	game.load.image('background_2', '../assets/Level 1/Level2BG.png');
+    	game.load.image('background_3', '../assets/Level 1/Level3BG.png');
 	},
 	create: function() {
 		console.log('MainMenu: Create');

@@ -1,5 +1,5 @@
 //Define Play state and methods
-var loadLevel_TEST = function(game, player, platforms, enemies, orePots, exit, ores, specialEntities, decorations, background) {
+var loadLevel_TEST3 = function(game, player, platforms, enemies, orePots, exit, ores, specialEntities, decorations, background) {
 	//empty out all the old level elements
 	platforms.removeAll(true);
 	enemies.removeAll(true);
@@ -9,11 +9,12 @@ var loadLevel_TEST = function(game, player, platforms, enemies, orePots, exit, o
 	specialEntities.removeAll(true);
 	decorations.removeAll(true);
 
-	background.loadTexture('background_2');
+	background.loadTexture('background_3');
+	game.world.resize(4000,3000);
 
 	//reset the player's position
-	player.body.x = 140;
-	player.body.y = 440;
+	// player.body.x = 140;
+	// player.body.y = 440;
 
 	//create the ground
 	var ground = platforms.create(0, game.world.height - 1, 'platform_med');
@@ -21,7 +22,7 @@ var loadLevel_TEST = function(game, player, platforms, enemies, orePots, exit, o
 	ground.body.immovable = true;	//make the ground immovable so it won't fall when player touches it
 
 	//extract data from the tilemap
-	var map = game.add.tilemap('level01');
+	var map = game.add.tilemap('level03');
 	// console.log(this.map);
 	var spawners = game.add.group();
 	var potSpawners = game.add.group();
@@ -33,12 +34,12 @@ var loadLevel_TEST = function(game, player, platforms, enemies, orePots, exit, o
 	map.createFromObjects('Platforms', 4, 'gid4Platform', 0, true, true, decorations);
 	map.createFromObjects('Platforms', 5, 'gid5Platform', 0, true, true, decorations);
 	map.createFromObjects('Platforms', 6, 'gid6Platform', 0, true, true, decorations);
-	map.createFromObjects('Platforms', 7, 'CollisionBox', 0, true, true, spawners);
-	map.createFromObjects('Platforms', 8, 'CollisionBox', 0, true, true, potSpawners);
-	map.createFromObjects('Platforms', 9, 'CollisionBox', 0, true, true, playerPoints);
 	map.createFromObjects('Platforms', 7, 'gid7Platform', 0, true, true, decorations);
 	map.createFromObjects('Platforms', 8, 'gid8Platform', 0, true, true, decorations);
 	map.createFromObjects('Platforms', 9, 'gid9Platform', 0, true, true, decorations);
+	// map.createFromObjects('Platforms', 7, 'gid7Platform', 0, true, true, spawners);
+	// map.createFromObjects('Platforms', 8, 'gid8Platform', 0, true, true, potSpawners);
+	// map.createFromObjects('Platforms', 9, 'gid9Platform', 0, true, true, exits);
 	map.createFromObjects('Collision', 10, 'CollisionBox', 0, true, true, platforms);
 	
 	//make all platforms immovable
@@ -59,7 +60,7 @@ var loadLevel_TEST = function(game, player, platforms, enemies, orePots, exit, o
     //spawn some ore pots
     var j;
 	for (j = 0; j < potSpawners.length; j++) {
-		var element = potSpawners.getChildAt(i);
+		var element = potSpawners.getChildAt(j);
 		var pot = new OrePot(game, 'pot', element.x, element.y, orePots, ores);
 		game.add.existing(pot);
 		orePots.add(pot);
@@ -69,6 +70,7 @@ var loadLevel_TEST = function(game, player, platforms, enemies, orePots, exit, o
 	//spawn the level exit door thing
 	// var door = exit.create(exits.getChildAt(0).x, exits.getChildAt(0).y, 'endGame');
 	// door.body.immovable = true;
+
 	var k;
 	for (k = 0; k < exits.length; k++) {
 		var element = exits.getChildAt(k);
@@ -77,18 +79,10 @@ var loadLevel_TEST = function(game, player, platforms, enemies, orePots, exit, o
 	}
 
 	var l;
-	console.log('PP: ' + playerPoints.length);
 	for (l = 0; l < playerPoints.length; l++) {
 		var element = playerPoints.getChildAt(l);
-		console.log('OLD X,Y: ' + player.body.x + ", " + player.body.y);
-		console.log('TARGET: ' + element.x + ', ' + element.y);
-		player.body.moves = false;
-		//player.body.x = element.x;
-		player.x = element.x;
-		//player.body.y = element.y;
-		player.y = element.y;
-		player.body.moves = true;
-		console.log('NEW X,Y: ' + player.body.x + ", " + player.body.y);
+		player.body.x = element.x;
+		player.body.y = element.y;
 		// var door = exit.create(element.x, element.y, 'endGame');
 		// door.body.immovable = true;
 	}

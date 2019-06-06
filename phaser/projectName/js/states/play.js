@@ -96,54 +96,14 @@ Play.prototype = {
 		this.specialEntities.enableBody = true;
 
 		//TILEMAP STUFF
-		// this.map = game.add.tilemap('level01');		//WORKING
-		// this.map.addTilesetImage("Level01Tileset", 'tilesheet');
-		// //this.map.setCollisionByExclusion([]);
-		// console.log(this.map);
-		// this.decorations = game.add.group();
-		// this.map.createFromObjects('Platforms', 1, 'gid3Platform', 0, true, true, this.decorations);
-		// this.map.createFromObjects('Platforms', 2, 'gid3Platform', 0, true, true, this.decorations);
-		// this.map.createFromObjects('Platforms', 3, 'gid3Platform', 0, true, true, this.decorations);
-		// this.map.createFromObjects('Collisions', 4, 'tilesheet', 0, true, true, this.platforms);
-		// this.platforms.forEach(function(element) {
-		// 	element.body.immovable = true;
-		// });
-
 		var map = game.add.tilemap('level01');
 		//this.map.addTilesetImage("Level01Tileset", 'tilesheet');
 		//this.map.setCollisionByExclusion([]);
 		console.log(this.map);
 		this.decorations = game.add.group();
 		this.spawners = game.add.group();
-		loadLevel_TEST(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.decorations);
-		// map.createFromObjects('Platforms', 1, 'gid1Platform', 0, true, true, this.decorations);
-		// map.createFromObjects('Platforms', 2, 'gid2Platform', 0, true, true, this.decorations);
-		// map.createFromObjects('Platforms', 3, 'gid3Platform', 0, true, true, this.decorations);
-		// map.createFromObjects('Platforms', 4, 'gid4Platform', 0, true, true, this.decorations);
-		// map.createFromObjects('Platforms', 5, 'gid5Platform', 0, true, true, this.decorations);
-		// map.createFromObjects('Platforms', 6, 'gid6Platform', 0, true, true, this.decorations);
-		// // this.map.createFromObjects('Platforms', 7, 'gid7Platform', 0, true, true, this.decorations);
-		// map.createFromObjects('Platforms', 7, 'gid7Platform', 0, true, true, this.spawners);
-		// map.createFromObjects('Platforms', 8, 'gid8Platform', 0, true, true, this.decorations);
-		// map.createFromObjects('Platforms', 9, 'gid9Platform', 0, true, true, this.decorations);
-		// map.createFromObjects('Collision', 10, 'CollisionBox', 0, true, true, this.platforms);
-		// this.platforms.forEach(function(element) {
-		// 	element.body.immovable = true;
-		// });
-		
-		// var i;
-		// for (i = 0; i < this.spawners.length; i++) {
-		// 	var element = this.spawners.getChildAt(i);
-		// 	var enemy = new Enemy(game, 'pot', element.x, element.y, 0, this.player, this.platforms);	//enemy 1
-  //    		game.add.existing(enemy);
-  //    		this.enemies.add(enemy);
-  //    		console.log('SPAWNING ENEMY AT ' + element.x + ', ' + element.y);
-		// }
-
-		// var ground = this.platforms.create(0, game.world.height - 1, 'platform_med');
-		// ground.scale.setTo(7, 1);		//scale the ground to fit the game (sprite is 300x68, & we need to to be 2000x16)
-		// ground.body.immovable = true;	//make the ground immovable so it won't fall when player touches it
-
+		loadLevel_TEST(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.decorations, this.background);
+		console.log('CURRENT X,Y: ' + this.player.body.x + ", " + this.player.body.y);
 
 		//set up the light mask
 		this.shadowTexture = this.game.add.bitmapData(game.width, game.height);	//texture for the light mask
@@ -163,6 +123,7 @@ Play.prototype = {
 		game.world.bringToTop(this.oreIcon);
 	},
 	update:function() {
+		console.log('CURRENT X,Y: ' + this.player.body.x + ", " + this.player.body.y);
 		//let player collide with platforms
 		game.physics.arcade.collide(this.player, this.platforms);
 
@@ -322,12 +283,14 @@ Play.prototype = {
 					//update levelTracker and load level 2
 					console.log('loading level 2...');
 					this.levelTracker = 2;
-					loadLevel_2(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities);
+					//loadLevel_2(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities);
+					loadLevel_TEST3(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.decorations, this.background);
 					break;
 				case(2): 	//finished level 2 - load level 3
 					console.log('loading level 3...');
 					this.levelTracker = 3;
-					loadLevel_3(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities);
+					//loadLevel_3(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities);
+					loadLevel_TEST3(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.decorations, this.background);
 					break;
 				default: 	//default case - we've finished all levels and now want to go to game over
 					game.state.start('GameOver', true, false, this.score, true);
