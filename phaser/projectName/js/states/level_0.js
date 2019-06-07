@@ -131,8 +131,10 @@ var loadLevel_0 = function(game, player, platforms, enemies, orePots, exit, ores
 	game.add.existing(pot);
 	orePots.add(pot);
 	
-	//spawn the level exit door thing
-	var door = exit.create(1900, 1050, 'endGame');
+	// //spawn the level exit door thing
+	var door = exit.create(1812, 1001, 'doorAtlas', 'Mineshaft1');
+	door.animations.add('open', ['Mineshaft2','Mineshaft3'], 5, false);
+	door.openSound = game.add.audio('smash');	//temporary sound until we get the door open noise
 	door.body.immovable = true;
 
 	//create special entities

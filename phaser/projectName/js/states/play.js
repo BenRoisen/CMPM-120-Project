@@ -42,6 +42,10 @@ Play.prototype = {
 		this.platforms = game.add.group();
 		this.platforms.enableBody = true;	//enable collisions
 
+		//create a group to hold the level exit door thing
+		this.exit = game.add.group();
+		this.exit.enableBody = true;
+
 		//create the player
 		this.player = new Player(game, 'player', 0, 1, this.platforms);	//player(game, key, frame, scale)
 		game.add.existing(this.player);
@@ -84,10 +88,6 @@ Play.prototype = {
 			(this.swordUI.create((106 + (49 * i)), 5, 'swordBlade')).fixedToCamera = true;	//make the segment move with the camers
 		}
 
-		//spawn the level exit door thing
-		this.exit = game.add.group();
-		this.exit.enableBody = true;
-
 		//set up the specialEntities group
 		this.specialEntities = game.add.group();
 		this.specialEntities.enableBody = true;
@@ -104,7 +104,7 @@ Play.prototype = {
 		//load the first level.
 		//NOTE: make sure that any groups/etc. that will be needed for ALL levels have been set up prior to this.
 		//(at the very least, make sure all the groups used by the sword have been declared BEFORE calling this function) 
-		loadLevel_1(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.decorations, this.bigOres, this.background);
+		//loadLevel_1(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.decorations, this.bigOres, this.background);
 		
 		//set up the light mask
 		this.shadowTexture = this.game.add.bitmapData(game.width, game.height);	//texture for the light mask
@@ -115,7 +115,7 @@ Play.prototype = {
 		//load the first level.
 		//NOTE: make sure that any groups/etc. that will be needed for ALL levels have been set up prior to this.
 		//(at the very least, make sure all the groups used by the sword have been declared BEFORE calling this function) 
-		//loadLevel_0(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.tutorial_dialogue);
+		loadLevel_0(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.tutorial_dialogue);
 
 		//bring the UI to the topmost z-level so it renders over the shadow
 		game.world.bringToTop(this.scoreText);
@@ -124,6 +124,16 @@ Play.prototype = {
 		game.world.bringToTop(this.oreIcon);
 	},
 	update:function() {
+		if(game.input.keyboard.isDown(Phaser.Keyboard.Q))
+    	{
+        	var k;
+			for (k = 0; k < this.exit.length; k++) {
+				var element = this.exit.getChildAt(k);
+				element.animations.play('open');
+				element.openSound.play();
+			}
+    	}
+
 		//let player collide with platforms
 		game.physics.arcade.collide(this.player, this.platforms);
 

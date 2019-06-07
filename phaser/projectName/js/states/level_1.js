@@ -65,12 +65,12 @@ var loadLevel_1 = function(game, player, platforms, enemies, orePots, exit, ores
 	}
 	
 	//spawn the level exit door thing
-	// var door = exit.create(exits.getChildAt(0).x, exits.getChildAt(0).y, 'endGame');
-	// door.body.immovable = true;
 	var k;
 	for (k = 0; k < exits.length; k++) {
 		var element = exits.getChildAt(k);
-		var door = exit.create(element.x, element.y, 'endGame');
+		var door = exit.create(element.x, element.y, 'doorAtlas', 'Mineshaft1');
+		door.animations.add('open', ['Mineshaft2','Mineshaft3'], 5, false);
+		door.openSound = game.add.audio('smash');	//temporary sound until we get the door open noise
 		door.body.immovable = true;
 	}
 
