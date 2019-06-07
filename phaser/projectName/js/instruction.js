@@ -6,6 +6,7 @@ function Instruction(game, key, x, y) {
    this.anchor.x = 0.5;
    this.anchor.y = 0.5;
 
+   this.showing = false;
    this.fading = true;
    this.alpha = 1;
    this.minAlpha = 0.2;
@@ -31,5 +32,10 @@ Instruction.prototype.update = function() {
       } else {
          this.fading = true;
       }
+   }
+
+   if(this.showing)
+   {
+      this.alpha = 0;
    }
 }
