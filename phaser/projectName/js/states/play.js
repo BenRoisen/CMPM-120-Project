@@ -47,11 +47,13 @@ Play.prototype = {
 		this.exit = game.add.group();
 		this.exit.enableBody = true;
 
+		//Set up the decorations group (to hold non-interactable sprites)
+		this.decorations = game.add.group();
+
 		//create the player
 		this.player = new Player(game, 'player', 0, 1, this.platforms);	//player(game, key, frame, scale)
 		game.add.existing(this.player);
 		game.camera.follow(this.player);	//make camera follow player
-    	
 
 		//set up scoreText to display player ore count
 		this.scoreText = game.add.text(65, 70, 'x0', {fontSize: '32px', fill: '#fff' });	//made the text white so it stands out against the shadow
@@ -92,9 +94,6 @@ Play.prototype = {
 		//set up the specialEntities group
 		this.specialEntities = game.add.group();
 		this.specialEntities.enableBody = true;
-
-		//Set up the decorations group (to hold non-interactable sprites)
-		this.decorations = game.add.group();
 
       //Set up the big ore
       this.bigOres = game.add.group();
@@ -290,7 +289,7 @@ Play.prototype = {
 
 	touchExit:function(player, exit) {
 		//only exit level if player presses E and player has collected all ores
-		if(game.input.keyboard.downDuration(Phaser.Keyboard.E, 1) && this.allowLevelExit) {
+		if(game.input.keyboard.downDuration(Phaser.Keyboard.C, 1) && this.allowLevelExit) {
 			//figure out where to go from here
 			switch(this.levelTracker) {
 				case(0): 	//finished tutorial - load level 1
