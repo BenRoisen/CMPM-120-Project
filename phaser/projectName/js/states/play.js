@@ -16,6 +16,7 @@ Play.prototype = {
       this.bigOres;
 		//this.dialogueText = null;
 		//this.nextText = null;
+		this.allowLevelExit = false;	//controls whether player can leave the level
 	},
 	preload: function() {
 		console.log('Play: preload');
@@ -124,14 +125,18 @@ Play.prototype = {
 		game.world.bringToTop(this.oreIcon);
 	},
 	update:function() {
+		//open door if all ores collected
 		if(game.input.keyboard.isDown(Phaser.Keyboard.Q))
     	{
+    		//play the "door opens" animation & sound
         	var k;
 			for (k = 0; k < this.exit.length; k++) {
 				var element = this.exit.getChildAt(k);
 				element.animations.play('open');
 				element.openSound.play();
 			}
+			//allow player to exit level
+			this.allowLevelExit = true;
     	}
 
 		//let player collide with platforms
@@ -284,7 +289,8 @@ Play.prototype = {
 	},
 
 	touchExit:function(player, exit) {
-		if(game.input.keyboard.downDuration(Phaser.Keyboard.E, 1)) {
+		//only exit level if player presses E and player has collected all ores
+		if(game.input.keyboard.downDuration(Phaser.Keyboard.E, 1) && this.allowLevelExit) {
 			//figure out where to go from here
 			switch(this.levelTracker) {
 				case(0): 	//finished tutorial - load level 1
@@ -317,6 +323,7 @@ Play.prototype = {
 					game.state.start('GameOver', true, false, this.score, true);
 					break;
 			}
+			this.allowLevelExit = false;	//disable the exit for the next level until all ores collected
 		}
 	},
 
