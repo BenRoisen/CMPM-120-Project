@@ -208,11 +208,20 @@ var speak = function() {
 		this.dialogueState = 1;	//switch to state 1 ("talking to player")
 		this.player.inDialogue = true;	//disable player movement & sword swinging
 
-		//add the speaker's portrait and their emote
-		this.characterImage = this.game.add.sprite(500, 290, 'player');
-		this.characterImage.fixedToCamera = true;
-		this.characterImage.anchor.set(0.5);
-		this.characterImage.scale.setTo(1.5);
+		//add the speaker's portrait
+		this.speakerImage = this.game.add.sprite(275, 285, 'player');	//replace with blacksmith sprite later
+		this.speakerImage.fixedToCamera = true;
+		this.speakerImage.anchor.set(0.5);
+		this.speakerImage.scale.setTo(1.5);
+
+		//add the listener's portrait
+		this.listenerImage = this.game.add.sprite(725, 285, 'player');
+		this.listenerImage.fixedToCamera = true;
+		this.listenerImage.anchor.set(0.5);
+		this.listenerImage.scale.x = -1.5;
+		this.listenerImage.scale.y = 1.5;
+
+		//add the conversation emote
 		this.emote = this.game.add.sprite(500, 125, 'swordBlade');	//CHANGE THIS SPRITE LATER
 		this.emote.fixedToCamera = true;
 		this.emote.anchor.set(0.5);
@@ -221,7 +230,8 @@ var speak = function() {
 		this.dialogueBox.kill();
 		this.dialogueText.kill();
 		this.nextText.kill();
-		this.characterImage.kill();
+		this.speakerImage.kill();
+		this.listenerImage.kill();
 		this.emote.kill();
 		this.typing = false;
 		this.player.inDialogue = false;	//re-enable player movement & sword swinging
