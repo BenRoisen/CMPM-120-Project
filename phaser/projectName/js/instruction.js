@@ -18,25 +18,25 @@ Instruction.prototype.constructor = Instruction;
 
 Instruction.prototype.update = function() {
 
-   if(this.fading)
-   {
-      if(this.alpha > this.minAlpha)
-      {
-         this.alpha -= 0.05;
-      } else {
-         this.fading = false;
-      }
-   } else {
-      if(this.alpha < this.maxAlpha)
-      {
-         this.alpha += 0.05;
-      } else {
-         this.fading = true;
-      }
-   }
-
    if(this.showing)
    {
+      if(this.fading)
+      {
+         if(this.alpha > this.minAlpha)
+         {
+            this.alpha -= 0.05;
+         } else {
+            this.fading = false;
+         }
+      } else {
+         if(this.alpha < this.maxAlpha)
+         {
+            this.alpha += 0.05;
+         } else {
+            this.fading = true;
+         }
+      }
+   } else {
       this.alpha = 0;
    }
 }
