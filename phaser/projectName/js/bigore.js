@@ -10,6 +10,8 @@ function BigOre(game, key, x, y, score) {
    this.hits = 3;
    this.score = score;
    this.got_hit = false;
+   this.fading = false;
+   this.fadeTime = 229;
 
    this.emitter = game.add.emitter(this.x, this.y, 100);
    this.emitter.particleClass = OreShard;
@@ -26,16 +28,29 @@ BigOre.prototype.update = function() {
       this.hits--;
       this.got_hit = false;
       this.emitter.makeParticles();
-      this.emitter.start(true, 200, null, 20);
+      this.emitter.start(true, 400, null, 20);
    }
 
-   if(this.hits <= 0)
+   if(this.hits <= 0 && !this.fading)
    {
       this.emitter.makeParticles();
       this.emitter.start(true, 2000, null, 100);
       whiteOut = new WhiteOut(game, 'white', 0, 0);
       game.add.existing(whiteOut);
-      this.destroy();
+      this.alpha = 0;
+      this.fading = true;
+   }
+
+   if(this.fading)
+   {
+      if(this.fadeTime > 0)
+      {
+         --this.fadeTime;
+      } else {
+         console.log("onEmitting");
+         this.emitter.destroy();
+         this.destroy();
+      }
    }
 }
 
@@ -50,7 +65,6 @@ OreShard.prototype.constructor = OreShard;
 
 OreShard.prototype.onEmit = function() {
    // this.alpha = 0.5;
-   console.log("onEmitting");
    this.rotation = Math.random() * 2 * Math.PI;
    this.body.velocity.x = Math.cos(this.rotation) * (Math.random() * 200 +300);
    this.body.velocity.y = Math.sin(this.rotation) * (Math.random() * 200 +300);
