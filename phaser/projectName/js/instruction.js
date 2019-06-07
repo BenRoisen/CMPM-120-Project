@@ -5,6 +5,7 @@ function Instruction(game, key, x, y) {
    this.y = y;
    this.anchor.x = 0.5;
    this.anchor.y = 0.5;
+   this.scale.setTo(0.1);
 
    this.showing = false;
    this.fading = true;

@@ -158,6 +158,8 @@ var loadLevel_0 = function(game, player, platforms, enemies, orePots, exit, ores
 	blacksmith_1.typing = false;	//start off not typing
 	blacksmith_1.dialogueState = 0;	//start off in "not talked to"
 	blacksmith_1.player = player;
+	blacksmith_1.interacttext = new Instruction(game, 'keyC', 550, 1000);
+	game.add.existing(blacksmith_1.interacttext);
 	var blacksmith_2 = specialEntities.create(1900,317, 'player');	//blacksmith between end of sword course & start of hammer course
 	blacksmith_2.body.immovable = true;
 	blacksmith_2.specialFunction = speak;	//temporary thing until I set up a dialogue system
@@ -167,6 +169,8 @@ var loadLevel_0 = function(game, player, platforms, enemies, orePots, exit, ores
 	blacksmith_2.dialogueLine = 0;	//start at line 0
 	blacksmith_2.dialogueState = 0;	//start off in "not talked to"
 	blacksmith_2.player = player;
+	blacksmith_2.interacttext = new Instruction(game, 'keyC', 1950, 267);
+	game.add.existing(blacksmith_2.interacttext);
 }
 
 var containEnemies = function() {
@@ -188,6 +192,8 @@ var speak = function() {
 	 * 1: talking to player
 	 * 2: finished talking
 	 */
+
+	this.interacttext.showing = true;
 	
 	//only "update" if the player presses E
 	if(!this.game.input.keyboard.justPressed(Phaser.Keyboard.E)) {
@@ -207,6 +213,7 @@ var speak = function() {
 		this.nextText.fixedToCamera = true;
 		this.dialogueState = 1;	//switch to state 1 ("talking to player")
 		this.player.inDialogue = true;	//disable player movement & sword swinging
+		this.interacttext.kill();
 
 		//add the speaker's portrait
 		this.speakerImage = this.game.add.sprite(275, 285, 'player');	//replace with blacksmith sprite later
