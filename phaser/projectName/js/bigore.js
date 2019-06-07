@@ -33,6 +33,8 @@ BigOre.prototype.update = function() {
    {
       this.emitter.makeParticles();
       this.emitter.start(true, 2000, null, 100);
+      whiteOut = new WhiteOut(game, 'white', 0, 0);
+      game.add.existing(whiteOut);
       this.destroy();
    }
 }
@@ -59,11 +61,12 @@ OreShard.prototype.onEmit = function() {
 }
 
 function WhiteOut(game, key, x, y) {
-   Phaser.Sprite.call(this, game, x, y, key, 0);
+   Phaser.Sprite.call(this, game, x, y, key);
    this.game = game;
-   this.game.physics.arcade.enable(this);
+   this.scale.x = game.world.width/640;
+   this.scale.y = game.world.height/640;
    this.alpha = 0;
-   this.delay = 5;
+   this.delay = 30;
 }
 WhiteOut.prototype = Object.create(Phaser.Sprite.prototype);
 WhiteOut.prototype.constructor = WhiteOut;
@@ -72,7 +75,7 @@ WhiteOut.prototype.update = function() {
 
    if(this.alpha < 1)
    {
-      this.alpha += 0.1;
+      this.alpha += 0.005;
    } else {
       if(this.delay > 0)
       {
