@@ -13,6 +13,7 @@ Play.prototype = {
 		this.ores;			//group to hold ores
 		this.exit;
 		this.specialEntities;	//group to hold special game elements
+      this.bigOres;
 		//this.dialogueText = null;
 		//this.nextText = null;
 	},
@@ -94,13 +95,16 @@ Play.prototype = {
 		//Set up the decorations group (to hold non-interactable sprites)
 		this.decorations = game.add.group();
 
+      //Set up the big ore
+      this.bigOres = game.add.group();
+
 		//create a variable to keep track of which level we're on
 		this.levelTracker = 1;
 
 		//load the first level.
 		//NOTE: make sure that any groups/etc. that will be needed for ALL levels have been set up prior to this.
 		//(at the very least, make sure all the groups used by the sword have been declared BEFORE calling this function) 
-		loadLevel_1(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.decorations, this.background);
+		loadLevel_1(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.decorations, this.bigOres, this.background);
 		
 		//set up the light mask
 		this.shadowTexture = this.game.add.bitmapData(game.width, game.height);	//texture for the light mask
@@ -126,7 +130,7 @@ Play.prototype = {
 		//swing sword when spacebar is pressed
 		if(game.input.keyboard.downDuration(Phaser.Keyboard.SPACEBAR, 1)) {
 			if((this.swords.length < 1) && !this.player.inDialogue) {	//only spawn a sword if one isn't currently in action
-				var sword = new Sword(game, 'swordArm', 'swordBlade', this.player, this.platforms, this.enemies, this.orePots);
+				var sword = new Sword(game, 'swordArm', 'swordBlade', this.player, this.platforms, this.enemies, this.orePots, this.bigOres);
 				this.swords.add(sword);
 			}
 		}
@@ -278,7 +282,7 @@ Play.prototype = {
 					console.log('loading level 2...');
 					this.levelTracker = 1;
 					//loadLevel_1(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities);
-					loadLevel_1(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.decorations, this.background);
+					loadLevel_1(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.decorations, this.bigOres, this.background);
 					break;
 				case(1): 	//finished level 1 - load level 2
 					//update levelTracker and load level 2

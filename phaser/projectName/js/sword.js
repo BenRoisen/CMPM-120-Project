@@ -1,4 +1,4 @@
-function Sword (game, key, key2, player, walls, enemies, pots)
+function Sword (game, key, key2, player, walls, enemies, pots, bigOres)
 {
    // Set the sprite
    Phaser.Sprite.call(this, game, player.x, player.y, key, 0);
@@ -25,6 +25,7 @@ function Sword (game, key, key2, player, walls, enemies, pots)
    this.walls = walls;
    this.enemies = enemies;
    this.pots = pots;
+   this.bigOres = bigOres;
    
    this.y = player.y;
    if(player.facingRight)
@@ -97,6 +98,7 @@ Sword.prototype.update = function () {
          this.wall_check(this);
          game.physics.arcade.overlap(this.boxes, this.enemies, this.enemy_check, null, this);
          game.physics.arcade.overlap(this.boxes, this.pots, this.pot_check, null, this);
+         game.physics.arcade.overlap(this.boxes, this.bigOres, this.big_ore_check, null, this);
          // Change state at end of swing
          if(this.uangle >= 0) 
          {
@@ -116,6 +118,7 @@ Sword.prototype.update = function () {
          this.wall_check(this);
          game.physics.arcade.overlap(this.boxes, this.enemies, this.enemy_check, null, this);
          game.physics.arcade.overlap(this.boxes, this.pots, this.pot_check, null, this);
+         game.physics.arcade.overlap(this.boxes, this.bigOres, this.big_ore_check, null, this);
          break;
       case(3): // destroying
          this.destroy();
@@ -171,6 +174,13 @@ Sword.prototype.pot_check = function (swordbox, pot) {
       swordbox.sword.pieceLost = true
       this.shatter.play();
    }
+}
+
+Sword.prototype.big_ore_check = function (swordbox, bigOre) {
+   swordbox.sword.state = 4;
+   swordbox.sword.end_lag = 5;
+   bigOre.got_hit = true;
+   this.slash.play();
 }
 
 function Swordbox (game, id, key, player, sword, walls, enemies, shadow)

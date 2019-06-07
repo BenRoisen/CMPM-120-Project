@@ -13,7 +13,7 @@ OrePot.prototype.constructor = Player;
 OrePot.prototype.update = function() {
 	//game.physics.arcade.overlap(this, this.hammer, this.shatter, null, this);
 	if(this.gotHit) {
-		this.shatter()
+		this.shatter();
 	}
 }
 OrePot.prototype.shatter = function () {

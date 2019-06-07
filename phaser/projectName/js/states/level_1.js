@@ -1,5 +1,5 @@
 //Define Play state and methods
-var loadLevel_1 = function(game, player, platforms, enemies, orePots, exit, ores, specialEntities, decorations, background) {
+var loadLevel_1 = function(game, player, platforms, enemies, orePots, exit, ores, specialEntities, decorations, bigOres, background) {
 	//empty out all the old level elements
 	platforms.removeAll(true);
 	enemies.removeAll(true);
@@ -84,6 +84,10 @@ var loadLevel_1 = function(game, player, platforms, enemies, orePots, exit, ores
 		// var door = exit.create(element.x, element.y, 'endGame');
 		// door.body.immovable = true;
 	}
+
+   bigore = new BigOre(game, 'obsidian', game.width - 100, game.height - 100, 0);
+   game.add.existing(bigore);
+   bigOres.add(bigore);
 
 	spawners.removeAll(true);
 	potSpawners.removeAll(true);
