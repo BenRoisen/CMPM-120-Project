@@ -11,6 +11,10 @@ var loadLevel_0 = function(game, player, platforms, enemies, orePots, exit, ores
 	//reset the player's position
 	player.body.x = 140;
 	player.body.y = (game.world.height - 160);
+   player.arrowLeft = new Arrow(game, 'keyL', 100, game.world.height - 200);
+   game.add.existing(player.arrowLeft);
+   player.arrowRight = new Arrow(game, 'keyR', 180, game.world.height - 200);
+   game.add.existing(player.arrowRight);
 
 	//create the ground
 	var ground = platforms.create(0, game.world.height - 1, 'platform_med');
@@ -158,7 +162,7 @@ var loadLevel_0 = function(game, player, platforms, enemies, orePots, exit, ores
 	blacksmith_1.typing = false;	//start off not typing
 	blacksmith_1.dialogueState = 0;	//start off in "not talked to"
 	blacksmith_1.player = player;
-	blacksmith_1.interacttext = new Instruction(game, 'keyC', 550, 1000);
+	blacksmith_1.interacttext = new Instruction(game, 'keyE', 550, 1000);
 	game.add.existing(blacksmith_1.interacttext);
 	var blacksmith_2 = specialEntities.create(1900,317, 'player');	//blacksmith between end of sword course & start of hammer course
 	blacksmith_2.body.immovable = true;
