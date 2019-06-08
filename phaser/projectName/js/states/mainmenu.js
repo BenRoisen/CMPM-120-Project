@@ -24,7 +24,7 @@ MainMenu.prototype = {
       game.load.image('titlescreen', '../assets/StartScreenX2.png');
       game.load.image('titletext', '../assets/SpaceToBeginX2.png');
       game.load.image('white', '../assets/white.png');
-      game.load.image('keyC', '../assets/computer_key_C.png');
+      game.load.image('keyE', '../assets/computer_key_E.png');
 
       //load atlas'
 		game.load.atlas('monsterAtlas', '../assets/MonsterAtlas.png', '../assets/MonsterAtlas.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);

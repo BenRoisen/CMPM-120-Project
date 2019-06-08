@@ -1,5 +1,5 @@
 function Instruction(game, key, x, y) {
-   Phaser.Sprite.call(this, game, x, y, key, 0);
+   Phaser.Sprite.call(this, game, x, y, 'keyE', 0);
    this.game = game;
    this.x = x;
    this.y = y;
