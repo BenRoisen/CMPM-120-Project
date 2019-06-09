@@ -1,4 +1,4 @@
-function BigOre(game, key, x, y, score) {
+function BigOre(game, key, x, y, player) {
    Phaser.Sprite.call(this, game, x, y, 'bigOreAtlas', 'BigOreFine01');
    this.game = game;
    this.game.physics.arcade.enable(this);
@@ -6,25 +6,21 @@ function BigOre(game, key, x, y, score) {
    this.y = y;
    this.anchor.x = 0.5;
    this.anchor.y = 0.5;
-   console.log("making big ore");
 
    this.hits = 3;
-   this.score = score;
+   this.player = player;
    this.got_hit = false;
    this.fading = false;
    this.fadeTime = 229;
-   console.log("making big ore");
 
    this.emitter = game.add.emitter(this.x, this.y, 100);
    this.emitter.particleClass = OreShard;
    this.emitter.gravity = 800;
-   console.log("making big ore");
 
    this.animations.add('hit0', Phaser.Animation.generateFrameNames('BigOreFine', 1, 5, '', 2), 5, true);
    this.animations.add('hit1', Phaser.Animation.generateFrameNames('BigOreCrack', 1, 5, '', 2), 5, true);
    this.animations.add('hit2', Phaser.Animation.generateFrameNames('BigOreLargeCrack', 1, 5, '', 2), 5, true);
    this.animations.add('hit3', Phaser.Animation.generateFrameNames('BigOreBroken', 1, 5, '', 2), 5, true);
-   console.log("making big ore");
 }
 BigOre.prototype = Object.create(Phaser.Sprite.prototype);
 BigOre.prototype.constructor = BigOre;
@@ -44,7 +40,7 @@ BigOre.prototype.update = function() {
    {
       this.emitter.makeParticles();
       this.emitter.start(true, 2000, null, 100);
-      whiteOut = new WhiteOut(game, 'white', 0, 0);
+      whiteOut = new WhiteOut(game, 'white', 0, 0, this.player);
       game.add.existing(whiteOut);
       this.fading = true;
    }
@@ -65,19 +61,15 @@ BigOre.prototype.update = function() {
    {
       case(0):
          this.animations.play('hit3');
-         console.log('hit3');
          break;
       case(1):
          this.animations.play('hit2');
-         console.log('hit2');
          break;
       case(2):
          this.animations.play('hit1');
-         console.log('hit1');
          break;
       case(3):
          this.animations.play('hit0');
-         console.log('hit0');
          break;
    }
 }
@@ -102,13 +94,14 @@ OreShard.prototype.onEmit = function() {
    this.alpha = 0.5;
 }
 
-function WhiteOut(game, key, x, y) {
+function WhiteOut(game, key, x, y, player) {
    Phaser.Sprite.call(this, game, x, y, key);
    this.game = game;
    this.scale.x = game.world.width/640;
    this.scale.y = game.world.height/640;
    this.alpha = 0;
    this.delay = 30;
+   this.player = player;
 }
 WhiteOut.prototype = Object.create(Phaser.Sprite.prototype);
 WhiteOut.prototype.constructor = WhiteOut;
@@ -123,7 +116,7 @@ WhiteOut.prototype.update = function() {
       {
          --this.delay;
       } else {
-         game.state.start('GameOver', true, false, 0, true);
+         game.state.start('GameOver', true, false, this.player.oreCount, true);
       }
    }
 }

@@ -206,6 +206,7 @@ Play.prototype = {
       } else {
          this.player.hasOre = false;
       }
+      this.player.oreCount = this.score;
 		
 		//update the sword UI - make length reflect our current sword length
 		var i;
