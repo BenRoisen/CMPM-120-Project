@@ -332,12 +332,6 @@ Play.prototype = {
 					loadLevel_3(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.decorations, this.background);
 					break;
 				default: 	//default case - we've finished all levels and now want to go to game over
-					game.sound.stopAll();
-					//this.player.remove();
-					// this.player.running = false;
-					this.player.runSound.stop();
-					game.sound.remove(this.player.runSound);
-					game.sound.removeAll();
 					game.state.start('GameOver', true, false, this.score, true);
 					break;
 			}
