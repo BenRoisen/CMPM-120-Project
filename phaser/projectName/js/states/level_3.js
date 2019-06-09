@@ -9,7 +9,11 @@ var loadLevel_3 = function(game, player, platforms, enemies, orePots, exit, ores
 	specialEntities.removeAll(true);
 	decorations.removeAll(true);
 
+	//change the background to reflect the new level
 	background.loadTexture('background_3');
+
+	//resize the world to match the new level dimensions
+	game.world._definedSize = false;	//this lets us make the world smaller than it is currently
 	game.world.resize(4000,3000);
 
 	//create the ground
@@ -74,15 +78,14 @@ var loadLevel_3 = function(game, player, platforms, enemies, orePots, exit, ores
 		door.body.immovable = true;
 	}
 
+	//warp player to their spawn point
 	var l;
 	for (l = 0; l < playerPoints.length; l++) {
 		var element = playerPoints.getChildAt(l);
-		player.body.moves = false;
+		player.body.moves = false;	//temporarily disable physics movement control so we can warp them
 		player.x = element.x;
 		player.y = element.y;
-		player.body.moves = true;
-		// var door = exit.create(element.x, element.y, 'endGame');
-		// door.body.immovable = true;
+		player.body.moves = true;	//re-enable physics movement
 	}
 
 	spawners.removeAll(true);
