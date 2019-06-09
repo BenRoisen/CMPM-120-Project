@@ -124,6 +124,7 @@ Play.prototype = {
 		//(at the very least, make sure all the groups used by the sword have been declared BEFORE calling this function) 
       // I AM TESTING THE LAST LEVEL. CHANGE THIS LATER.
 		loadLevel_0(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.tutorial_dialogue);
+      // loadLevel_4(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.decorations, this.bigOres, this.background);
 
 		//bring the UI to the topmost z-level so it renders over the shadow
 		game.world.bringToTop(this.scoreText);
@@ -377,6 +378,30 @@ Play.prototype = {
 		shadowTexture.context.fillStyle = gradient;
 		shadowTexture.context.arc(x, y, radius, 0, Math.PI * 2);
 		shadowTexture.context.fill();
+
+      if(this.bigOres.length != 0)
+      {
+         this.bigOres.forEach(function(bigOre) {
+            // Randomly change the radius each frame
+            var radius = 400 + this.game.rnd.integerInRange(1,10);
+
+            var x = bigOre.x - this.game.camera.x;
+            var y = bigOre.y - this.game.camera.y;
+
+            // Draw circle of light with a soft edge
+            var gradient =
+            this.shadowTexture.context.createRadialGradient(
+               x, y, radius * 0.75,
+               x, y, radius);
+            gradient.addColorStop(0, 'rgba(255, 255, 255, 1.0)');
+            gradient.addColorStop(1, 'rgba(255, 255, 255, 0.0)');
+
+            this.shadowTexture.context.beginPath();
+            this.shadowTexture.context.fillStyle = gradient;
+            this.shadowTexture.context.arc(x, y, radius, 0, Math.PI*2);
+            this.shadowTexture.context.fill();
+         }, this);
+      }
 
 		//tell Phaser that it should update the cached version of shadowTexture
 		shadowTexture.dirty = true;

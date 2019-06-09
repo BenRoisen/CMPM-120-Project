@@ -6,6 +6,7 @@ var loadLevel_4 = function(game, player, platforms, enemies, orePots, exit, ores
    orePots.removeAll(true);
    exit.removeAll(true);
    ores.removeAll(true);
+   decorations.removeAll(true);
    specialEntities.removeAll(true);
 
    // Change background
