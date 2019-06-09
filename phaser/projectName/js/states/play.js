@@ -383,7 +383,7 @@ Play.prototype = {
       {
          this.bigOres.forEach(function(bigOre) {
             // Randomly change the radius each frame
-            var radius = 400 + this.game.rnd.integerInRange(1,10);
+            var radius = 500 + this.game.rnd.integerInRange(1,10);
 
             var x = bigOre.x - this.game.camera.x;
             var y = bigOre.y - this.game.camera.y;
