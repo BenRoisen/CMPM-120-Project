@@ -17,6 +17,12 @@ Play.prototype = {
 		//this.dialogueText = null;
 		//this.nextText = null;
 		this.allowLevelExit = false;	//controls whether player can leave the level
+
+      this.music = game.add.audio('music');
+      this.playerOof = game.add.audio('oof');
+      this.pickup = game.add.audio('pickup');
+      this.doorOpen = game.add.audio('doorOpen');
+
 	},
 	preload: function() {
 		console.log('Play: preload');
@@ -122,20 +128,21 @@ Play.prototype = {
 		game.world.bringToTop(this.swordText);
 		game.world.bringToTop(this.swordUI);
 		game.world.bringToTop(this.oreIcon);
+
+      this.music.play();
 	},
 	update:function() {
 		//open door if all ores collected
-		if(game.input.keyboard.isDown(Phaser.Keyboard.Q))
+		if(game.input.keyboard.isDown(Phaser.Keyboard.Q) || this.orePots.length <= 0)
     	{
     		//play the "door opens" animation & sound
         	var k;
 			for (k = 0; k < this.exit.length; k++) {
 				var element = this.exit.getChildAt(k);
-				element.animations.play('open');
-				element.openSound.play();
-			}
+				element.animations.play('open');			}
 			//allow player to exit level
 			this.allowLevelExit = true;
+         this.doorOpen.play();
     	}
 
 		//let player collide with platforms
@@ -240,6 +247,7 @@ Play.prototype = {
     	if(!this.player.invincible && enemy.state != 5 && 
                !(game.input.keyboard.isDown(Phaser.Keyboard.DOWN) && player.y + 50 <= enemy.y && !player.can_jump)) {
          console.log(enemy.state);
+         this.playerOof.play();
       	this.player.swordLength -= 1;		//lose health
       	if(this.player.swordLength < 0) {	//if dead, go to Game Over
       		game.sound.stopAll();
@@ -261,6 +269,9 @@ Play.prototype = {
    			ore.kill();
             //update the score
    			this.score += 1;
+            // play a sound
+            this.pickup.play();
+            console.log(this.orePots.length);
    		}
    },
 
