@@ -30,14 +30,14 @@ var loadLevel_3 = function(game, player, platforms, enemies, orePots, exit, ores
 	map.createFromObjects('Platforms', 4, 'gid4Platform', 0, true, true, decorations);
 	map.createFromObjects('Platforms', 5, 'gid5Platform', 0, true, true, decorations);
 	map.createFromObjects('Platforms', 6, 'gid6Platform', 0, true, true, decorations);
-	map.createFromObjects('Platforms', 7, 'CollisionBox', 0, true, true, spawners);
-	map.createFromObjects('Platforms', 8, 'CollisionBox', 0, true, true, potSpawners);
-	map.createFromObjects('Platforms', 9, 'CollisionBox', 0, true, true, playerPoints);
-	map.createFromObjects('Platforms', 9, 'CollisionBox', 0, true, true, exits);
 	map.createFromObjects('Platforms', 7, 'gid7Platform', 0, true, true, decorations);
 	map.createFromObjects('Platforms', 8, 'gid8Platform', 0, true, true, decorations);
 	map.createFromObjects('Platforms', 9, 'gid9Platform', 0, true, true, decorations);
 	map.createFromObjects('Collision', 10, 'CollisionBox', 0, true, true, platforms);
+	map.createFromObjects('Platforms', 13, 'CollisionBox', 0, true, true, spawners);
+	map.createFromObjects('Platforms', 14, 'CollisionBox', 0, true, true, exits);
+	map.createFromObjects('Platforms', 15, 'CollisionBox', 0, true, true, playerPoints);
+	map.createFromObjects('Platforms', 17, 'CollisionBox', 0, true, true, potSpawners);
 	
 	//make all platforms immovable
 	platforms.forEach(function(element) {
@@ -57,7 +57,7 @@ var loadLevel_3 = function(game, player, platforms, enemies, orePots, exit, ores
     //spawn some ore pots
     var j;
 	for (j = 0; j < potSpawners.length; j++) {
-		var element = potSpawners.getChildAt(i);
+		var element = potSpawners.getChildAt(j);
 		var pot = new OrePot(game, 'pot', element.x, element.y, orePots, ores);
 		game.add.existing(pot);
 		orePots.add(pot);
@@ -68,7 +68,7 @@ var loadLevel_3 = function(game, player, platforms, enemies, orePots, exit, ores
 	var k;
 	for (k = 0; k < exits.length; k++) {
 		var element = exits.getChildAt(k);
-		var door = exit.create(element.x, element.y, 'doorAtlas', 'Mineshaft1');
+		var door = exit.create(element.x - 45, element.y - 40, 'doorAtlas', 'Mineshaft1');
 		door.animations.add('open', ['Mineshaft2','Mineshaft3'], 5, false);
 		door.openSound = game.add.audio('smash');	//temporary sound until we get the door open noise
 		door.body.immovable = true;

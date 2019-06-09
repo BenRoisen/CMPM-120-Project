@@ -30,14 +30,13 @@ var loadLevel_1 = function(game, player, platforms, enemies, orePots, exit, ores
 	map.createFromObjects('Platforms', 4, 'gid4Platform', 0, true, true, decorations);
 	map.createFromObjects('Platforms', 5, 'gid5Platform', 0, true, true, decorations);
 	map.createFromObjects('Platforms', 6, 'gid6Platform', 0, true, true, decorations);
-	map.createFromObjects('Platforms', 7, 'CollisionBox', 0, true, true, spawners);
-	map.createFromObjects('Platforms', 8, 'CollisionBox', 0, true, true, potSpawners);
-	map.createFromObjects('Platforms', 9, 'CollisionBox', 0, true, true, playerPoints);
-	map.createFromObjects('Platforms', 9, 'CollisionBox', 0, true, true, exits);
 	map.createFromObjects('Platforms', 7, 'gid7Platform', 0, true, true, decorations);
 	map.createFromObjects('Platforms', 8, 'gid8Platform', 0, true, true, decorations);
 	map.createFromObjects('Platforms', 9, 'gid9Platform', 0, true, true, decorations);
 	map.createFromObjects('Collision', 10, 'CollisionBox', 0, true, true, platforms);
+	map.createFromObjects('Collision', 14, 'CollisionBox', 0, true, true, exits);
+	map.createFromObjects('Collision', 15, 'CollisionBox', 0, true, true, playerPoints);
+	map.createFromObjects('Collision', 17, 'CollisionBox', 0, true, true, potSpawners);
 	
 	//make all platforms immovable
 	platforms.forEach(function(element) {
@@ -57,7 +56,7 @@ var loadLevel_1 = function(game, player, platforms, enemies, orePots, exit, ores
     //spawn some ore pots
     var j;
 	for (j = 0; j < potSpawners.length; j++) {
-		var element = potSpawners.getChildAt(i);
+		var element = potSpawners.getChildAt(j);
 		var pot = new OrePot(game, 'pot', element.x, element.y, orePots, ores);
 		game.add.existing(pot);
 		orePots.add(pot);

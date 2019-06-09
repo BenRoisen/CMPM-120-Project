@@ -363,7 +363,7 @@
                  "visible":true,
                  "width":116,
                  "x":1511,
-                 "y":59.16667
+                 "y":59.1667
                 }, 
                 {
                  "gid":7,
@@ -483,7 +483,7 @@
                  "visible":true,
                  "width":100,
                  "x":23.8333,
-                 "y":133.3333
+                 "y":133.333
                 }, 
                 {
                  "gid":3,
@@ -603,7 +603,7 @@
                  "visible":true,
                  "width":100,
                  "x":24.1667,
-                 "y":1024.667
+                 "y":1024.67
                 }, 
                 {
                  "gid":1,
@@ -1360,6 +1360,162 @@
                  "width":100,
                  "x":2015.67,
                  "y":-21.3333
+                }, 
+                {
+                 "gid":15,
+                 "height":60,
+                 "id":143,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":100,
+                 "x":101.515151515152,
+                 "y":63.3333333333333
+                }, 
+                {
+                 "gid":14,
+                 "height":60,
+                 "id":144,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":100,
+                 "x":1837.87878787879,
+                 "y":1093.63636363636
+                }, 
+                {
+                 "gid":17,
+                 "height":60,
+                 "id":145,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":100,
+                 "x":1598.48484848485,
+                 "y":66.3636363636364
+                }, 
+                {
+                 "gid":17,
+                 "height":60,
+                 "id":146,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":100,
+                 "x":107.575757575758,
+                 "y":1026.9696969697
+                }, 
+                {
+                 "gid":17,
+                 "height":60,
+                 "id":147,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":100,
+                 "x":1910.60606060606,
+                 "y":757.272727272727
+                }, 
+                {
+                 "gid":13,
+                 "height":60,
+                 "id":148,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":100,
+                 "x":1240.90909090909,
+                 "y":108.787878787879
+                }, 
+                {
+                 "gid":13,
+                 "height":60,
+                 "id":149,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":100,
+                 "x":640.909090909091,
+                 "y":342.121212121212
+                }, 
+                {
+                 "gid":13,
+                 "height":60,
+                 "id":150,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":100,
+                 "x":122.727272727273,
+                 "y":520.909090909091
+                }, 
+                {
+                 "gid":13,
+                 "height":60,
+                 "id":152,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":100,
+                 "x":1216.66666666667,
+                 "y":499.69696969697
+                }, 
+                {
+                 "gid":17,
+                 "height":60,
+                 "id":153,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":100,
+                 "x":1840.90909090909,
+                 "y":348.181818181818
+                }, 
+                {
+                 "gid":13,
+                 "height":60,
+                 "id":154,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":100,
+                 "x":922.727272727273,
+                 "y":1075.45454545455
+                }, 
+                {
+                 "gid":17,
+                 "height":60,
+                 "id":155,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":100,
+                 "x":495.454545454545,
+                 "y":1078.48484848485
+                }, 
+                {
+                 "gid":13,
+                 "height":60,
+                 "id":156,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":100,
+                 "x":613.636363636364,
+                 "y":839.090909090909
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1368,7 +1524,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":143,
+ "nextobjectid":157,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.2.4",
@@ -1377,13 +1533,27 @@
         {
          "columns":3,
          "firstgid":1,
-         "image":"..\/..\/..\/..\/..\/MapSpritesheet.png",
+         "image":"..\/MapSpritesheet.png",
          "imageheight":243,
          "imagewidth":300,
          "margin":0,
          "name":"MapTileset",
          "spacing":0,
          "tilecount":12,
+         "tileheight":60,
+         "tilewidth":100,
+         "transparentcolor":"#de47d7"
+        }, 
+        {
+         "columns":2,
+         "firstgid":13,
+         "image":"SpawnSpritesheet.png",
+         "imageheight":182,
+         "imagewidth":201,
+         "margin":0,
+         "name":"SpawnSet",
+         "spacing":0,
+         "tilecount":6,
          "tileheight":60,
          "tilewidth":100,
          "transparentcolor":"#de47d7"

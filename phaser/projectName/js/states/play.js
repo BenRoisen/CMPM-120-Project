@@ -290,7 +290,7 @@ Play.prototype = {
 
 	touchExit:function(player, exit) {
 		//only exit level if player presses E and player has collected all ores
-		if(game.input.keyboard.downDuration(Phaser.Keyboard.C, 1) && this.allowLevelExit) {
+		if(game.input.keyboard.downDuration(Phaser.Keyboard.E, 1) && this.allowLevelExit) {
 			//figure out where to go from here
 			switch(this.levelTracker) {
 				case(0): 	//finished tutorial - load level 1
