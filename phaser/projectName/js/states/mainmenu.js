@@ -3,6 +3,8 @@ var MainMenu = function(game) {};
 MainMenu.prototype = {
 	preload: function() {
 		console.log('MainMenu: Preload');
+		//display a loading message
+		var loadText = game.add.text(game.width - 160, game.height - 32, 'Loading...', {fontSize: '32px', fill: '#fff' });
 		// preload assets
 
 		//load images.
@@ -71,7 +73,7 @@ MainMenu.prototype = {
     	game.load.image('gid8Platform', '../assets/Tilemaps/gid8Platform.png');
     	game.load.image('gid9Platform', '../assets/Tilemaps/gid9Platform.png');
     	game.load.image('CollisionBox', '../assets/Tilemaps/CollisionBox.png');
-    	game.load.image('background_1', '../assets/Tilemaps/BackgroundOneTile.png');
+    	game.load.image('background_1', '../assets/Level1Background.png');
     	game.load.image('background_2', '../assets/Tilemaps/Level2BG.png');
     	game.load.image('background_3', '../assets/Tilemaps/Level3BG.png');
 	},
