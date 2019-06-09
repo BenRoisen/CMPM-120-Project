@@ -9,6 +9,7 @@ Play.prototype = {
 		this.platforms;
 		this.swords;	//keeps track of the sword
 		this.score = 0;	//keeps track of score (# of ore pieces)
+      this.oreCollected = 0; // keeps track of how many ore has been picked up in this level
 		this.scoreText;
 		this.ores;			//group to hold ores
 		this.exit;
@@ -133,17 +134,21 @@ Play.prototype = {
 	},
 	update:function() {
 		//open door if all ores collected
-		if(game.input.keyboard.isDown(Phaser.Keyboard.Q) || this.orePots.length <= 0)
-    	{
-    		//play the "door opens" animation & sound
-        	var k;
-			for (k = 0; k < this.exit.length; k++) {
-				var element = this.exit.getChildAt(k);
-				element.animations.play('open');			}
-			//allow player to exit level
-			this.allowLevelExit = true;
-         this.doorOpen.play();
-    	}
+      if(!this.allowLevelExit)
+      {
+         if(game.input.keyboard.isDown(Phaser.Keyboard.Q) || this.orePots.length <= this.oreCollected)
+         {
+            //play the "door opens" animation & sound
+            var k;
+            for (k = 0; k < this.exit.length; k++) {
+               var element = this.exit.getChildAt(k);
+               element.animations.play('open');       }
+            //allow player to exit level
+            this.allowLevelExit = true;
+            this.doorOpen.play();
+         }
+      }
+		
 
 		//let player collide with platforms
 		game.physics.arcade.collide(this.player, this.platforms);
@@ -269,9 +274,11 @@ Play.prototype = {
    			ore.kill();
             //update the score
    			this.score += 1;
+            this.oreCollected += 1;
             // play a sound
             this.pickup.play();
             console.log(this.orePots.length);
+            console.log(this.oreCollected);
    		}
    },
 
@@ -335,6 +342,7 @@ Play.prototype = {
 					break;
 			}
 			this.allowLevelExit = false;	//disable the exit for the next level until all ores collected
+         this.oreCollected = 0;
 		}
 	},
 
