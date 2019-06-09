@@ -162,7 +162,7 @@ var loadLevel_0 = function(game, player, platforms, enemies, orePots, exit, ores
 	blacksmith_1.typing = false;	//start off not typing
 	blacksmith_1.dialogueState = 0;	//start off in "not talked to"
 	blacksmith_1.player = player;
-	blacksmith_1.interacttext = new Instruction(game, 'keyE', 550, 1000);
+	blacksmith_1.interacttext = new Instruction(game, 'keyE', 550, 1000, player);
 	game.add.existing(blacksmith_1.interacttext);
 	var blacksmith_2 = specialEntities.create(1900,317, 'player');	//blacksmith between end of sword course & start of hammer course
 	blacksmith_2.body.immovable = true;
@@ -173,7 +173,7 @@ var loadLevel_0 = function(game, player, platforms, enemies, orePots, exit, ores
 	blacksmith_2.dialogueLine = 0;	//start at line 0
 	blacksmith_2.dialogueState = 0;	//start off in "not talked to"
 	blacksmith_2.player = player;
-	blacksmith_2.interacttext = new Instruction(game, 'keyC', 1950, 267);
+	blacksmith_2.interacttext = new Instruction(game, 'keyE', 1950, 267, player);
 	game.add.existing(blacksmith_2.interacttext);
 }
 

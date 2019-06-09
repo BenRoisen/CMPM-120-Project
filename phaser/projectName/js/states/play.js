@@ -99,7 +99,7 @@ Play.prototype = {
       this.bigOres = game.add.group();
 
 		//create a variable to keep track of which level we're on
-		this.levelTracker = 1;
+		this.levelTracker = 0; // Change back to one later
 
 		//load the first level.
 		//NOTE: make sure that any groups/etc. that will be needed for ALL levels have been set up prior to this.
@@ -294,7 +294,7 @@ Play.prototype = {
 			switch(this.levelTracker) {
 				case(0): 	//finished tutorial - load level 1
 					//update levelTracker and load level 1
-					console.log('loading level 2...');
+					console.log('loading level 1...');
 					this.levelTracker = 1;
 					//loadLevel_1(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities);
 					loadLevel_1(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.decorations, this.bigOres, this.background);

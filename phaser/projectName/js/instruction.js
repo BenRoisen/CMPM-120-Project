@@ -1,4 +1,4 @@
-function Instruction(game, key, x, y) {
+function Instruction(game, key, x, y, player) {
    Phaser.Sprite.call(this, game, x, y, key, 0);
    this.game = game;
    this.x = x;
@@ -6,6 +6,8 @@ function Instruction(game, key, x, y) {
    this.anchor.x = 0.5;
    this.anchor.y = 0.5;
    this.scale.setTo(0.1);
+
+   this.player = player;
 
    this.showing = false;
    this.fading = true;
@@ -38,6 +40,11 @@ Instruction.prototype.update = function() {
       }
    } else {
       this.alpha = 0;
+   }
+
+   if(Phaser.Math.distance(this.x, this.y, this.player.x, this.player.y) >= 500)
+   {
+      this.showing = false;
    }
 }
 

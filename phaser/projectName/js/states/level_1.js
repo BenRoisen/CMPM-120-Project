@@ -61,7 +61,7 @@ var loadLevel_1 = function(game, player, platforms, enemies, orePots, exit, ores
 		var pot = new OrePot(game, 'pot', element.x, element.y, orePots, ores);
 		game.add.existing(pot);
 		orePots.add(pot);
- 		console.log('SPAWNING ENEMY AT ' + element.x + ', ' + element.y);
+ 		console.log('SPAWNING POT AT ' + element.x + ', ' + element.y);
 	}
 	
 	//spawn the level exit door thing
@@ -72,6 +72,7 @@ var loadLevel_1 = function(game, player, platforms, enemies, orePots, exit, ores
 		door.animations.add('open', ['Mineshaft2','Mineshaft3'], 5, false);
 		door.openSound = game.add.audio('smash');	//temporary sound until we get the door open noise
 		door.body.immovable = true;
+      console.log('SPAWNING DOOR AT ' + element.x + ', ' + element.y);
 	}
 
 	var l;
@@ -83,9 +84,10 @@ var loadLevel_1 = function(game, player, platforms, enemies, orePots, exit, ores
 		player.body.moves = true;
 		// var door = exit.create(element.x, element.y, 'endGame');
 		// door.body.immovable = true;
+      console.log('SPAWNING PLAYER AT ' + element.x + ', ' + element.y);
 	}
 
-   bigore = new BigOre(game, 'obsidian', game.width - 100, game.height - 100, 0);
+   bigore = new BigOre(game, 'obsidian', game.world.width - 100, game.world.height - 1000, 0);
    game.add.existing(bigore);
    bigOres.add(bigore);
 
