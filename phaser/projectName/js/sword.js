@@ -18,8 +18,8 @@ function Sword (game, key, key2, player, walls, enemies, pots, bigOres)
    this.hit_wall = false;
    this.pieceLost = false;
 
-   this.slash = new Phaser.Sound(game,'slash',1,false);
-   this.shatter = new Phaser.Sound(game,'shatter',1,false);
+   this.slash = game.add.audio('slash');
+   this.shatter = game.add.audio('shatter');
 
    this.player = player;
    this.walls = walls;
