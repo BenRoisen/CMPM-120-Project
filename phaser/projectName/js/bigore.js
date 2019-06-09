@@ -6,6 +6,7 @@ function BigOre(game, key, x, y, player) {
    this.y = y;
    this.anchor.x = 0.5;
    this.anchor.y = 0.5;
+   this.body.immovable = true;
 
    this.hits = 3;
    this.player = player;
@@ -72,6 +73,8 @@ BigOre.prototype.update = function() {
          this.animations.play('hit0');
          break;
    }
+
+   game.physics.arcade.collide(this, this.player);
 }
 
 // Ore Shards for the particle emitter

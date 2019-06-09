@@ -122,7 +122,10 @@ Play.prototype = {
 		//load the first level.
 		//NOTE: make sure that any groups/etc. that will be needed for ALL levels have been set up prior to this.
 		//(at the very least, make sure all the groups used by the sword have been declared BEFORE calling this function) 
-		loadLevel_0(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.tutorial_dialogue);
+      // I AM TESTING THE LAST LEVEL. CHANGE THIS LATER.
+		// loadLevel_0(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.tutorial_dialogue);
+      loadLevel_4(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.decorations, this.bigOres, this.background);
+
 
 		//bring the UI to the topmost z-level so it renders over the shadow
 		game.world.bringToTop(this.scoreText);

@@ -89,10 +89,6 @@ var loadLevel_1 = function(game, player, platforms, enemies, orePots, exit, ores
       console.log('SPAWNING PLAYER AT ' + element.x + ', ' + element.y);
 	}
 
-   bigore = new BigOre(game, 'obsidian', game.world.width - 100, game.world.height - 1000, player);
-   game.add.existing(bigore);
-   bigOres.add(bigore);
-
 	spawners.removeAll(true);
 	potSpawners.removeAll(true);
 	exits.removeAll(true);

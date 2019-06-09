@@ -76,6 +76,8 @@ MainMenu.prototype = {
     	game.load.image('background_1', '../assets/Level1Background.png');
     	game.load.image('background_2', '../assets/Tilemaps/Level2BG.png');
     	game.load.image('background_3', '../assets/Tilemaps/Level3BG.png');
+      game.load.image('bigOreBG'    , '../assets/BigOreBG.png');
+      game.load.image('bigOreFG'    , '../assets/BigOreFG.png');
 	},
 	create: function() {
 		console.log('MainMenu: Create');
