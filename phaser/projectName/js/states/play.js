@@ -143,7 +143,7 @@ Play.prototype = {
 		//open door if all ores collected
       if(!this.allowLevelExit)
       {
-         if(game.input.keyboard.isDown(Phaser.Keyboard.Q) || this.orePots.length <= this.oreCollected)
+         if(this.orePots.length <= this.oreCollected)
          {
             //play the "door opens" animation & sound
             var k;
@@ -197,19 +197,7 @@ Play.prototype = {
 		//handle collisions with special elements
 		game.physics.arcade.overlap(this.player, this.specialEntities, this.touchSpecial, null, this);
 
-		//let player repair the sword
-		if(game.input.keyboard.downDuration(Phaser.Keyboard.R, 1)) {	//repair on pressing the R key
-			console.log('repairing sword...');
-			if(this.score > 0) {	//only allow repair if we have ore
-				this.player.swordLength += 1;
-				//this.score -= 1;
-			}
-			else { //not enough ore to repair
-				//we should probably put something here to let player know they need more ore (sound, etc.)
-				console.log('insufficient ore');
-			}
-		}
-
+      // Repairs the sword when given a signal from player
       if(this.player.repairedSword)
       {
          if(this.score > 0) { //only allow repair if we have ore
