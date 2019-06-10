@@ -56,8 +56,13 @@ MainMenu.prototype = {
       game.load.audio('doorOpen', ['../assets/DoorOpen.mp3']);
       game.load.audio('music', ['../assets/LABOTHsoundtrack.mp3']);
 
-    	//load dialogue text
+    	//load dialogue assets
     	game.load.text('tutorial_dialogue', '../assets/dialogue_tutorial.json');
+    	game.load.audio('oldMan_1', ['../assets/Tutorial/OldManLine01.mp3']);
+    	game.load.audio('oldMan_2', ['../assets/Tutorial/OldManLine02.mp3']);
+    	game.load.audio('oldMan_3', ['../assets/Tutorial/OldManLine03.mp3']);
+    	game.load.audio('oldMan_4', ['../assets/Tutorial/OldManLine04.mp3']);
+    	game.load.atlas('smithyAtlas', '../assets/Tutorial/SmithyAtlas.png', '../assets/Tutorial/SmithyTutorial.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 
     	//load tilemaps
     	game.load.tilemap('level01', '../assets/Tilemaps/Level1.json', null, Phaser.Tilemap.TILED_JSON);
@@ -74,6 +79,7 @@ MainMenu.prototype = {
     	game.load.image('gid8Platform', '../assets/Tilemaps/gid8Platform.png');
     	game.load.image('gid9Platform', '../assets/Tilemaps/gid9Platform.png');
     	game.load.image('CollisionBox', '../assets/Tilemaps/CollisionBox.png');
+    	game.load.image('background_0', '../assets/Tilemaps/TutorialBackground.png');
     	game.load.image('background_1', '../assets/Level1Background.png');
     	game.load.image('background_2', '../assets/Tilemaps/Level2BG.png');
     	game.load.image('background_3', '../assets/Tilemaps/Level3BG.png');

@@ -128,7 +128,7 @@ Play.prototype = {
       } else {
          //create a variable to keep track of which level we're on
          this.levelTracker = 0; // Change back to one later
-         loadLevel_0(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.tutorial_dialogue);
+         loadLevel_0(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.tutorial_dialogue, this.decorations, this.background);
       }
 
 		//bring the UI to the topmost z-level so it renders over the shadow

@@ -1,5 +1,5 @@
 //tutorial level
-var loadLevel_0 = function(game, player, platforms, enemies, orePots, exit, ores, specialEntities, dialogue) {
+var loadLevel_0 = function(game, player, platforms, enemies, orePots, exit, ores, specialEntities, dialogue, decorations, background) {
 	//empty out all the old level elements
 	platforms.removeAll(true);
 	enemies.removeAll(true);
@@ -7,18 +7,39 @@ var loadLevel_0 = function(game, player, platforms, enemies, orePots, exit, ores
 	exit.removeAll(true);
 	ores.removeAll(true);
 	specialEntities.removeAll(true);
+	decorations.removeAll(true);
+
+	//change the background to reflect the new level
+	background.loadTexture('background_0');
+	background.scale.setTo(0.5);
+
+	//resize the world to match the new level dimensions
+	game.world._definedSize = false;	//this lets us make the world smaller than it is currently
+	game.world.resize(1000,600);
 
 	//reset the player's position
-	player.body.x = 140;
-	player.body.y = (game.world.height - 160);
-   player.arrowLeft = new Arrow(game, 'keyL', 100, game.world.height - 200);
-   game.add.existing(player.arrowLeft);
-   player.arrowRight = new Arrow(game, 'keyR', 180, game.world.height - 200);
-   game.add.existing(player.arrowRight);
+	player.body.moves = false;	//temporarily disable physics movement control so we can warp them
+	player.x = 615;
+	player.y = 256;
+	player.body.moves = true;	//re-enable physics movement
+
+	//spawn some tutorial arrows
+	player.arrowLeft = new Arrow(game, 'keyL', 100, game.world.height - 200);
+	game.add.existing(player.arrowLeft);
+	player.arrowRight = new Arrow(game, 'keyR', 180, game.world.height - 200);
+	game.add.existing(player.arrowRight);
+
+	// //reset the player's position
+	// // player.body.x = 140;
+	// // player.body.y = (game.world.height - 160);
+ //   player.arrowLeft = new Arrow(game, 'keyL', 100, game.world.height - 200);
+ //   game.add.existing(player.arrowLeft);
+ //   player.arrowRight = new Arrow(game, 'keyR', 180, game.world.height - 200);
+ //   game.add.existing(player.arrowRight);
 
 	//create the ground
-	var ground = platforms.create(0, game.world.height - 1, 'platform_med');
-	ground.scale.setTo(7, 1);		//scale the ground to fit the game (sprite is 300x68, & we need to to be 2000x16)
+	var ground = platforms.create(0, 415, 'platform_med');
+	ground.scale.setTo(6.66, 25/17);		//scale the ground to fit the game (sprite is 300x68, & we need to to be 2000x16)
 	ground.body.immovable = true;	//make the ground immovable so it won't fall when player touches it
 
 	//make the left wall
@@ -91,65 +112,65 @@ var loadLevel_0 = function(game, player, platforms, enemies, orePots, exit, ores
 	ledge.body.immovable = true;			//make wall immovable
 	ledge.body.setSize(34, 600, 17, 17);	//adjust bounding box according to specifications
 
-	//spawn enemy pots
-    var enemy = new Enemy(game, 'pot', 50, 550, 0, player, platforms);	//enemy 1
-    game.add.existing(enemy);
-    enemies.add(enemy);
-    enemy = new Enemy(game, 'pot', 250, 300, 0, player, platforms);	//enemy 2
-    game.add.existing(enemy);
-    enemies.add(enemy);
-    enemy = new Enemy(game, 'pot', 150, 300, 0, player, platforms);	//enemy 3
-    game.add.existing(enemy);
-    enemies.add(enemy);
-    enemy = new Enemy(game, 'pot', 50, 300, 0, player, platforms);	//enemy 4
-    game.add.existing(enemy);
-    enemies.add(enemy);
-	enemy = new Enemy(game, 'pot', 700, 100, 0, player, platforms);	//enemy 5
-    game.add.existing(enemy);
-    enemies.add(enemy);
-	enemy = new Enemy(game, 'pot', 1150, 550, 0, player, platforms);	//enemy 6
-    game.add.existing(enemy);
-    enemies.add(enemy);
+	// //spawn enemy pots
+ //    var enemy = new Enemy(game, 'pot', 50, 550, 0, player, platforms);	//enemy 1
+ //    game.add.existing(enemy);
+ //    enemies.add(enemy);
+ //    enemy = new Enemy(game, 'pot', 250, 300, 0, player, platforms);	//enemy 2
+ //    game.add.existing(enemy);
+ //    enemies.add(enemy);
+ //    enemy = new Enemy(game, 'pot', 150, 300, 0, player, platforms);	//enemy 3
+ //    game.add.existing(enemy);
+ //    enemies.add(enemy);
+ //    enemy = new Enemy(game, 'pot', 50, 300, 0, player, platforms);	//enemy 4
+ //    game.add.existing(enemy);
+ //    enemies.add(enemy);
+	// enemy = new Enemy(game, 'pot', 700, 100, 0, player, platforms);	//enemy 5
+ //    game.add.existing(enemy);
+ //    enemies.add(enemy);
+	// enemy = new Enemy(game, 'pot', 1150, 550, 0, player, platforms);	//enemy 6
+ //    game.add.existing(enemy);
+ //    enemies.add(enemy);
 
 
-    //spawn some ore pots
-	var pot = new OrePot(game, 'pot', 150, 800, orePots, ores);	//pot A
-	game.add.existing(pot);
-	orePots.add(pot);
-	pot = new OrePot(game, 'pot', 1900, 550, orePots, ores);	//pot B
-	game.add.existing(pot);
-	orePots.add(pot);
-	pot = new OrePot(game, 'pot', 1800, 550, orePots, ores);	//pot C
-	game.add.existing(pot);
-	orePots.add(pot);
-	pot = new OrePot(game, 'pot', 1700, 550, orePots, ores);	//pot D
-	game.add.existing(pot);
-	orePots.add(pot);
-	pot = new OrePot(game, 'pot', 1350, 550, orePots, ores);	//pot E
-	game.add.existing(pot);
-	orePots.add(pot);
-	pot = new OrePot(game, 'pot', 1250, 550, orePots, ores);	//pot F
-	game.add.existing(pot);
-	orePots.add(pot);
-	pot = new OrePot(game, 'pot', 1150, 550, orePots, ores);	//pot G
-	game.add.existing(pot);
-	orePots.add(pot);
+ //    //spawn some ore pots
+	// var pot = new OrePot(game, 'pot', 150, 800, orePots, ores);	//pot A
+	// game.add.existing(pot);
+	// orePots.add(pot);
+	// pot = new OrePot(game, 'pot', 1900, 550, orePots, ores);	//pot B
+	// game.add.existing(pot);
+	// orePots.add(pot);
+	// pot = new OrePot(game, 'pot', 1800, 550, orePots, ores);	//pot C
+	// game.add.existing(pot);
+	// orePots.add(pot);
+	// pot = new OrePot(game, 'pot', 1700, 550, orePots, ores);	//pot D
+	// game.add.existing(pot);
+	// orePots.add(pot);
+	// pot = new OrePot(game, 'pot', 1350, 550, orePots, ores);	//pot E
+	// game.add.existing(pot);
+	// orePots.add(pot);
+	// pot = new OrePot(game, 'pot', 1250, 550, orePots, ores);	//pot F
+	// game.add.existing(pot);
+	// orePots.add(pot);
+	// pot = new OrePot(game, 'pot', 1150, 550, orePots, ores);	//pot G
+	// game.add.existing(pot);
+	// orePots.add(pot);
 	
-	// //spawn the level exit door thing
-	var door = exit.create(1812, 1001, 'doorAtlas', 'Mineshaft1');
-	door.animations.add('open', ['Mineshaft2','Mineshaft3'], 5, false);
-	door.openSound = game.add.audio('smash');	//temporary sound until we get the door open noise
-	door.body.immovable = true;
+	// // //spawn the level exit door thing
+	// var door = exit.create(1812, 1001, 'doorAtlas', 'Mineshaft1');
+	// door.animations.add('open', ['Mineshaft2','Mineshaft3'], 5, false);
+	// door.openSound = game.add.audio('smash');	//temporary sound until we get the door open noise
+	// door.body.immovable = true;
 
-	//create special entities
+	// //create special entities
 
-	//special trigger to spawn a wall at the end of the sword section, in order to contain any excess enemies
-	var enemyContainer = specialEntities.create(1700, 200, 'platform_med');
-	enemyContainer.body.immovable = true;			//make enemyContainer immovable
-	enemyContainer.body.setSize(300, 34, 0, 17);	//adjust bounding box according to specifications
-	enemyContainer.alpha = 0;						//make enemyContainer invisible
-	enemyContainer.specialFunction = containEnemies;	//have it's special function be containing enemies
-	enemyContainer.platforms = platforms;	//enemyContainer will need access to platforms in order to spawn the wall
+	// //special trigger to spawn a wall at the end of the sword section, in order to contain any excess enemies
+	// var enemyContainer = specialEntities.create(1700, 200, 'platform_med');
+	// enemyContainer.body.immovable = true;			//make enemyContainer immovable
+	// enemyContainer.body.setSize(300, 34, 0, 17);	//adjust bounding box according to specifications
+	// enemyContainer.alpha = 0;						//make enemyContainer invisible
+	// enemyContainer.specialFunction = containEnemies;	//have it's special function be containing enemies
+	// enemyContainer.platforms = platforms;	//enemyContainer will need access to platforms in order to spawn the wall
 
 	//spawn blacksmiths
 	var blacksmith_1 = specialEntities.create(500,1050, 'player');	//blacksmith @ start of level
