@@ -1,58 +1,62 @@
 [
 	[
 		{
-			"speaker" : "blacksmith",
-			"dialog" : "My apprentice, I gift to you the Legendary Ancient Blade of the Hero, or LABOTH for short.",
+			"speaker" : "smithy",
+			"dialog" : "Hello my young apprentice, I have a special task for you to do today. You’ll need to head into the caves and collect me some OBSIDIAN!",
 			"newEmote" : "player"
 		},
 		{
-			"speaker" : "blacksmith",
-			"dialog" : "The LABOTH is very powerful. It will guide itself to always block any attack, and it is able to kill most enemies in a single hit...",
+			"speaker" : "smithy",
+			"dialog" : "You’ll find OBSIDIAN shards in sacred pots scattered inside the cave. Jump and smash down on top of them with your HAMMER to break them open.",
 			"newEmote" : "endGame"
 		},
 		{	
-			"speaker" : "blacksmith",
-			"dialog" : "...but it is also very, very old, and consequently very fragile.",
+			"speaker" : "smithy",
+			"dialog" : "You should tread carefully though, as some of the pots are CURSED! You’ll need to learn how to protect yourself using the present I gave you...",
 			"newEmote" : "OVERRIDE_NONE"
 		},
 		{	
-			"speaker" : "blacksmith",
-			"dialog" : "Any time you strike an object, be it a foe or merely a wall, the blade will likely shatter, decreasing its length.",
+			"speaker" : "smithy",
+			"dialog" : "The Legendary Ancient Blade of the Hero! Or LABOTH for short. I found it in the cave many years ago, and have studied its secrets ever since.",
 			"newEmote" : "swordBlade"
 		},
 		{	
-			"speaker" : "blacksmith",
-			"dialog" : "The blade will also shatter if it blocks an attack."
+			"speaker" : "smithy",
+			"dialog" : "The LABOTH will protect against any attack, but a piece will break off each time you get hurt, as well as any time you hit the sword against anything EXCEPT it’s own OBSIDIAN ore."
 		},
 		{	
-			"speaker" : "blacksmith",
-			"dialog" : "The LABOTH emits a magical light that illuminates the area around it. You can use the strength of this light to judge the reach of your attacks."
+			"speaker" : "smithy",
+			"dialog" : "If the LABOTH breaks all of its pieces, you will be defenseless! Although, I bet smashing an enemy with your HAMMER can at least stun them..."
 		},
 		{	
-			"speaker" : "blacksmith",
-			"dialog" : "I've prepared an obstacle course for you to get accustomed to the LABOTH. It's stocked with several enemies, so that you may test your swordsmanship..."
+			"speaker" : "smithy",
+			"dialog" : "Don’t worry my friend, you can repair the LABOTH with your HAMMER! You can add as many pieces as you wish, but each piece will use up one of the OBSIDIAN shards you’ve collected."
 		},
 		{	
-			"speaker" : "blacksmith",
-			"dialog" : "...but don't feel too bad about fleeing, especially if you can get to a better position so you can strike without fear of shattering your sword upon the walls."
+			"speaker" : "smithy",
+			"dialog" : "The LABOTH will light your path through the deep caverns, the larger the sword, the more you can see around you."
 		},
 		{	
-			"speaker" : "",
-			"dialog" : "\n<press [SPACEBAR] to swing the LABOTH>"
+			"speaker" : "smithy",
+			"dialog" : "Now get going! Travel as deep as you can go, and who knows, collecting shards might lead you to what’s possessing all these pots."
+		},
+		{	
+			"speaker" : "smithy",
+			"dialog" : "If you do come across whatever it may be, please take care of it... Just don’t forget to save some shards for me!"
 		}
 	],
 	[
 		{
-			"speaker" : "blacksmith",
+			"speaker" : "smithy",
 			"dialog" : "By now your blade is likely damaged, leaving you vulnerable.",
 			"newEmote" : "OVERRIDE_NONE"
 		},
 		{
-			"speaker" : "blacksmith",
+			"speaker" : "smithy",
 			"dialog" : "Fear not! Damaged equipment is no problem for a blacksmith, even a novice such as yourself!"
 		},
 		{	
-			"speaker" : "blacksmith",
+			"speaker" : "smithy",
 			"dialog" : "Here, take this hammer. You can use it to repair the LABOTH with obsidian shards, such as those commonly found among the old pots that litter dungeons.",
 			"newEmote" : "platform_small"
 		},
@@ -61,41 +65,41 @@
 			"dialog" : "\n<press [R] to repair your sword using collected shards>"
 		},
 		{	
-			"speaker" : "blacksmith",
+			"speaker" : "smithy",
 			"dialog" : "The hammer has additional uses beyond repairs.",
 			"newEmote" : "OVERRIDE_NONE"
 		},
 		{	
-			"speaker" : "blacksmith",
+			"speaker" : "smithy",
 			"dialog" : "You can use it to smash open pots to reveal the obsidian shards within...",
 			"newEmote" : "OVERRIDE_NONE"
 		},
 		{
-			"speaker" : "blacksmith",
+			"speaker" : "smithy",
 			"dialog" : "...or to smash the shells of enemies who might be mimicing those same pots!"
 		},
 		{
-			"speaker" : "blacksmith",
+			"speaker" : "smithy",
 			"dialog" : "The hammer can also temporarily stun enemies, but it takes a weapon such as the LABOTH to kill them for good."
 		},
 		{
-			"speaker" : "blacksmith",
+			"speaker" : "smithy",
 			"dialog" : "I've stocked the tunnels ahead with some pots so you can practice using your hammer."
 		},
 		{
-			"speaker" : "blacksmith",
+			"speaker" : "smithy",
 			"dialog" : "You can also use the obsidian you collect to repair the LABOTH, but remember:"
 		},
 		{
-			"speaker" : "blacksmith",
+			"speaker" : "smithy",
 			"dialog" : "a longer sword can take more damage and strike further out, but it may prove unwieldy in smaller spaces."
 		},
 		{
-			"speaker" : "blacksmith",
+			"speaker" : "smithy",
 			"dialog" : "Similarly, a shorter sword is less likely to strike something unintentionally, but can block fewer hits before it shatters completely."
 		},
 		{
-			"speaker" : "blacksmith",
+			"speaker" : "smithy",
 			"dialog" : "Now go out there and see what you can do!"
 		},
 		{
