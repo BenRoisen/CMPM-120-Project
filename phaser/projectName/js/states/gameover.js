@@ -17,9 +17,8 @@ GameOver.prototype = {
 		game.stage.backgroundColor = "#000000";	//create a black background
 		
 		if(this.won) {
-			game.add.text(16, 16, 'YOU WIN!', {fontSize: '32px', fill: '#0f0' });					//green text because you won & that's good
-			game.add.text(16, 48, 'Final Score: ' + this.score, {fontSize: '32px', fill: '#0f0' });
-			game.add.text(16, 80, 'Press [SPACE] to retry', {fontSize: '32px', fill: '#0f0' });
+			var winscreen = game.add.image(0,0,'winScreen');
+         game.add.text(250, 435, this.score, {fontSize: '96px', fill: '#fff' });
 		}
 		else {
 			game.add.text(16, 16, 'GAME OVER!', {fontSize: '32px', fill: '#f00' });					//red text because you're dead
@@ -32,11 +31,18 @@ GameOver.prototype = {
 	update: function() {
 		game.sound.mute = true;
 		//restart game if player hits the spacebar
-		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
+		if(game.input.keyboard.isDown(Phaser.Keyboard.R)) {
 			game.sound.mute = false;
 			game.sound.stopAll();
 			game.sound.removeAll();
-			game.state.start('Play');
+			game.state.start('Play', true, false, true);
 		}
+
+      if(game.input.keyboard.isDown(Phaser.Keyboard.M)) {
+         game.sound.mute = false;
+         game.sound.stopAll();
+         game.sound.removeAll();
+         game.state.start('MainMenu');
+      }
 	}
 };

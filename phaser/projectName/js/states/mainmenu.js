@@ -23,8 +23,9 @@ MainMenu.prototype = {
 		game.load.image('endGame', '../assets/endGame100w150h.png');
       game.load.image('background', '../assets/CaveBackground.png' ); // background sprite
     	game.load.image('dialogueBox', '../assets/DialogueBox.png');
-      game.load.image('titlescreen', '../assets/StartScreenX2.png');
-      game.load.image('titletext', '../assets/SpaceToBeginX2.png');
+      game.load.image('titleScreen', '../assets/StartScreenX2.png');
+      game.load.image('titleText', '../assets/SpaceToBeginX2.png');
+      game.load.image('winScreen', '../assets/WinScreen.png');
       game.load.image('white', '../assets/white.png');
       game.load.image('keyE', '../assets/computer_key_E.png');
       game.load.image('keyL', '../assets/computer_key_Arrow_Left.png');
@@ -83,10 +84,10 @@ MainMenu.prototype = {
 		console.log('MainMenu: Create');
 		//Display the instructions
 		game.stage.backgroundColor = "#000000";	//create a black background
-		var titlescreen = game.add.image(0,0,'titlescreen');
+		var titlescreen = game.add.image(0,0,'titleScreen');
       titlescreen.scale.x = 0.5;
       titlescreen.scale.y = 0.5;
-      var titletext = game.add.image(game.world.width/2,game.world.height/2,'titletext');
+      var titletext = game.add.image(game.width/2,game.height/2,'titleText');
       titletext.scale.x = 0.5;
       titletext.scale.y = 0.5;
       titletext.anchor.x = 0.5;
@@ -95,7 +96,7 @@ MainMenu.prototype = {
 	update: function() {
 		//main menu logic - switch to play state if player hits the spacebar
 		if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
-			game.state.start('Play');
+			game.state.start('Play', true, false, false);
 		}
 	}
 };

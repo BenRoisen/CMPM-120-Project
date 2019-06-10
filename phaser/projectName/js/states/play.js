@@ -1,7 +1,7 @@
 //Define Play state and methods
 var Play = function(game) {};
 Play.prototype = {
-	init: function() {
+	init: function(skipTutorial) {
 		console.log('Play: preload');
 		//create all the variables we need
 		this.background;
@@ -15,6 +15,7 @@ Play.prototype = {
 		this.exit;
 		this.specialEntities;	//group to hold special game elements
       this.bigOres;
+      this.skipTutorial = skipTutorial;
 		//this.dialogueText = null;
 		//this.nextText = null;
 		this.allowLevelExit = false;	//controls whether player can leave the level
@@ -105,9 +106,6 @@ Play.prototype = {
       //Set up the big ore
       this.bigOres = game.add.group();
 
-		//create a variable to keep track of which level we're on
-		this.levelTracker = 0; // Change back to one later
-
 		//load the first level.
 		//NOTE: make sure that any groups/etc. that will be needed for ALL levels have been set up prior to this.
 		//(at the very least, make sure all the groups used by the sword have been declared BEFORE calling this function) 
@@ -122,9 +120,16 @@ Play.prototype = {
 		//load the first level.
 		//NOTE: make sure that any groups/etc. that will be needed for ALL levels have been set up prior to this.
 		//(at the very least, make sure all the groups used by the sword have been declared BEFORE calling this function) 
-      // I AM TESTING THE LAST LEVEL. CHANGE THIS LATER.
-		loadLevel_0(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.tutorial_dialogue);
-      // loadLevel_4(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.decorations, this.bigOres, this.background);
+
+      if(this.skipTutorial)
+      {
+         this.levelTracker = 1;
+         loadLevel_1(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.decorations, this.bigOres, this.background);
+      } else {
+         //create a variable to keep track of which level we're on
+         this.levelTracker = 0; // Change back to one later
+         loadLevel_0(this.game, this.player, this.platforms, this.enemies, this.orePots, this.exit, this.ores, this.specialEntities, this.tutorial_dialogue);
+      }
 
 		//bring the UI to the topmost z-level so it renders over the shadow
 		game.world.bringToTop(this.scoreText);
