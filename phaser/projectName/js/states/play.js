@@ -64,14 +64,14 @@ Play.prototype = {
 		game.camera.follow(this.player);	//make camera follow player
 
 		//set up scoreText to display player ore count
-		this.scoreText = game.add.text(65, 70, 'x0', {fontSize: '32px', fill: '#fff' });	//made the text white so it stands out against the shadow
+		this.scoreText = game.add.text(65, 70, 'x0', {font: 'Lucida Casual', fontStyle: 'italic', fontSize: '32px', fill: '#fff' });	//made the text white so it stands out against the shadow
 		this.scoreText.fixedToCamera = true;	//make it move with the camera
 		this.oreIcon = game.add.sprite(16, 65, 'obsidian');	//icon of the ore sprite to show what we're counting
 		this.oreIcon.fixedToCamera = true;
 		this.oreIcon.scale.setTo(0.3);
 
 		//set up swordText to display player sowrd length
-		this.swordText = game.add.text(16, 12, 'x5', {fontSize: '32px', fill: '#fff' });	//made the text white so it stands out against the shadow
+		this.swordText = game.add.text(16, 12, 'x5', {font: 'Lucida Casual', fontStyle: 'italic', fontSize: '32px', fill: '#fff' });	//made the text white so it stands out against the shadow
 		this.swordText.fixedToCamera = true;	//make it move with the camera
 
 		//set up ores

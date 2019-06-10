@@ -48,7 +48,10 @@ var loadLevel_0 = function(game, player, platforms, enemies, orePots, exit, ores
 	door.animations.add('open', ['Mineshaft2','Mineshaft3'], 5, false);
 	door.openSound = game.add.audio('smash');	//temporary sound until we get the door open noise
 	door.body.immovable = true;
-	door.interacttext = new Instruction(game, 'keyE', 862, 245, player);
+	door.interacttext = new Instruction(game, 'keyE', 762, 245, player);
+	door.interacttext.showing = true;
+	door.specialFunction = showText;
+	specialEntities.add(door);
 	console.log(door.interacttext);
 
 	// //create special entities
@@ -84,14 +87,9 @@ var loadLevel_0 = function(game, player, platforms, enemies, orePots, exit, ores
 	game.add.existing(blacksmith_1.interacttext);
 }
 
-var containEnemies = function() {
-	console.log('sealing off enemies...');
-	//spawn a wall at the end of the sword section
-	var wall = this.platforms.create(1500, -83, 'wall_med');
-	wall.body.immovable = true;
-	wall.body.setSize(34, 300, 17, 17);
-	//remove the trigger to prevent wall spam
-	this.kill();
+var showText = function() {
+	this.interacttext.showing = true;
+	console.log(this.interacttext);
 }
 
 var speak = function() {
@@ -118,9 +116,9 @@ var speak = function() {
 		//create the dialogue box
 		this.dialogueBox = this.game.add.sprite(170, 420, 'dialogueBox');	//the dialogue background
 		this.dialogueBox.fixedToCamera = true;
-		this.dialogueText = this.game.add.text(220, 445, '', {fontSize: '24px', fill: '#fff' });	//the dialogue text
+		this.dialogueText = this.game.add.text(220, 445, '', {font: 'Lucida Casual', fontStyle: 'italic', fontSize: '24px', fill: '#fff' });	//the dialogue text
 		this.dialogueText.fixedToCamera = true;
-		this.nextText = this.game.add.text(805, 594, '', {fontSize: '24px', fill: '#aaa' });	//tells us what key to press to advance the dialogue
+		this.nextText = this.game.add.text(805, 594, '', {font: 'Lucida Casual', fontStyle: 'italic', fontSize: '24px', fill: '#aaa' });	//tells us what key to press to advance the dialogue
 		this.nextText.fixedToCamera = true;
 		this.dialogueState = 1;	//switch to state 1 ("talking to player")
 		this.player.inDialogue = true;	//disable player movement & sword swinging
@@ -146,7 +144,7 @@ var speak = function() {
 		this.emote = this.game.add.sprite(500, 125, 'swordBlade');	//CHANGE THIS SPRITE LATER
 		this.emote.fixedToCamera = true;
 		this.emote.anchor.set(0.5);
-		this.emote.scale.setTo(0.5);
+		this.emote.scale.setTo(0.375);
 	}
 	else if(this.dialogueState == 2) {	//if we're done talking, remove the dialogue box & other dressings
 		this.dialogueBox.kill();

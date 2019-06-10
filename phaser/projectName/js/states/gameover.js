@@ -18,7 +18,7 @@ GameOver.prototype = {
 		
 		if(this.won) {
 			var winscreen = game.add.image(0,0,'winScreen');
-         game.add.text(250, 435, this.score, {fontSize: '96px', fill: '#fff' });
+         game.add.text(250, 435, this.score, {font: 'Lucida Casual', fontStyle: 'italic', fontSize: '96px', fill: '#fff' });
 		}
 		else {
 			var lossscreen = game.add.image(0,0,'lossScreen');

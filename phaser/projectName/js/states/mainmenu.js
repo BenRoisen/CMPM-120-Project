@@ -4,7 +4,7 @@ MainMenu.prototype = {
 	preload: function() {
 		console.log('MainMenu: Preload');
 		//display a loading message
-		var loadText = game.add.text(game.width - 160, game.height - 32, 'Loading...', {fontSize: '32px', fill: '#fff' });
+		var loadText = game.add.text(game.width - 160, game.height - 32, 'Loading...', {font: 'Lucida Casual', fontStyle: 'italic', fontSize: '32px', fill: '#fff' });
 		// preload assets
 
 		//load images.
