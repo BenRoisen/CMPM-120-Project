@@ -48,6 +48,8 @@ var loadLevel_0 = function(game, player, platforms, enemies, orePots, exit, ores
 	door.animations.add('open', ['Mineshaft2','Mineshaft3'], 5, false);
 	door.openSound = game.add.audio('smash');	//temporary sound until we get the door open noise
 	door.body.immovable = true;
+	door.interacttext = new Instruction(game, 'keyE', 862, 245, player);
+	console.log(door.interacttext);
 
 	// //create special entities
 
@@ -80,17 +82,6 @@ var loadLevel_0 = function(game, player, platforms, enemies, orePots, exit, ores
 	blacksmith_1.speak_4 = game.add.audio('oldMan_4');
 	blacksmith_1.sounds = [blacksmith_1.speak_1, blacksmith_1.speak_2, blacksmith_1.speak_3, blacksmith_1.speak_4];
 	game.add.existing(blacksmith_1.interacttext);
-	// var blacksmith_2 = specialEntities.create(1900,317, 'player');	//blacksmith between end of sword course & start of hammer course
-	// blacksmith_2.body.immovable = true;
-	// blacksmith_2.specialFunction = speak;	//temporary thing until I set up a dialogue system
-	// blacksmith_2.game = game;
-	// blacksmith_2.dialogue = dialogue;
-	// blacksmith_2.dialogueConvo = 1;	//1 corresponds to the hammer conversation in the tutorial dialogue JSON
-	// blacksmith_2.dialogueLine = 0;	//start at line 0
-	// blacksmith_2.dialogueState = 0;	//start off in "not talked to"
-	// blacksmith_2.player = player;
-	// blacksmith_2.interacttext = new Instruction(game, 'keyE', 1950, 267, player);
-	// game.add.existing(blacksmith_2.interacttext);
 }
 
 var containEnemies = function() {
@@ -155,6 +146,7 @@ var speak = function() {
 		this.emote = this.game.add.sprite(500, 125, 'swordBlade');	//CHANGE THIS SPRITE LATER
 		this.emote.fixedToCamera = true;
 		this.emote.anchor.set(0.5);
+		this.emote.scale.setTo(0.5);
 	}
 	else if(this.dialogueState == 2) {	//if we're done talking, remove the dialogue box & other dressings
 		this.dialogueBox.kill();

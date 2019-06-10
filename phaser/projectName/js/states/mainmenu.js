@@ -64,6 +64,12 @@ MainMenu.prototype = {
     	game.load.audio('oldMan_3', ['../assets/Tutorial/OldManLine03.mp3']);
     	game.load.audio('oldMan_4', ['../assets/Tutorial/OldManLine04.mp3']);
     	game.load.atlas('smithyAtlas', '../assets/Tutorial/SmithyAtlas.png', '../assets/Tutorial/SmithyTutorial.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
+    	game.load.image('emote_2', '../assets/Tutorial/BubbleDialogue2.png');
+    	game.load.image('emote_4', '../assets/Tutorial/BubbleDialogue4.png');
+    	game.load.image('emote_5', '../assets/Tutorial/BubbleDialogue5.png');
+    	game.load.image('emote_7', '../assets/Tutorial/BubbleDialogue7.png');
+    	game.load.image('emote_8', '../assets/Tutorial/BubbleDialogue8.png');
+    	game.load.image('emote_9', '../assets/Tutorial/BubbleDialogue9.png');
 
     	//load tilemaps
     	game.load.tilemap('level01', '../assets/Tilemaps/Level1.json', null, Phaser.Tilemap.TILED_JSON);

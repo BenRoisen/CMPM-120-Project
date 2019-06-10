@@ -3,12 +3,12 @@
 		{
 			"speaker" : "smithy",
 			"dialog" : "Hello my young apprentice, I have a special task for you to do today. You’ll need to head into the caves and collect me some OBSIDIAN!",
-			"newEmote" : "player"
+			"newEmote" : "OVERRIDE_NONE"
 		},
 		{
 			"speaker" : "smithy",
 			"dialog" : "You’ll find OBSIDIAN shards in sacred pots scattered inside the cave. Jump and smash down on top of them with your HAMMER to break them open.",
-			"newEmote" : "endGame"
+			"newEmote" : "emote_2"
 		},
 		{	
 			"speaker" : "smithy",
@@ -18,31 +18,37 @@
 		{	
 			"speaker" : "smithy",
 			"dialog" : "The Legendary Ancient Blade of the Hero! Or LABOTH for short. I found it in the cave many years ago, and have studied its secrets ever since.",
-			"newEmote" : "swordBlade"
+			"newEmote" : "emote_4"
 		},
 		{	
 			"speaker" : "smithy",
-			"dialog" : "The LABOTH will protect against any attack, but a piece will break off each time you get hurt, as well as any time you hit the sword against anything EXCEPT it’s own OBSIDIAN ore."
+			"dialog" : "The LABOTH will protect against any attack, but a piece will break off each time you get hurt, as well as any time you hit the sword against anything EXCEPT it’s own OBSIDIAN ore.",
+			"newEmote" : "emote_5"
 		},
 		{	
 			"speaker" : "smithy",
-			"dialog" : "If the LABOTH breaks all of its pieces, you will be defenseless! Although, I bet smashing an enemy with your HAMMER can at least stun them..."
+			"dialog" : "If the LABOTH breaks all of its pieces, you will be defenseless! Although, I bet smashing an enemy with your HAMMER can at least stun them...",
+			"newEmote" : "OVERRIDE_NONE"
 		},
 		{	
 			"speaker" : "smithy",
-			"dialog" : "Don’t worry my friend, you can repair the LABOTH with your HAMMER! You can add as many pieces as you wish, but each piece will use up one of the OBSIDIAN shards you’ve collected."
+			"dialog" : "Don’t worry my friend, you can repair the LABOTH with your HAMMER! You can add as many pieces as you wish, but each piece will use up one of the OBSIDIAN shards you’ve collected.",
+			"newEmote" : "emote_7"
 		},
 		{	
 			"speaker" : "smithy",
-			"dialog" : "The LABOTH will light your path through the deep caverns, the larger the sword, the more you can see around you."
+			"dialog" : "The LABOTH will light your path through the deep caverns, the larger the sword, the more you can see around you.",
+			"newEmote" : "emote_8"
 		},
 		{	
 			"speaker" : "smithy",
-			"dialog" : "Now get going! Travel as deep as you can go, and who knows, collecting shards might lead you to what’s possessing all these pots."
+			"dialog" : "Now get going! Travel as deep as you can go, and who knows, collecting shards might lead you to what’s possessing all these pots.",
+			"newEmote" : "emote_9"
 		},
 		{	
 			"speaker" : "smithy",
-			"dialog" : "If you do come across whatever it may be, please take care of it... Just don’t forget to save some shards for me!"
+			"dialog" : "If you do come across whatever it may be, please take care of it... Just don’t forget to save some shards for me!",
+			"newEmote" : "OVERRIDE_NONE"
 		}
 	],
 	[
