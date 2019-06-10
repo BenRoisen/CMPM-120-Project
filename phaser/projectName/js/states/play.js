@@ -363,6 +363,10 @@ Play.prototype = {
 
 		//fill shadowTexture with a dark shadow color
 		shadowTexture.context.fillStyle = 'rgb(40, 40, 40)';
+      if(this.levelTracker == 0)
+      {
+         shadowTexture.context.fillStyle = 'rgb(255, 255, 255)';
+      }
 		shadowTexture.context.fillRect(0, 0, this.game.width, this.game.height);
 
 		if(this.player.swordLength < 0) {
