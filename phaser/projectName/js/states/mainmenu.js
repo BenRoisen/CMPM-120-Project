@@ -26,6 +26,7 @@ MainMenu.prototype = {
       game.load.image('titleScreen', '../assets/StartScreenX2.png');
       game.load.image('titleText', '../assets/SpaceToBeginX2.png');
       game.load.image('winScreen', '../assets/WinScreen.png');
+      game.load.image('lossScreen', '../assets/LossScreen.png');
       game.load.image('white', '../assets/white.png');
       game.load.image('keyE', '../assets/computer_key_E.png');
       game.load.image('keyL', '../assets/computer_key_Arrow_Left.png');

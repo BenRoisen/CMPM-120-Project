@@ -21,9 +21,7 @@ GameOver.prototype = {
          game.add.text(250, 435, this.score, {fontSize: '96px', fill: '#fff' });
 		}
 		else {
-			game.add.text(16, 16, 'GAME OVER!', {fontSize: '32px', fill: '#f00' });					//red text because you're dead
-			game.add.text(16, 48, 'Final Score: ' + this.score, {fontSize: '32px', fill: '#f00' });
-			game.add.text(16, 80, 'Press [SPACE] to retry', {fontSize: '32px', fill: '#f00' });
+			var lossscreen = game.add.image(0,0,'lossScreen');
 		}
 		game.sound.pauseAll();//destroy();	//send all the fucking sounds to the abyss to make that damn running sound cease
 		game.sound.removeAll();
