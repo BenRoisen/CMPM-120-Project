@@ -22,7 +22,6 @@ function BigOre(game, key, x, y, player) {
    this.animations.add('hit1', Phaser.Animation.generateFrameNames('BigOreCrack', 1, 5, '', 2), 5, true);
    this.animations.add('hit2', Phaser.Animation.generateFrameNames('BigOreLargeCrack', 1, 5, '', 2), 5, true);
    this.animations.add('hit3', Phaser.Animation.generateFrameNames('BigOreBroken', 1, 5, '', 2), 5, true);
-   this.body.setSize(466, 1000, 0, 0);
 }
 BigOre.prototype = Object.create(Phaser.Sprite.prototype);
 BigOre.prototype.constructor = BigOre;
@@ -76,6 +75,10 @@ BigOre.prototype.update = function() {
    }
 
    game.physics.arcade.collide(this, this.player);
+   if(this.player.x > this.x)
+   {
+      this.player.x = this.x;
+   }
 }
 
 // Ore Shards for the particle emitter
