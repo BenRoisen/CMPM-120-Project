@@ -50,8 +50,6 @@ var loadLevel_0 = function(game, player, platforms, enemies, orePots, exit, ores
 	door.body.immovable = true;
 	door.interacttext = new Instruction(game, 'keyE', 762, 245, player);
 	door.interacttext.showing = true;
-	door.specialFunction = showText;
-	specialEntities.add(door);
 	console.log(door.interacttext);
 
 	// //create special entities
