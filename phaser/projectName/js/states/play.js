@@ -137,7 +137,7 @@ Play.prototype = {
 		game.world.bringToTop(this.swordUI);
 		game.world.bringToTop(this.oreIcon);
 
-      this.music.play();
+      this.music.play('', 0, 1, true);
 	},
 	update:function() {
 		//open door if all ores collected
